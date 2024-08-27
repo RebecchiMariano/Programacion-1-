@@ -1,6 +1,14 @@
-Proyecto Hotel Programacion 1
 
-Mariano -Funcion Ingreso de Datos
-Tobias -Funcion Habitaciones
-Roman -Funcion Check in Check Out 
+# TP - 🏨 Administración de hotel 🏨
+Trabajo practico 
+
+## Miembros 👥
+
+- Mariano Rebecci
+  
+- Tobias Rodriguez
+
+- Roman Sanchez
+
+## Describir
 
