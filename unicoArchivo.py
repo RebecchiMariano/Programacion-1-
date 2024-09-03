@@ -1,3 +1,6 @@
+#IMPORTADA BIBLIOTECA DATETIME, con el fin de trabajar con fechas y horas.
+from datetime import datetime
+
 
 #Variables genelares
 #Tipos de Habitaciones
@@ -37,13 +40,14 @@ HabitacionNormal = 2500
 #6 premium 6 normales
 #HabitacionesOcupadas= CantidadDeHabitacionesDisponibles - #valor
 
-def funcionIngreso(): #Podemos hacer una fucion sobre todos los huespedes de la reserva o una funcion del titular y otra de las personas que los acompanian.
+def funcionIngreso(): #Podemos hacer una funcion sobre todos los huespedes de la reserva o una funcion del titular y otra de las personas que los acompanian.
+    huespedes = []
     contador_personas = 0
     bandera = True
     while bandera:
         print("== Ingrese los datos del titular de la RESERVA ==")
         nombre = str(input("Ingrese el nombre del Titular : "))
-        if nombre == "Pedro":
+        if nombre == "Salir" or nombre == "salir":
             bandera = False
         else:
             contador_personas += 1
@@ -53,8 +57,29 @@ def funcionIngreso(): #Podemos hacer una fucion sobre todos los huespedes de la 
             numero = int(input("Ingrese el numero de telefono : "))
             print("Ingrese 1. Tarjeta(Dinero en cuenta) o 2.Pago en efectivo() ")
             metodo_pago = int(input(""))
-
-    return nombre,apellido,dni,mail,numero,metodo_pago,contador_personas
+            
+            fechaIngreso = datetime.now()
+            print(f"La fecha de ingreso del cliente {nombre,apellido} es {fechaIngreso.strftime('%Y-%m-%d %H:%M:%S')}")
+            
+            #POSIBLE DICCIONARIO A USAR
+            huesped = {
+                "Nombre": nombre,
+                "Apellido": apellido,
+                "DNI": dni,
+                "Mail": mail,
+                "Telefono": numero,
+                "MetodoPago": metodo_pago,
+                "FechaIngreso": fechaIngreso
+                
+            }
+            
+            huespedes.append(huesped)
+    #Recorre el diccionario e imprime la info de los huespedes.
+    for huesped in huespedes:
+        print("\nInformación del huésped:")
+        for key, value in huesped.items():
+            print(f"{key}: {value}")
+    return huespedes, contador_personas
 
 
 def habitacion(clientes):
@@ -70,6 +95,7 @@ def funcionMenu():
     pass
 
 def funcionEgreso():
+    
     pass
 
 def verHabitaciones():
@@ -80,6 +106,3 @@ def funcionTotalpagar():
 
 def funcionNumerocliente():
     pass
-
-nombre,apellido,dni,mail,numero,metodo_pago,contador_personas = funcionIngreso()
-habitacion(contador_personas)
