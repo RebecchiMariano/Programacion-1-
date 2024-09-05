@@ -140,11 +140,41 @@ def ingresar_titular():
 
     return titular
 
-def ingresar_acompanantes():
+def ingresar_acompanantes(): #Funcion donde devuelve los acompaniantes del titular, su minimo sera 5 y su maximo sera 4
     
     acompanantes = []
-    max_acompanantes = 4
-    print(" == Nuetras habitaciones son de 2 y 4 personas ==")
-    num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted?(MAX 4)"))
+    max_acompanantes = 3 #Maximo de personas que entrean en una habitacion
+    num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted?( 1 - 3 Personas.)"))
 
+    if num_acompanantes >= max_acompanantes or num_acompanantes <= 1:
+
+        for i in range(num_acompanantes):
+
+            nombre = input("Ingrese el nombre: ")
+            apellido = input("Ingrese el apellido: ")
+            dni = int(input("Ingrese el DNI: "))
+
+        acompanante = {
+            'nombre': nombre,
+            'apellido': apellido,
+            'documento': dni,
+        }
+
+        acompanantes.append(acompanante)
+
+    return acompanantes
+
+
+def reserva():
+
+    print("Queremos informar que contamos con habitaciones disponibles únicamente para 2 y 4 personas.")
+
+    titular = ingresar_titular()
+    
+    con_compania = str(input("Ademas de usted, reservara con alguien mas ? (s/n)"))
+
+    if con_compania == "s":
+        return ingresar_acompanantes()
+    else:
+        return titular
     
