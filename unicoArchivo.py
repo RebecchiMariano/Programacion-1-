@@ -96,7 +96,8 @@ HabitacionNormal = 2500
 
 #     return print(matriz)
 
-def menu():
+
+def menu(funcionIngreso):
 
     bandera = True
     while bandera:
@@ -171,7 +172,7 @@ def verificar_disponibilidad():
 
     pass
 
-def funcionIngreso():
+def funcionIngreso(menu):
     #global metodo_pago 
     huespedes = []
     #contador_personas = 0
@@ -196,6 +197,7 @@ def funcionIngreso():
             if numero >=1:
                 bandera=False
             # Crear el diccionario del huésped
+
             huesped = {
                 'Nombre': nombre,
                 'Apellido': apellido,
@@ -210,7 +212,7 @@ def funcionIngreso():
 
 def ingresar_acompanantes():
     bandera = True
-    acompanantes = []
+    acompanantes = []   
     max_acompanantes = 3
     num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
     
@@ -242,18 +244,22 @@ def funcionTotalpagar(): #con los valores de la funcion varificar_disponibilidad
     print("Ingrese 1. Tarjeta (Dinero en cuenta) o 2. Pago en efectivo")
     metodo_pago = int(input(""))
 
-# def funcionNumerocliente(): #como ultimo paso de ingreso darle un valor de cuatri digitos con randint al usuario dependiendo del lugar que ocupe en el array es de decirr 1111= posicion ceor [mariano, etc]
-#     numeroCliente = .random(0001>9999)
+def funcionNumerocliente(): #como ultimo paso de ingreso darle un valor de cuatri digitos con randint al usuario dependiendo del lugar que ocupe en el array es de decirr 1111= posicion ceor [mariano, etc]
+    numeroCliente = random.randint(0000>9999)
+    pass
     
 def funcionEgreso(): # +1 al cuarto ocupado
     pass
 
-# def verHabitaciones(): #mostrar el array de cuartos de la funcion de habitaciones 
+def verHabitaciones(): #mostrar el array de cuartos de la funcion de habitaciones 
+    pass
 
-# def buscarResarvaPorNombre(): #con metodos buscar simmilitudes de nombres en el array de huespedes hat que hacerlo global
+def buscarResarvaPorNombre(): #con metodos buscar simmilitudes de nombres en el array de huespedes hat que hacerlo global
+    pass
 
-# def buscarReservaPorNumero(): #con la variable global de la funcion funcionNumerocliente():
+def buscarReservaPorNumero(): #con la variable global de la funcion funcionNumerocliente():
+    pass
 
 
-print(menu())
+menu(funcionIngreso)
 
