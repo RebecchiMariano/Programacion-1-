@@ -3,101 +3,29 @@ from datetime import datetime
 import random
 
 
-#Variables genelares
 
-#Tipos de Habitaciones
-
-habitacionesdupla = 2
-habitacionescuatro = 3
 #Tipo de habitacion
 
-habitaciones = {
-    "Premium": {
-        "x4": 3,  # 3 habitaciones de 4 personas
-        "x2": 3   # 3 habitaciones de 2 personas
-    },
-    "Normal": {
-        "x4": 3,  # 3 habitaciones de 4 personas
-        "x2": 3   # 3 habitaciones de 2 personas
+habitacionesPremium = [premiumX4_playera,premium4_oceano,NormalX4,NormalX2]
+
+    premiumX4_playera = {
+        'capacidad': 4,
+        'valor': 10000,
+        'Estado' True # este valor tiene que ser pisado dependiendo la opcion que elija el chabon, cuando elije se pisa y se pone false
     }
+    premiumX4_oceano = {
+        'capacidad': 4,
+        'valor': 15000,
+        'Estado' True
+    }
+    
 }
 
-# Como acceder a las distintas habitaciones
-
-# habitacionPremiumX4 = habitaciones["Premium"]["x4"]
-# habitacionPremiumX2 = habitaciones["Premium"]["x2"]
-
-# habitacionNormalX4 = habitaciones["Normal"]["x4"]
-# habitacionNormalX2 = habitaciones["Normal"]["x2"]
-
-#Costos de Habitaciones
-
-HabitacionPremium = 5000
-
-HabitacionNormal = 2500
-
-#Cantidad de Huespedes (2 - 8)
-
-#Cantidad de Habitaciones Disponibles
-
-#CantidadDeHabitacionesDisponibles = habitacionPremiumX4[3]+habitacionPremiumX2[3]+habitacionNormalX4[3]+habitacionNormalX2 =[3]
-#hay que hacer un contador para diferenciar las habitaciones es decir que devuelve la cantidad total 12 ej
-#6 premium 6 normales
-#HabitacionesOcupadas= CantidadDeHabitacionesDisponibles - #valor
-
-# def funcionIngreso(): #Podemos hacer una funcion sobre todos los huespedes de la reserva o una funcion del titular y otra de las personas que los acompanian.
-#     huespedes = []
-#     contador_personas = 0
-#     bandera = True
-#     while bandera:
-#         print("== Ingrese los datos del titular de la RESERVA ==")
-#         nombre = str(input("Ingrese el nombre del Titular : "))
-#         if nombre == "Salir" or nombre == "salir":
-#             bandera = False
-#         else:
-#             contador_personas += 1
-#             apellido = str(input("Ingrese el apellido del Titular : "))
-#             dni = int(input("Ingrese el DNI del Titular : "))
-#             mail = str(input("Ingrese el mail donde se enviaran los vaucher : "))
-#             numero = int(input("Ingrese el numero de telefono : "))
-#             print("Ingrese 1. Tarjeta(Dinero en cuenta) o 2.Pago en efectivo() ")
-#             metodo_pago = int(input(""))
-            
-#             fechaIngreso = datetime.now()
-#             print(f"La fecha de ingreso del cliente {nombre,apellido} es {fechaIngreso.strftime('%Y-%m-%d %H:%M:%S')}")
-            
-#             #POSIBLE DICCIONARIO A USAR
-#             huesped = {
-#                 "Nombre": nombre,
-#                 "Apellido": apellido,
-#                 "DNI": dni,
-#                 "Mail": mail,
-#                 "Telefono": numero,
-#                 "MetodoPago": metodo_pago,
-#                 "FechaIngreso": fechaIngreso
-                
-#             }
-            
-#             huespedes.append(huesped)
-#     #Recorre el diccionario e imprime la info de los huespedes.
-#     for huesped in huespedes:
-#         print("\nInformación del huésped:")
-#         for key, value in huesped.items():
-#             print(f"{key}: {value}")
-#     return huespedes, contador_personas
 
 
-# def habitacion(clientes):
-
-#     matriz = []
-
-#     for f in range(clientes):
-#         matriz.append([0]*6)
-
-#     return print(matriz)
 
 
-def menu(funcionIngreso):
+def menu(funcionIngreso): #Lista esta
 
     bandera = True
     while bandera:
@@ -115,9 +43,11 @@ def menu(funcionIngreso):
         bandera2 = True
 
         respuesta = int(input("Ingrese accion: "))
+        if respuesta ==1:
+            print(funcionIngreso())
 
-        if respuesta == 1:
-            print(funcionIngreso)
+        #if respuesta == 1:
+            print(funcionIngreso())
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:
@@ -164,55 +94,10 @@ def funcionNumerocliente():
     pass
 
 def verificar_disponibilidad():
-    inicio_reserva = input("iniciar reserva : ")
-    fin_reserva = input("Que dia quiere finalizar la reserva : ")
-    fecha_inicio = datetime.strptime(inicio_reserva, "%d/%m/%Y")
-    fecha_fin = datetime.strptime(fin_reserva, "%d/%m/%Y")
-
-
     pass
 
-def funcionIngreso(menu):
-    #global metodo_pago 
-    huespedes = []
-    #contador_personas = 0
-    bandera = True
-    while bandera:
-        print("== Ingrese los datos del titular de la RESERVA ==")
-        print("== Si quiere salir al menu ingrese ( salir ) en el nombre del titular ==")
-        nombre = str(input("Ingrese el nombre del Titular : "))
-        if nombre.lower() == "salir":
-            bandera = False
-        else:
-            #contador_personas += 1
-            apellido = str(input("Ingrese el apellido del Titular : "))
-            dni = int(input("Ingrese el DNI del Titular : "))
-            mail = str(input("Ingrese el mail donde se enviarán los vouchers : "))
-            numero = int(input("Ingrese el número de teléfono : "))
-            #print("Ingrese 1. Tarjeta (Dinero en cuenta) o 2. Pago en efectivo") esto lo quito va a ir en una funcion total a pagar luego de agregar a los acompa;antes tiene mas sentido despues 
-            #metodo_pago = int(input(""))
-            
-            fechaIngreso = datetime.now()
-            print(f"La fecha de ingreso del cliente {nombre} {apellido} es {fechaIngreso.strftime('%Y-%m-%d %H:%M:%S')}")
-            if numero >=1:
-                bandera=False
-            # Crear el diccionario del huésped
-
-            huesped = {
-                'Nombre': nombre,
-                'Apellido': apellido,
-                'DNI': dni,
-                'Mail': mail,
-                'Número de teléfono': numero,
-                #'Método de pago': metodo_pago,
-                'Fecha de ingreso': fechaIngreso.strftime('%Y-%m-%d %H:%M:%S')
-            }
-            
-            huespedes.append(huesped)
-
 def ingresar_acompanantes():
-    bandera = True
-    acompanantes = []   
+    acompanantes = []
     max_acompanantes = 3
     num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
     
@@ -231,14 +116,68 @@ def ingresar_acompanantes():
             acompanantes.append(acompanante)
     else:
         print("Por favor, ingrese un número válido de acompañantes (1 a 3).")
+    print(verificar_disponibilidad())
+    return acompanantes
 
-    return acompanantes   
+def funcionIngreso():
+    huespedes = []
+    bandera = True
+    while bandera:
+        print("== Ingrese los datos del titular de la RESERVA ==")
+        nombre = str(input("Ingrese el nombre del Titular : "))
+        if nombre.lower() == "salir":
+            bandera = False
+        else:
+            apellido = str(input("Ingrese el apellido del Titular : "))
+            dni = int(input("Ingrese el DNI del Titular : "))
+            mail = str(input("Ingrese el mail donde se enviarán los vouchers : "))
+            numero = int(input("Ingrese el número de teléfono : "))
+            
+            ingreso = input("Ingrese el día y mes de ingreso separados por un espacio: ")
+            dia , mes = map(int, ingreso.split())
 
-def verificar_disponibilidad(): #tiene que devolver que habitaciones estan disponibles hay que hacer la variable cantidad de acompa;antes global para poder usarla en esta funcion
-    inicio_reserva = input("iniciar reserva : ")
-    fin_reserva = input("Que dia quiere finalizar la reserva : ")
-    fecha_inicio = datetime.strptime(inicio_reserva, "%d/%m/%Y")
-    fecha_fin = datetime.strptime(fin_reserva, "%d/%m/%Y")
+            salida = input("Ingrese el día y mes de salida separados por un espacio: ")
+            diaSalida, mesSalida = map(int, salida.split())
+
+            print(f"Día de ingreso: {dia}, Mes de ingreso: {mes}")
+            print(f"Día de salida: {diaSalida}, Mes de salida: {mesSalida}")
+
+            #fechaIngreso = datetime.now()
+            #print(f"La fecha de ingreso del cliente {nombre} {apellido} es {fechaIngreso.strftime('%Y-%m-%d %H:%M:%S')}")
+            
+            # Crear el diccionario del huésped
+            huesped = {
+                'Nombre': nombre,
+                'Apellido': apellido,
+                'DNI': dni,
+                'Mail': mail,
+                'Número de teléfono': numero,
+                'Dia de ingreso': dia,
+                'Mes de ingreso': mes,
+                'Dia de Salida': diaSalida,
+                'Mes de Salida': mesSalida,
+                }
+            
+            huespedes.append(huesped)
+            bandera = False  # Salir del bucle tras agregar un huésped
+    
+    # Llamar la función de acompañantes
+    ingresar_acompanantes()
+
+    return huespedes
+
+
+def verificar_disponibilidad():
+    #hay que importar las variantes de la funcion acompa;antes
+    a_pagar= 0
+    contador = 0
+    diaCuenta = dia
+    diaSalidaCuenta = diaSalida
+    while diaCuenta < diaSalidaCuenta:
+    diaCuenta += 1
+    contador += 1
+    #hay que hacer un filtro de si se pasa de mes es decir se queda del 30 del 5 al 5 del 6 serian solo 7 dias hay que poner limites
+    a_pagar= contador *
 
 def funcionTotalpagar(): #con los valores de la funcion varificar_disponibilidad() darle las opciones a elegir con el costo de cada una de las variables globalesde habitaciones 
     print("Ingrese 1. Tarjeta (Dinero en cuenta) o 2. Pago en efectivo")
