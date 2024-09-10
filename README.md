@@ -1,4 +1,3 @@
-
 # TP - 🏨 Administración de hotel 🏨
 Este proyecto es un programa diseñado para la administración de reservas de habitaciones en un hotel. El sistema permite a los usuarios gestionar reservas, registrar datos de clientes, y realizar check-in y check-out de manera eficiente. El objetivo principal es simplificar y automatizar las tareas diarias de gestión hotelera, mejorando la experiencia tanto para los empleados del hotel como para los huéspedes.
 ## Miembros 👥
