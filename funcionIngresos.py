@@ -185,7 +185,7 @@ def ingresar_acompanantes():
     return acompanantes
 
 def funcionIngreso():
-    global metodo_pago 
+    
     huespedes = []
     #contador_personas = 0
     bandera = True
