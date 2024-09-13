@@ -25,24 +25,28 @@ import random
 
 
 
-def menu(): #Lista esta
+def menu(): #Funcion del menu princial.
 
     bandera = True
     while bandera:
 
-        print("=====================================================================")
-        print("Bienvenido que desea realizar?")
-        print("1. Registrar Ingreso")
-        print("2. Consultar habitaciones Disponibles")
-        print("3. Check Out")
-        print("4. Buscar reserva por nombre y apellido")
-        print("5. Buscar reserva por numero de reserva")
-        print("0. SALIR")
-        print("=====================================================================")
+        print("====================================================== ")
+        print("┇            🏨 BIENVENIDOS AL SISTEMA 🏨            ┇")
+        print("====================================================== ")
+        print("┇                                                    ┇")
+        print("┇         1. Registrar Ingreso                       ┇")
+        print("┇         2. Habitaciones Disponibles                ┇")
+        print("┇         3. Check Out                               ┇")
+        print("┇         4. Buscar reserva x Nombre y Apellido      ┇")
+        print("┇         5. Buscar reserva x Numero de Reserva      ┇")
+        print("┇                                                    ┇")
+        print("┇                    0. SALIR                        ┇")
+        print("┇                                                    ┇")
+        print("====================================================== ")
 
         bandera2 = True
 
-        respuesta = int(input("Ingrese accion: "))
+        respuesta = int(input("Seleccione una opción del menú ➡  "))
 
         if respuesta == 1:
             print(funcionIngreso())
@@ -78,8 +82,8 @@ def menu(): #Lista esta
             bandera = False  
         else:
 
-            print("== El numero que ingresaste no esta en el rango de opciones. ==")
-            print("== Por favor, Ingrese un numero del (0 - 5). ==")
+            print("✕ El numero que ingresaste no esta en el rango de opciones. ✕")
+            print("✕✕ Por favor, Ingrese un numero del (0 - 5) ✕✕")
 
 
 def verHabitaciones():
@@ -125,54 +129,81 @@ def funcionIngreso():
     while bandera:
 
         
-        print("== Vas a ingresar un titular, antes del ingreso queres SALIR ? ==")
 
-        opcion = str(input("== Si queres salir ingrese \" Salir \", si quieres seguir dale a \" Enter \" : "))
+        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+        print("======= INGRESE LOS DATOS DEL TITULAR DE LA RESERVA =======")
+        print("====== ☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰ =====")
+        print("=========================================================== ")
+        print("=== SI EN ALGUN MOMENTO QUERES SALIR INGRESE \" Salir \" ===")
+        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+            
+        nombre = str(input(" • Nombre ➞  "))
 
-        if opcion == "":
+        if nombre.lower() == "salir":
+            print("Salir sin guardar datos.")
+            bandera = False
 
-            print("===========================================================")
-            print("======= INGRESE LOS DATOS DEL TITULAR DE LA RESERVA =======")
-            print("===========================================================")
-
-            nombre = str(input(" • Nombre ➞  "))
+        if bandera:  
             apellido = str(input(" • Apellido ➞  "))
-            dni = int(input(" • DNI ➞  "))
+            if apellido.lower() == "salir":
+                print("Salir sin guardar datos.")
+                bandera = False
+
+        if bandera:
+            dni = input(" • DNI ➞  ")
+            if dni.lower() == "salir":
+                print("Salir sin guardar datos.")
+                bandera = False
+
+        if bandera:
             mail = str(input(" • Mail 📧 ➞  "))
-            numero = int(input(" • Telefono 📞 ➞  "))  
+            if mail.lower() == "salir":
+                print("Salir sin guardar datos.")
+                bandera = False
+
+        if bandera:
+            numero = input(" • Telefono 📞 ➞  ")
+            if numero.lower() == "salir":
+                print("Salir sin guardar datos.")
+                bandera = False
+
+        if bandera:
             ingreso = input("Día y Mes de ingreso separados por un espacio (DD-MM) ➞  ")
-            dia , mes = map(int, ingreso.split())
+            if ingreso.lower() == "salir":
+                print("Salir sin guardar datos.")
+                bandera = False
+
+        if bandera:
+            dia, mes = map(int, ingreso.split())
+
             salida = input("Ingrese el día y mes de salida separados por un espacio (DD-MM) ➞  ")
+            if salida.lower() == "salir":
+                print("Salir sin guardar datos.")
+                bandera = False
+
+        if bandera:
             diaSalida, mesSalida = map(int, salida.split())
 
             print(f"Día de ingreso: {dia}, Mes de ingreso: {mes}")
             print(f"Día de salida: {diaSalida}, Mes de salida: {mesSalida}")
 
-            #fechaIngreso = datetime.now()
-            #print(f"La fecha de ingreso del cliente {nombre} {apellido} es {fechaIngreso.strftime('%Y-%m-%d %H:%M:%S')}")
-                
-            # Crear el diccionario del huésped
+            # Crear el diccionario del huésped solo si no se eligió salir
+        huesped = {
+            'Nombre': nombre,
+            'Apellido': apellido,
+            'DNI': dni,
+            'Mail': mail,
+            'Número de teléfono': numero,
+            'Dia de ingreso': dia,
+            'Mes de ingreso': mes,
+            'Dia de Salida': diaSalida,
+            'Mes de Salida': mesSalida,
+            }
 
-            huesped = {
-                'Nombre': nombre,
-                'Apellido': apellido,
-                'DNI': dni,
-                'Mail': mail,
-                'Número de teléfono': numero,
-                'Dia de ingreso': dia,
-                'Mes de ingreso': mes,
-                'Dia de Salida': diaSalida,
-                'Mes de Salida': mesSalida,
-                }
-                
-            huespedes.append(huesped)
+        huespedes.append(huesped)
 
-            return huespedes
 
-        elif opcion.lower() == "salir":
-            bandera = False
-
-            return 
+    return huespedes
         
         # Llamar la función de acompañantes
     
