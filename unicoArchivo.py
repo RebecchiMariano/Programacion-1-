@@ -4,25 +4,19 @@ import random
 
 
 
-#Tipo de habitacion
-
-# habitacionesPremium = [premiumX4_playera,premium4_oceano,NormalX4,NormalX2]
-
-#     premiumX4_playera = {
-#         'capacidad': 4,
-#         'valor': 10000,
-#         'Estado' True # este valor tiene que ser pisado dependiendo la opcion que elija el chabon, cuando elije se pisa y se pone false
-#     }
-#     premiumX4_oceano = {
-#         'capacidad': 4,
-#         'valor': 15000,
-#         'Estado' True
-#     }
+habitaciones = [
+    {'tipo': 
+     'Premium - Vista Playa', 
+     'capacidad': 4, 
+     'valor': 15000, 
+     'estado': True},
+    {'tipo': 
+     'Premium - Vista Oceano', 
+     'capacidad': 4, 
+     'valor': 18000, 
+     'estado': True}
     
-# }
-
-
-
+    ]
 
 
 def menu(): #Funcion del menu princial.
@@ -55,7 +49,7 @@ def menu(): #Funcion del menu princial.
                 if volver == 0:
                     bandera2 = False 
         elif respuesta == 2:
-            print("#funcion habitaciones")
+            print(verHabitaciones())
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:
@@ -87,13 +81,31 @@ def menu(): #Funcion del menu princial.
 
 
 def verHabitaciones():
-    pass
+    print("======================================================")
+    print("┇          LISTADO DE HABITACIONES DISPONIBLES        ┇")
+    print("======================================================")
+    
+    # Inicializar el contador manualmente
+    contador = 1
+    
+    for habitacion in habitaciones:
+        print(f"{contador}. Tipo: {habitacion['tipo']}")
+        print(f"   Capacidad: {habitacion['capacidad']} personas")
+        print(f"   Valor por noche: ${habitacion['valor']}")
+        print(f"   Estado: {'Disponible' if habitacion['estado'] else 'No disponible'}")
+        print("------------------------------------------------------")
+        
+        # Incrementar el contador
+        contador += 1
+    
+    print("======================================================")
 
 def funcionTotalpagar():
     pass
 
 def funcionNumerocliente():
-    pass
+    numeroCliente = random.randint(1000, 9999)
+    return numeroCliente
 
 def verificar_disponibilidad():
     pass
@@ -103,7 +115,7 @@ def ingresar_acompanantes():
     acompanantes = []
     max_acompanantes = 3
     
-    
+
     while bandera:
 
         print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
@@ -189,6 +201,9 @@ def funcionIngreso():
                                     print(f"Día de ingreso: {dia}, Mes de ingreso: {mes}")
                                     print(f"Día de salida: {diaSalida}, Mes de salida: {mesSalida}")
 
+                                    #Asignacion de numero de cliente
+                                    numeroCliente = funcionNumerocliente()
+
                                     # Crear el diccionario del huésped solo si no se eligió salir
                                 huesped = {
                                     'Nombre': nombre,
@@ -200,23 +215,19 @@ def funcionIngreso():
                                     'Mes de ingreso': mes,
                                     'Dia de Salida': diaSalida,
                                     'Mes de Salida': mesSalida,
+                                    'Numero de cliente' :numeroCliente
                                     }
                                 
                                 print("Se ingreso correctamente el Titular ✔ ")
 
-                                option = input(" Vas a ir con algun acompaniante ? ")
-
-                                if option.lower() == "Si" or "S":
-
+                                option = input("¿Vas a ir con algún acompañante? (Si/No) ➞  ").lower()
+                                if option == "si" or option == "s":
                                     acompanantes = ingresar_acompanantes()
                                     huesped['acompanantes'] = acompanantes
-
+                                    huespedes.append(huesped)
+                                elif option == "no" or option == "n":
                                     huespedes.append(huesped)
 
-                                elif option.lower() == "No" or "N":
-
-
-                                    huespedes.append(huesped)
     
                                 
                                 # Llamar la función de acompañantes
@@ -240,14 +251,8 @@ def funcionIngreso():
 #     print("Ingrese 1. Tarjeta (Dinero en cuenta) o 2. Pago en efectivo")
 #     metodo_pago = int(input(""))
 
-# def funcionNumerocliente(): #como ultimo paso de ingreso darle un valor de cuatri digitos con randint al usuario dependiendo del lugar que ocupe en el array es de decirr 1111= posicion ceor [mariano, etc]
-#     numeroCliente = random.randint(0000>9999)
-#     pass
     
 # def funcionEgreso(): # +1 al cuarto ocupado
-#     pass
-
-# def verHabitaciones(): #mostrar el array de cuartos de la funcion de habitaciones 
 #     pass
 
 # def buscarResarvaPorNombre(): #con metodos buscar simmilitudes de nombres en el array de huespedes hat que hacerlo global
