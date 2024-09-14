@@ -99,27 +99,37 @@ def verificar_disponibilidad():
     pass
 
 def ingresar_acompanantes():
+    bandera = True
     acompanantes = []
     max_acompanantes = 3
-    num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
     
-    if 1 <= num_acompanantes <= max_acompanantes:
-        for _ in range(num_acompanantes):
-            nombre = input("Ingrese el nombre: ")
-            apellido = input("Ingrese el apellido: ")
-            dni = int(input("Ingrese el DNI: "))
+    
+    while bandera:
 
-            acompanante = {
-                'nombre': nombre,
-                'apellido': apellido,
-                'documento': dni,
-            }
+        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+        print("===== INGRESE LOS DATOS DE LOS ACOMPANIANTES DE LA RESERVA =====")
+        print("☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰")
+        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+        num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
 
-            acompanantes.append(acompanante)
-    else:
-        print("Por favor, ingrese un número válido de acompañantes (1 a 3).")
+        if 1 <= num_acompanantes <= max_acompanantes:
+            for _ in range(num_acompanantes):
+                nombre = str(input(" • Nombre ➞  "))
+                apellido = str(input(" • Apellido ➞  "))
+                dni = input(" • DNI ➞  ")
 
-    print(verificar_disponibilidad())
+                acompanante = {
+                    'nombre': nombre,
+                    'apellido': apellido,
+                    'documento': dni,
+                }
+
+                acompanantes.append(acompanante)
+
+            bandera = False
+        else:
+            print(" ╳  Por favor, ingrese un número válido de acompañantes (1 a 3) ╳ ")
+
     return acompanantes
 
 def funcionIngreso():
@@ -136,76 +146,80 @@ def funcionIngreso():
         print("=========================================================== ")
         print("=== SI EN ALGUN MOMENTO QUERES SALIR INGRESE \" Salir \" ===")
         print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-            
+        
         nombre = str(input(" • Nombre ➞  "))
-
         if nombre.lower() == "salir":
             print("Salir sin guardar datos.")
             bandera = False
-
-        if bandera:  
+        else:
             apellido = str(input(" • Apellido ➞  "))
             if apellido.lower() == "salir":
                 print("Salir sin guardar datos.")
                 bandera = False
+            else:
+                dni = input(" • DNI ➞  ")
+                if dni.lower() == "salir":
+                    print("Salir sin guardar datos.")
+                    bandera = False
+                else:
+                    mail = str(input(" • Mail 📧 ➞  "))
+                    if mail.lower() == "salir":
+                        print("Salir sin guardar datos.")
+                        bandera = False
+                    else:
+                        numero = input(" • Telefono 📞 ➞  ")
+                        if numero.lower() == "salir":
+                            print("Salir sin guardar datos.")
+                            bandera = False
+                        else:
+                            ingreso = input("Día y Mes de ingreso separados por un espacio (DD-MM) ➞  ")
+                            if ingreso.lower() == "salir":
+                                print("Salir sin guardar datos.")
+                                bandera = False
+                            else:
 
-        if bandera:
-            dni = input(" • DNI ➞  ")
-            if dni.lower() == "salir":
-                print("Salir sin guardar datos.")
-                bandera = False
+                                dia, mes = map(int, ingreso.split())
+                                salida = input("Ingrese el día y mes de salida separados por un espacio (DD-MM) ➞  ")
+                                if salida.lower() == "salir":
+                                    print("Salir sin guardar datos.")
+                                    bandera = False
+                                else:                       
+                                    diaSalida, mesSalida = map(int, salida.split())
 
-        if bandera:
-            mail = str(input(" • Mail 📧 ➞  "))
-            if mail.lower() == "salir":
-                print("Salir sin guardar datos.")
-                bandera = False
+                                    print(f"Día de ingreso: {dia}, Mes de ingreso: {mes}")
+                                    print(f"Día de salida: {diaSalida}, Mes de salida: {mesSalida}")
 
-        if bandera:
-            numero = input(" • Telefono 📞 ➞  ")
-            if numero.lower() == "salir":
-                print("Salir sin guardar datos.")
-                bandera = False
+                                    # Crear el diccionario del huésped solo si no se eligió salir
+                                huesped = {
+                                    'Nombre': nombre,
+                                    'Apellido': apellido,
+                                    'DNI': dni,
+                                    'Mail': mail,
+                                    'Número de teléfono': numero,
+                                    'Dia de ingreso': dia,
+                                    'Mes de ingreso': mes,
+                                    'Dia de Salida': diaSalida,
+                                    'Mes de Salida': mesSalida,
+                                    }
+                                
+                                print("Se ingreso correctamente el Titular ✔ ")
 
-        if bandera:
-            ingreso = input("Día y Mes de ingreso separados por un espacio (DD-MM) ➞  ")
-            if ingreso.lower() == "salir":
-                print("Salir sin guardar datos.")
-                bandera = False
+                                option = input(" Vas a ir con algun acompaniante ? ")
 
-        if bandera:
-            dia, mes = map(int, ingreso.split())
+                                if option.lower() == "Si" or "S":
 
-            salida = input("Ingrese el día y mes de salida separados por un espacio (DD-MM) ➞  ")
-            if salida.lower() == "salir":
-                print("Salir sin guardar datos.")
-                bandera = False
+                                    acompanantes = ingresar_acompanantes()
+                                    huesped['acompanantes'] = acompanantes
 
-        if bandera:
-            diaSalida, mesSalida = map(int, salida.split())
+                                    huespedes.append(huesped)
 
-            print(f"Día de ingreso: {dia}, Mes de ingreso: {mes}")
-            print(f"Día de salida: {diaSalida}, Mes de salida: {mesSalida}")
-
-            # Crear el diccionario del huésped solo si no se eligió salir
-        huesped = {
-            'Nombre': nombre,
-            'Apellido': apellido,
-            'DNI': dni,
-            'Mail': mail,
-            'Número de teléfono': numero,
-            'Dia de ingreso': dia,
-            'Mes de ingreso': mes,
-            'Dia de Salida': diaSalida,
-            'Mes de Salida': mesSalida,
-            }
-
-        huespedes.append(huesped)
+                                elif option.lower() == "No" or "N":
 
 
-    return huespedes
-        
-        # Llamar la función de acompañantes
+                                    huespedes.append(huesped)
+    
+                                
+                                # Llamar la función de acompañantes
     
 
     
