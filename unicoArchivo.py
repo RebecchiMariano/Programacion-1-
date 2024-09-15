@@ -141,7 +141,10 @@ def ingresar_acompanantes():
         num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
 
         if 1 <= num_acompanantes <= max_acompanantes:
-            for _ in range(num_acompanantes):
+            for i in range(num_acompanantes):
+
+                print(f" Ingresando datos del acompañante 【 {i + 1} 】")
+
                 nombre = str(input(" • Nombre ➞  "))
                 apellido = str(input(" • Apellido ➞  "))
                 dni = input(" • DNI ➞  ")
@@ -200,54 +203,60 @@ def funcionIngreso():
                             print("Salir sin guardar datos.")
                             bandera = False
                         else:
-                            ingreso = input("Día y Mes de ingreso separados por un espacio (DD-MM) ➞  ")
+                            ingreso = input(" • Ingreso separados por un espacio (DD-MM) ➞  ")
                             if ingreso.lower() == "salir":
                                 print("Salir sin guardar datos.")
                                 bandera = False
                             else:
-
                                 dia, mes = map(int, ingreso.split())
-                                salida = input("Ingrese el día y mes de salida separados por un espacio (DD-MM) ➞  ")
-                                if salida.lower() == "salir":
-                                    print("Salir sin guardar datos.")
-                                    bandera = False
-                                else:                       
-                                    diaSalida, mesSalida = map(int, salida.split())
-
-                                    print(f"Día de ingreso: {dia}, Mes de ingreso: {mes}")
-                                    print(f"Día de salida: {diaSalida}, Mes de salida: {mesSalida}")
-
-                                    #Asignacion de numero de cliente
-                                    numeroCliente = funcionNumerocliente()
-
-                                    # Crear el diccionario del huésped solo si no se eligió salir
-                                huesped = {
-                                    'Nombre': nombre,
-                                    'Apellido': apellido,
-                                    'DNI': dni,
-                                    'Mail': mail,
-                                    'Número de teléfono': numero,
-                                    'Dia de ingreso': dia,
-                                    'Mes de ingreso': mes,
-                                    'Dia de Salida': diaSalida,
-                                    'Mes de Salida': mesSalida,
-                                    'Numero de cliente' :numeroCliente
-                                    }
+                                if ingreso > salida:  #Hacer que el ingreso no sea mayor del egreso, osea si ponermos 1/2 al 15/2 siga, si ponemos 15/5 al 1/5 nos tire fecha erronea
                                 
-                                print("Se ingreso correctamente el Titular ✔ ")
+                                    salida = input(" • Salida separados por un espacio (DD-MM) ➞  ")
+                                    if salida.lower() == "salir":
+                                        print("Salir sin guardar datos.")
+                                        bandera = False
+                                    else:                       
+                                        diaSalida, mesSalida = map(int, salida.split())
 
-                                option = input("¿Vas a ir con algún acompañante? (Si/No) ➞  ").lower()
-                                if option == "si" or option == "s":
-                                    acompanantes = ingresar_acompanantes()
-                                    huesped['acompanantes'] = acompanantes
-                                    huespedes.append(huesped)
-                                elif option == "no" or option == "n":
-                                    huespedes.append(huesped)
+                                        print(f"Día de ingreso: {dia}, Mes de ingreso: {mes}")
+                                        print(f"Día de salida: {diaSalida}, Mes de salida: {mesSalida}")
 
-                                print(huesped) #Para que se vea momentanamente los datos almacenados en el diccionario
+                                        #Asignacion de numero de cliente
+                                        numeroCliente = funcionNumerocliente()
+
+                                        # Crear el diccionario del huésped solo si no se eligió salir
+                                    huesped = {
+                                        'Nombre': nombre,
+                                        'Apellido': apellido,
+                                        'DNI': dni,
+                                        'Mail': mail,
+                                        'Número de teléfono': numero,
+                                        'Dia de ingreso': dia,
+                                        'Mes de ingreso': mes,
+                                        'Dia de Salida': diaSalida,
+                                        'Mes de Salida': mesSalida,
+                                        'Numero de cliente' :numeroCliente
+                                        }
+                                    
+                                    print("Se ingreso correctamente el Titular ✔ ")
+
+                                    option = input("¿Vas a ir con algún acompañante? (Si/No) ➞  ").lower()
+                                    if option == "si" or "s":
+                                        acompanantes = ingresar_acompanantes()
+                                        huesped['acompanantes'] = acompanantes
+                                        print("Se ingreso correctamente los acompañantes ✔ ")
+
+                                        huespedes.append(huesped)
+                                    elif option == "no" or "n":
+
+                                    if len(huespedes + 1):
+                                        
+                                    #Llamar a que habitacion se va a ingresar
+
+                                    print(huesped) #Para que se vea momentanamente los datos almacenados en el diccionario
 
                                 
-                                # Llamar la función de acompañantes
+                                
     
 
 def calcularDiasEstadia(diaIngreso, mesIngreso, diaSalida, mesSalida):
