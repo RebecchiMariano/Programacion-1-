@@ -22,10 +22,13 @@ habitaciones = { #Vamos a tener 12 habitaciones ()
     
     'normal_2': [{'capacidad': 2, 
                   'reservas': []} for _ in range(3)],
+
     'normal_4': [{'capacidad': 4, 
                   'reservas': []} for _ in range(3)],
+
     'premium_2': [{'capacidad': 2, 
                    'reservas': []} for _ in range(3)],
+
     'premium_4': [{'capacidad': 4, 
                    'reservas': []} for _ in range(3)],
 }
@@ -112,7 +115,7 @@ def convertir_fecha(dia, mes):
     return datetime(2024, mes, dia)
 
 # Ver habitaciones disponibles y ocupadas
-def verHabitaciones():
+def verHabitaciones(huesped):
     print("======================================================")
     print("┇          LISTADO DE HABITACIONES DISPONIBLES        ┇")
     print("======================================================")
@@ -130,11 +133,11 @@ def verHabitaciones():
             
             if estado == "Ocupada":
                 for reserva in habitacion['reservas']:
-                    huespedes = reserva.get('huespedes', {})
+                    huesped = reserva.get('huesped', {})
                     acompanantes = reserva.get('acompanantes', [])
-                    nombre_huespedes = huespedes.get('nombre', 'Nombre no disponible')
-                    apellido_huespedes = huespedes.get('apellido', 'Apellido no disponible')
-                    print(f"   Titular: {nombre_huespedes} {apellido_huespedes}")
+                    nombre_huesped = huesped.get['Nombre']
+                    apellido_huesped = huesped.get['Apellido'] 
+                    print(f"   Titular: {nombre_huesped} {apellido_huesped}")
                     if acompanantes:
                         print("   Acompañantes:")
                         for acompanante in acompanantes:
@@ -156,45 +159,7 @@ def funcionNumerocliente():
 def verificar_disponibilidad():
     pass
 
-def ingresar_acompanantes():
-    bandera = True
-    acompanantes = []
-    max_acompanantes = 3
-    
-
-    while bandera:
-
-        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-        print("===== INGRESE LOS DATOS DE LOS ACOMPANIANTES DE LA RESERVA =====")
-        print("☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰")
-        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-        num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
-
-        if 1 <= num_acompanantes <= max_acompanantes:
-            for i in range(num_acompanantes):
-
-                print(f" Ingresando datos del acompañante 【 {i + 1} 】")
-
-                nombre = str(input(" • Nombre ➞  "))
-                apellido = str(input(" • Apellido ➞  "))
-                dni = input(" • DNI ➞  ")
-
-                acompanante = {
-                    'nombre': nombre,
-                    'apellido': apellido,
-                    'documento': dni,
-                }
-
-                acompanantes.append(acompanante)
-
-            bandera = False
-        else:
-            print(" ╳  Por favor, ingrese un número válido de acompañantes (1 a 3) ╳ ")
-
-    return acompanantes,num_acompanantes
-
 def funcionIngreso():
-    huespedes = []
     bandera = True
 
     while bandera:
@@ -259,7 +224,11 @@ def funcionIngreso():
                                 print(f"Día de salida: {diaSalida}, Mes de salida: {mesSalida}")
                                 numeroCliente = funcionNumerocliente()
 
+                                print("Se ingreso correctamente el Titular ✔ ")
+
                                 # Crear el diccionario del huésped solo si no se eligió salir
+
+
                                 huesped = {
                                     'Nombre': nombre,
                                     'Apellido': apellido,
@@ -270,33 +239,68 @@ def funcionIngreso():
                                     'Mes de ingreso': mes,
                                     'Dia de Salida': diaSalida,
                                     'Mes de Salida': mesSalida,
-                                    'Numero de cliente' :numeroCliente
+                                    'Numero de cliente' :numeroCliente,
+                                    'acompaniantes' : []
                                     }
-                                    
-                                print("Se ingreso correctamente el Titular ✔ ")
-
-                                option = input("¿Vas a ir con algún acompañante? (Si/No) ➞  ").lower()
-
-                                if option == "si" or option == "s":
-                                        
-                                    acompanantes , num_acompanantes = ingresar_acompanantes()
-                                    huesped['acompanantes'] = acompanantes
-                                    print("Se ingreso correctamente los acompañantes ✔ ")
-      
-                                    
-                                elif option == "no" or option == "n":
-                                    acompanantes = []
-                                    huesped['acompanantes'] = acompanantes
                                 
-                                bandera = False
+                                
 
-                                huespedes.append(huesped)    
-                                asignar_habitacion(huespedes, acompanantes, num_acompanantes, fecha_ingreso, fecha_salida)
-            
-                                #Llamar a que habitacion se va a ingresar
+                                huesped = acompaniantes(huesped)
+                                print(huesped)
+                                return huesped
 
-                print(huespedes) #Para que se vea momentanamente los datos almacenados en el diccionario
-    return huespedes
+def acompaniantes(huesped):
+    option = input("¿Vas a ir con algún acompañante? (Si/No) ➞  ").lower()
+
+    if option == "si" or option == "s":
+                                        
+        acompaniantes = ingresar_acompanantes()
+        huesped['acompaniantes'] = acompaniantes
+        print("Se ingreso correctamente los acompañantes ✔ ")
+    else:
+        print("No se ingresaron acompaniantes")
+
+    return huesped
+    
+        
+    
+
+def ingresar_acompanantes():
+    bandera = True
+    acompanantes = []
+    max_acompanantes = 3
+    
+
+    while bandera:
+
+        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+        print("===== INGRESE LOS DATOS DE LOS ACOMPANIANTES DE LA RESERVA =====")
+        print("☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰")
+        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+        num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
+
+        if 1 <= num_acompanantes <= max_acompanantes:
+            for i in range(num_acompanantes):
+
+                print(f" Ingresando datos del acompañante 【 {i + 1} 】")
+
+                nombre = str(input(" • Nombre ➞  "))
+                apellido = str(input(" • Apellido ➞  "))
+                dni = input(" • DNI ➞  ")
+
+                acompanante = {
+                    'nombre': nombre,
+                    'apellido': apellido,
+                    'documento': dni,
+                }
+
+                acompanantes.append(acompanante)
+
+            bandera = False
+        else:
+            print(" ╳  Por favor, ingrese un número válido de acompañantes (1 a 3) ╳ ")
+
+    return acompanantes,num_acompanantes
 
                                 
 def asignar_habitacion(titular, acompanantes, num_acompanantes, fecha_ingreso, fecha_salida):
