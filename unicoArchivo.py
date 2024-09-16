@@ -80,7 +80,7 @@ def menu(): #Funcion del menu princial.
                 if volver == 0:
                     bandera2 = False 
         elif respuesta == 2:
-            print(verHabitaciones())
+            print(verHabitaciones(habitaciones))
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:
@@ -115,7 +115,8 @@ def convertir_fecha(dia, mes):
     return datetime(2024, mes, dia)
 
 # Ver habitaciones disponibles y ocupadas
-def verHabitaciones(huesped):
+
+def verHabitaciones(habitaciones):
     print("======================================================")
     print("┇          LISTADO DE HABITACIONES DISPONIBLES        ┇")
     print("======================================================")
@@ -133,20 +134,25 @@ def verHabitaciones(huesped):
             
             if estado == "Ocupada":
                 for reserva in habitacion['reservas']:
+                    # Obtener los datos del huésped
                     huesped = reserva.get('huesped', {})
                     acompanantes = reserva.get('acompanantes', [])
-                    nombre_huesped = huesped.get['Nombre']
-                    apellido_huesped = huesped.get['Apellido'] 
+                    nombre_huesped = huesped.get('Nombre', 'Nombre no disponible')
+                    apellido_huesped = huesped.get('Apellido', 'Apellido no disponible')
+                    
                     print(f"   Titular: {nombre_huesped} {apellido_huesped}")
-                    if acompanantes:
+                    
+                    # Imprimir los datos de los acompañantes
+                    if huesped['acompaniantes']:
                         print("   Acompañantes:")
-                        for acompanante in acompanantes:
+                        for acompanante in huesped['acompaniantes']:
                             nombre_acompanante = acompanante.get('nombre', 'Nombre no disponible')
                             apellido_acompanante = acompanante.get('apellido', 'Apellido no disponible')
                             print(f"      - {nombre_acompanante} {apellido_acompanante}")
             print("------------------------------------------------------")
     
     print("======================================================")
+
 
 
 def funcionTotalpagar():
@@ -240,14 +246,23 @@ def funcionIngreso():
                                     'Dia de Salida': diaSalida,
                                     'Mes de Salida': mesSalida,
                                     'Numero de cliente' :numeroCliente,
-                                    'acompaniantes' : []
+                                    'Acompañantes' : []
                                     }
                                 
-                                
+                                huespedes = acompaniantes(huesped)
 
-                                huesped = acompaniantes(huesped)
-                                print(huesped)
-                                return huesped
+                                acompanantes, num_acompanantes = huespedes['Acompañantes'], len(huespedes['Acompañantes'])
+
+                                tipo_habitacion = asignar_habitacion(acompanantes, num_acompanantes, fecha_ingreso, fecha_salida,huespedes)
+
+                                if tipo_habitacion:
+                                    print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
+                                else:
+                                    print("No se pudo asignar una habitación.")
+
+                                
+                                print(huespedes)
+                                return huespedes
 
 def acompaniantes(huesped):
     option = input("¿Vas a ir con algún acompañante? (Si/No) ➞  ").lower()
@@ -262,9 +277,6 @@ def acompaniantes(huesped):
 
     return huesped
     
-        
-    
-
 def ingresar_acompanantes():
     bandera = True
     acompanantes = []
@@ -303,41 +315,41 @@ def ingresar_acompanantes():
     return acompanantes,num_acompanantes
 
                                 
-def asignar_habitacion(titular, acompanantes, num_acompanantes, fecha_ingreso, fecha_salida):
+def asignar_habitacion(acompanantes, num_acompanantes, fecha_ingreso, fecha_salida, huesped):
+    seleccion_tipo = input("Seleccione que tipo de habitación quiere, normal o premium : ").lower()
 
-    seleccion_tipo = input("Seleccione que tipo de habitacion quiere, normal o premium : ").lower()
-
-    if num_acompanantes  <= 1:
-        
+    if num_acompanantes <= 1:
         if seleccion_tipo == "normal":
             tipos = ['normal_2']
         elif seleccion_tipo == "premium":
             tipos = ['premium_2']
         else:
-            print("Seleccion invalida.")
+            print("Selección inválida.")
+            return None
     else:
         if seleccion_tipo == "normal":
             tipos = ['normal_4']
         elif seleccion_tipo == "premium":
             tipos = ['premium_4']
         else:
-            print("Seleccion invalida.")
+            print("Selección inválida.")
+            return None
 
-    
     for tipo in tipos:
         for habitacion in habitaciones[tipo]:
             if esta_disponible(fecha_ingreso, fecha_salida, habitacion['reservas']):
                 habitacion['reservas'].append({
                     'ingreso': fecha_ingreso,
                     'salida': fecha_salida,
-                    'titular': titular,
+                    'huesped': huesped,  # Agregamos el diccionario completo del huesped
                     'acompanantes': acompanantes
                 })
                 print(f"Habitación asignada: {tipo}")
                 return tipo
+
     print("No hay habitaciones disponibles en este rango de fechas.")
-    
-    return
+    return None
+
 
     
 def esta_disponible(fecha_ingreso, fecha_salida, reservas):
