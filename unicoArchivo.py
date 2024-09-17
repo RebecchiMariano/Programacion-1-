@@ -136,22 +136,25 @@ def verHabitaciones(habitaciones):
                 for reserva in habitacion['reservas']:
                     # Obtener los datos del huésped
                     huesped = reserva.get('huesped', {})
-                    acompanantes = reserva.get('acompanantes', [])
+                    acompanantes = huesped.get('acompanante', [])
                     nombre_huesped = huesped.get('Nombre', 'Nombre no disponible')
                     apellido_huesped = huesped.get('Apellido', 'Apellido no disponible')
                     
                     print(f"   Titular: {nombre_huesped} {apellido_huesped}")
                     
                     # Imprimir los datos de los acompañantes
-                    if huesped['acompaniantes']:
+                    if acompanantes:  # Aquí se comprueba si hay acompañantes
                         print("   Acompañantes:")
-                        for acompanante in huesped['acompaniantes']:
+                        for acompanante in acompanantes:
+                            # Usar get() para manejar posibles claves faltantes
                             nombre_acompanante = acompanante.get('nombre', 'Nombre no disponible')
                             apellido_acompanante = acompanante.get('apellido', 'Apellido no disponible')
                             print(f"      - {nombre_acompanante} {apellido_acompanante}")
             print("------------------------------------------------------")
     
     print("======================================================")
+
+
 
 
 
@@ -170,7 +173,6 @@ def funcionIngreso():
 
     while bandera:
 
-        
 
         print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
         print("======= INGRESE LOS DATOS DEL TITULAR DE LA RESERVA =======")
@@ -251,9 +253,7 @@ def funcionIngreso():
                                 
                                 huespedes = acompaniantes(huesped)
 
-                                acompanantes, num_acompanantes = huespedes['Acompañantes'], len(huespedes['Acompañantes'])
-
-                                tipo_habitacion = asignar_habitacion(acompanantes, num_acompanantes, fecha_ingreso, fecha_salida,huespedes)
+                                tipo_habitacion = asignar_habitacion(len(huespedes['Acompañantes']), fecha_ingreso, fecha_salida,huespedes)
 
                                 if tipo_habitacion:
                                     print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
@@ -270,7 +270,7 @@ def acompaniantes(huesped):
     if option == "si" or option == "s":
                                         
         acompaniantes = ingresar_acompanantes()
-        huesped['acompaniantes'] = acompaniantes
+        huesped['Acompañantes'] = acompaniantes
         print("Se ingreso correctamente los acompañantes ✔ ")
     else:
         print("No se ingresaron acompaniantes")
@@ -281,19 +281,15 @@ def ingresar_acompanantes():
     bandera = True
     acompanantes = []
     max_acompanantes = 3
-    
 
     while bandera:
-
         print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
         print("===== INGRESE LOS DATOS DE LOS ACOMPANIANTES DE LA RESERVA =====")
-        print("☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰")
         print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
         num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
 
         if 1 <= num_acompanantes <= max_acompanantes:
             for i in range(num_acompanantes):
-
                 print(f" Ingresando datos del acompañante 【 {i + 1} 】")
 
                 nombre = str(input(" • Nombre ➞  "))
@@ -312,13 +308,16 @@ def ingresar_acompanantes():
         else:
             print(" ╳  Por favor, ingrese un número válido de acompañantes (1 a 3) ╳ ")
 
-    return acompanantes,num_acompanantes
+    return acompanantes
+
+
 
                                 
-def asignar_habitacion(acompanantes, num_acompanantes, fecha_ingreso, fecha_salida, huesped):
-    seleccion_tipo = input("Seleccione que tipo de habitación quiere, normal o premium : ").lower()
-
-    if num_acompanantes <= 1:
+def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes):
+    seleccion_tipo = input("Seleccione qué tipo de habitación quiere, normal o premium: ").lower()
+    
+    # Determinar el tipo de habitación basado en el número de acompañantes
+    if num_acompanantes == 1:
         if seleccion_tipo == "normal":
             tipos = ['normal_2']
         elif seleccion_tipo == "premium":
@@ -326,7 +325,7 @@ def asignar_habitacion(acompanantes, num_acompanantes, fecha_ingreso, fecha_sali
         else:
             print("Selección inválida.")
             return None
-    else:
+    elif num_acompanantes > 1:
         if seleccion_tipo == "normal":
             tipos = ['normal_4']
         elif seleccion_tipo == "premium":
@@ -334,21 +333,25 @@ def asignar_habitacion(acompanantes, num_acompanantes, fecha_ingreso, fecha_sali
         else:
             print("Selección inválida.")
             return None
+    else:
+        print("Número de acompañantes no válido.")
+        return None
 
+    # Intentar asignar la habitación
     for tipo in tipos:
-        for habitacion in habitaciones[tipo]:
+        for habitacion in habitaciones.get(tipo, []):  # Usa .get() para evitar KeyError si el tipo no existe
             if esta_disponible(fecha_ingreso, fecha_salida, habitacion['reservas']):
                 habitacion['reservas'].append({
                     'ingreso': fecha_ingreso,
                     'salida': fecha_salida,
-                    'huesped': huesped,  # Agregamos el diccionario completo del huesped
-                    'acompanantes': acompanantes
+                    'huesped': huespedes,  # El diccionario contiene al titular y los acompañantes
                 })
                 print(f"Habitación asignada: {tipo}")
                 return tipo
 
     print("No hay habitaciones disponibles en este rango de fechas.")
     return None
+
 
 
     
