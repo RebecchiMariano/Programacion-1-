@@ -21,16 +21,16 @@ import random
 habitaciones = { #Vamos a tener 12 habitaciones ()
     
     'normal_2': [{'capacidad': 2, 
-                  'reservas': []} for _ in range(3)],
+                  'reservas': []} for _ in range(1)],
 
     'normal_4': [{'capacidad': 4, 
-                  'reservas': []} for _ in range(3)],
+                  'reservas': []} for _ in range(1)],
 
     'premium_2': [{'capacidad': 2, 
-                   'reservas': []} for _ in range(3)],
+                   'reservas': []} for _ in range(1)],
 
     'premium_4': [{'capacidad': 4, 
-                   'reservas': []} for _ in range(3)],
+                   'reservas': []} for _ in range(1)],
 }
 
 #Diccionario para poder hacer funcion verificar_disponibilidad
@@ -154,10 +154,6 @@ def verHabitaciones(habitaciones):
     
     print("======================================================")
 
-
-
-
-
 def funcionTotalpagar():
     pass
 
@@ -219,6 +215,7 @@ def funcionIngreso():
                                     if salida.lower() == "salir":
                                         print("Salir sin guardar datos.")
                                         bandera = False
+                                        bandera2 = False
                                     else:                       
                                         diaSalida, mesSalida = map(int, salida.split())
                                         fecha_salida = convertir_fecha(diaSalida, mesSalida)
@@ -228,39 +225,41 @@ def funcionIngreso():
                                         else:
                                             bandera2 = False
 
-                                #Asignacion de numero de cliente
-                                print(f"Día de salida: {diaSalida}, Mes de salida: {mesSalida}")
-                                numeroCliente = funcionNumerocliente()
+                                if bandera and bandera2: # Se tienen que cumplir los 2 requisitos para que se ingrese un huesdep.
+                                    #Asignacion de numero de cliente
+                                    numeroCliente = funcionNumerocliente()
 
-                                print("Se ingreso correctamente el Titular ✔ ")
+                                    print("Se ingreso correctamente el Titular ✔ ")
 
-                                # Crear el diccionario del huésped solo si no se eligió salir
+                                    # Crear el diccionario del huésped solo si no se eligió salir
 
 
-                                huesped = {
-                                    'Nombre': nombre,
-                                    'Apellido': apellido,
-                                    'DNI': dni,
-                                    'Mail': mail,
-                                    'Número de teléfono': numero,
-                                    'Dia de ingreso': dia,
-                                    'Mes de ingreso': mes,
-                                    'Dia de Salida': diaSalida,
-                                    'Mes de Salida': mesSalida,
-                                    'Numero de cliente' :numeroCliente,
-                                    'Acompanantes' : []
-                                    }
-                                
-                                huespedes = acompaniantes(huesped)
+                                    huesped = {
+                                        'Nombre': nombre,
+                                        'Apellido': apellido,
+                                        'DNI': dni,
+                                        'Mail': mail,
+                                        'Número de teléfono': numero,
+                                        'Dia de ingreso': dia,
+                                        'Mes de ingreso': mes,
+                                        'Dia de Salida': diaSalida,
+                                        'Mes de Salida': mesSalida,
+                                        'Numero de cliente' :numeroCliente,
+                                        'Acompanantes' : []
+                                        }
+                                    
+                                    huespedes = acompaniantes(huesped)
 
-                                tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes)
+                                    tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes)
 
-                                if tipo_habitacion:
-                                    print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
+                                    if tipo_habitacion:
+                                        print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
+                                    else:
+                                        print("No se pudo asignar una habitación.")
+
+                                    return huesped
                                 else:
-                                    print("No se pudo asignar una habitación.")
-
-                                return huesped
+                                    return
 
 def acompaniantes(huesped):
     option = input("¿Vas a ir con algún acompañante? (Si/No) ➞  ").lower()
