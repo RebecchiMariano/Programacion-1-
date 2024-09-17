@@ -4,19 +4,19 @@ import random
 
 
 
-habitaciones = [
-    {'tipo': 
-     'Premium - Vista Playa', 
-     'capacidad': 4, 
-     'valor': 15000, 
-     'estado': True},
-    {'tipo': 
-     'Premium - Vista Oceano', 
-     'capacidad': 4, 
-     'valor': 18000, 
-     'estado': True}
+# habitaciones = [
+#     {'tipo': 
+#      'Premium - Vista Playa', 
+#      'capacidad': 4, 
+#      'valor': 15000, 
+#      'estado': True},
+#     {'tipo': 
+#      'Premium - Vista Oceano', 
+#      'capacidad': 4, 
+#      'valor': 18000, 
+#      'estado': True}
     
-    ]
+    # ]
 
 habitaciones = { #Vamos a tener 12 habitaciones ()
     
@@ -35,20 +35,20 @@ habitaciones = { #Vamos a tener 12 habitaciones ()
 
 #Diccionario para poder hacer funcion verificar_disponibilidad
 
-diasPorMes = {
-    1: 31,  # Enero
-    2: 28,  # Febrero (Sin considerar los bisiestos)
-    3: 31,  # Marzo
-    4: 30,  # Abril
-    5: 31,  # Mayo
-    6: 30,  # Junio
-    7: 31,  # Julio
-    8: 31,  # Agosto
-    9: 30,  # Septiembre
-    10: 31,  # Octubre
-    11: 30,  # Noviembre
-    12: 31   # Diciembre
-}
+# diasPorMes = {
+#     1: 31,  # Enero
+#     2: 28,  # Febrero (Sin considerar los bisiestos)
+#     3: 31,  # Marzo
+#     4: 30,  # Abril
+#     5: 31,  # Mayo
+#     6: 30,  # Junio
+#     7: 31,  # Julio
+#     8: 31,  # Agosto
+#     9: 30,  # Septiembre
+#     10: 31,  # Octubre
+#     11: 30,  # Noviembre
+#     12: 31   # Diciembre
+# }
 
 def menu(): #Funcion del menu princial.
 
@@ -74,13 +74,13 @@ def menu(): #Funcion del menu princial.
         respuesta = int(input("Seleccione una opción del menú ➡  "))
 
         if respuesta == 1:
-            print(funcionIngreso())
+            funcionIngreso()
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:
                     bandera2 = False 
         elif respuesta == 2:
-            print(verHabitaciones(habitaciones))
+            verHabitaciones(habitaciones)
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:
@@ -136,7 +136,7 @@ def verHabitaciones(habitaciones):
                 for reserva in habitacion['reservas']:
                     # Obtener los datos del huésped
                     huesped = reserva.get('huesped', {})
-                    acompanantes = huesped.get('acompanante', [])
+                    acompanantes = huesped.get('Acompanantes', [])
                     nombre_huesped = huesped.get('Nombre', 'Nombre no disponible')
                     apellido_huesped = huesped.get('Apellido', 'Apellido no disponible')
                     
@@ -248,21 +248,19 @@ def funcionIngreso():
                                     'Dia de Salida': diaSalida,
                                     'Mes de Salida': mesSalida,
                                     'Numero de cliente' :numeroCliente,
-                                    'Acompañantes' : []
+                                    'Acompanantes' : []
                                     }
                                 
                                 huespedes = acompaniantes(huesped)
 
-                                tipo_habitacion = asignar_habitacion(len(huespedes['Acompañantes']), fecha_ingreso, fecha_salida,huespedes)
+                                tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes)
 
                                 if tipo_habitacion:
                                     print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
                                 else:
                                     print("No se pudo asignar una habitación.")
 
-                                
-                                print(huespedes)
-                                return huespedes
+                                return huesped
 
 def acompaniantes(huesped):
     option = input("¿Vas a ir con algún acompañante? (Si/No) ➞  ").lower()
@@ -270,7 +268,7 @@ def acompaniantes(huesped):
     if option == "si" or option == "s":
                                         
         acompaniantes = ingresar_acompanantes()
-        huesped['Acompañantes'] = acompaniantes
+        huesped['Acompanantes'] = acompaniantes
         print("Se ingreso correctamente los acompañantes ✔ ")
     else:
         print("No se ingresaron acompaniantes")
@@ -317,7 +315,7 @@ def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes)
     seleccion_tipo = input("Seleccione qué tipo de habitación quiere, normal o premium: ").lower()
     
     # Determinar el tipo de habitación basado en el número de acompañantes
-    if num_acompanantes == 1:
+    if num_acompanantes <= 1:
         if seleccion_tipo == "normal":
             tipos = ['normal_2']
         elif seleccion_tipo == "premium":
@@ -325,7 +323,7 @@ def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes)
         else:
             print("Selección inválida.")
             return None
-    elif num_acompanantes > 1:
+    else:
         if seleccion_tipo == "normal":
             tipos = ['normal_4']
         elif seleccion_tipo == "premium":
@@ -333,9 +331,7 @@ def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes)
         else:
             print("Selección inválida.")
             return None
-    else:
-        print("Número de acompañantes no válido.")
-        return None
+    
 
     # Intentar asignar la habitación
     for tipo in tipos:
