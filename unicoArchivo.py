@@ -2,57 +2,26 @@
 from datetime import datetime
 import random
 
-
-
-# habitaciones = [
-#     {'tipo': 
-#      'Premium - Vista Playa', 
-#      'capacidad': 4, 
-#      'valor': 15000, 
-#      'estado': True},
-#     {'tipo': 
-#      'Premium - Vista Oceano', 
-#      'capacidad': 4, 
-#      'valor': 18000, 
-#      'estado': True}
-    
-    # ]
-
 habitaciones = { #Vamos a tener 12 habitaciones ()
     
     'normal_2': [{'capacidad': 2, 
-                  'reservas': []} for _ in range(1)],
-
+                  'reservas': []} for _ in range(3)], #Creamos 3 habitaciones normales, que tienen una capacidad de 2 personas
+                                                      #y dentro habra una lista de reservas.
     'normal_4': [{'capacidad': 4, 
-                  'reservas': []} for _ in range(1)],
-
+                  'reservas': []} for _ in range(3)], #Creamos 3 habitaciones normales, que tienen una capacidad de 4 personas
+                                                      #y dentro habra una lista de reservas.
     'premium_2': [{'capacidad': 2, 
-                   'reservas': []} for _ in range(1)],
-
+                   'reservas': []} for _ in range(3)],#Creamos 3 habitaciones premium, que tienen una capacidad de 2 personas
+                                                      #y dentro habra una lista de reservas.
     'premium_4': [{'capacidad': 4, 
-                   'reservas': []} for _ in range(1)],
+                   'reservas': []} for _ in range(3)],#Creamos 3 habitaciones premium, que tienen una capacidad de 4 personas
+                                                      #y dentro habra una lista de reservas.
 }
-
-#Diccionario para poder hacer funcion verificar_disponibilidad
-
-# diasPorMes = {
-#     1: 31,  # Enero
-#     2: 28,  # Febrero (Sin considerar los bisiestos)
-#     3: 31,  # Marzo
-#     4: 30,  # Abril
-#     5: 31,  # Mayo
-#     6: 30,  # Junio
-#     7: 31,  # Julio
-#     8: 31,  # Agosto
-#     9: 30,  # Septiembre
-#     10: 31,  # Octubre
-#     11: 30,  # Noviembre
-#     12: 31   # Diciembre
-# }
 
 def menu(): #Funcion del menu princial.
 
-    bandera = True
+    bandera = True #Con esta bandera cuando lo pongamos en Falso terminaremos el Programa principal.
+
     while bandera:
 
         print("====================================================== ")
@@ -69,52 +38,254 @@ def menu(): #Funcion del menu princial.
         print("┇                                                    ┇")
         print("====================================================== ")
 
-        bandera2 = True
+        bandera2 = True #Con esta bandera cuando lo pongamos en Falso volveremos al menu ingresando 0.
 
         respuesta = int(input("Seleccione una opción del menú ➡  "))
 
-        if respuesta == 1:
+        if respuesta == 1: #Registrar el Ingreso.
             funcionIngreso()
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:
                     bandera2 = False 
-        elif respuesta == 2:
+        elif respuesta == 2:  #Ver habitacion.
             verHabitaciones(habitaciones)
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:
                     bandera2 = False 
         elif respuesta == 3:
-            print()
+            #Funcion Check Out.
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:
                     bandera2 = False 
         elif respuesta == 4:
-            print("#funcion habitaciones")
+            #Funcion Buscar Reserva x N y A.
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:
                     bandera2 = False 
         elif respuesta == 5:
-            print("#funcion habitaciones")
+            #Funcion Buscar Reserva x Nro de Reserva.
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:  
-                    bandera2 = False 
-        elif respuesta == 0:
+                    bandera2 = False      
+        elif respuesta == 0: #Si se ingresa 0 salimos del programa.
             bandera = False  
         else:
 
             print("✕ El numero que ingresaste no esta en el rango de opciones. ✕")
             print("✕✕ Por favor, Ingrese un numero del (0 - 5) ✕✕")
 
+def funcionIngreso(): # 1) Registrar el Ingreso.
 
-def convertir_fecha(dia, mes):
+    bandera = True #Cuando la bandera se ponga en False salimos de la funcion Ingreso.
+
+    while bandera:
+
+
+        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+        print("======= INGRESE LOS DATOS DEL TITULAR DE LA RESERVA =======")
+        print("====== ☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰ =====")
+        print("=========================================================== ")
+        print("=== SI EN ALGUN MOMENTO QUERES SALIR INGRESE \" Salir \" ===")
+        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+        
+        nombre = str(input(" • Nombre ➞  "))
+        if nombre.lower() == "salir": #Si nosotros ponemos Salir en algun input saldremos del programa y no se guardaran datos. ya que sino se ingresa salir pasa al siguiente Else y asi sigue.
+            print("Salir sin guardar datos.")
+            bandera = False
+        else:
+            apellido = str(input(" • Apellido ➞  "))
+            if apellido.lower() == "salir":
+                print("Salir sin guardar datos.")
+                bandera = False
+            else:
+                dni = input(" • DNI ➞  ")
+                if dni.lower() == "salir":
+                    print("Salir sin guardar datos.")
+                    bandera = False
+                else:
+                    mail = str(input(" • Mail 📧 ➞  "))
+                    if mail.lower() == "salir":
+                        print("Salir sin guardar datos.")
+                        bandera = False
+                    else:
+                        numero = input(" • Telefono 📞 ➞  ")
+                        if numero.lower() == "salir":
+                            print("Salir sin guardar datos.")
+                            bandera = False
+                        else:
+                            ingreso = input(" • Ingreso separados por un espacio (DD-MM) ➞  ")
+                            if ingreso.lower() == "salir":
+                                print("Salir sin guardar datos.")
+                                bandera = False
+                            else:
+                                dia, mes = map(int, ingreso.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
+                                fecha_ingreso = convertir_fecha(dia, mes) #Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
+                                bandera2 = True #Se inicializa simpre
+                                while bandera2 :
+                                    salida = input(" • Salida separados por un espacio (DD-MM) ➞  ")
+                                    if salida.lower() == "salir":
+                                        print("Salir sin guardar datos.")
+                                        bandera = False 
+                                        bandera2 = False # La bandera1 y bandera2, se vuelven el falso si ponemos salir.
+                                    else:                       
+                                        diaSalida, mesSalida = map(int, salida.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
+                                        fecha_salida = convertir_fecha(diaSalida, mesSalida)#Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
+
+                                        if fecha_salida <= fecha_ingreso: #Nunca la fecha de ingreso puede ser menor o igual a la fecha de salida.
+                                            print("✕ La fecha de salida no puede ser menor o igual a la fecha de ingreso. Inténtelo de nuevo. ✕")
+                                        else:
+                                            bandera2 = False #Hasta que no pongamos una fecha no saldra del bucle.
+
+                                if bandera and bandera2: # Se tienen que cumplir los 2 requisitos para que se ingrese un huesdep.
+                                    
+                                    numeroCliente = funcionNumerocliente() #Asignacion de numero de cliente
+
+                                    print("Se ingreso correctamente el Titular ✔ ")
+
+                                    huesped = { #Se guardan todos los input en un diccionario.
+                                        'Nombre': nombre,
+                                        'Apellido': apellido,
+                                        'DNI': dni,
+                                        'Mail': mail,
+                                        'Número de teléfono': numero,
+                                        'Dia de ingreso': dia,
+                                        'Mes de ingreso': mes,
+                                        'Dia de Salida': diaSalida,
+                                        'Mes de Salida': mesSalida,
+                                        'Numero de cliente' :numeroCliente,
+                                        'Acompanantes' : [] #Se le va a ingresar una lista de los acompanantes del ingresado.
+                                        }
+                                    
+                                    huespedes = acompaniantes(huesped) #Llamamos a la funcion acompaniantes con la biblioteca del ingresado.
+
+                                    tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes) #Se le asignara una habitacion.
+                                    if tipo_habitacion:
+                                        print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
+                                    else:
+                                        print("No se pudo asignar una habitación.")
+
+                                    return huesped
+                                else:
+                                    return #Volver al menu.
+                                
+def convertir_fecha(dia, mes): #Convertimos la fecha con esta funcion con la libreria DateTime.
     return datetime(2024, mes, dia)
 
-# Ver habitaciones disponibles y ocupadas
+def funcionNumerocliente():
+    numeroCliente = random.randint(1000, 9999) #Se le asignara una id al cliente para que sea mas facil identificarlo.
+    return numeroCliente
+
+def acompaniantes(huesped):
+
+    option = input("¿Vas a ir con algún acompañante? (Si/No) ➞  ").lower() #Preguntamos si va a ir solo o con alguien mas.
+
+    if option == "si" or option == "s":
+                                        
+        acompaniantes = ingresar_acompanantes() #Llamamos a la funcion. Si tiene acompaniantes
+
+        huesped['Acompanantes'] = acompaniantes #Se le asigna el acompaniante al diccionario 'Acompanantes'
+
+        print("Se ingreso correctamente los acompañantes ✔ ")
+    else: #Si no se ingresa ningun acompaniante, quedara la lisa sin acompaniantes.
+        print("No se ingresaron acompaniantes")
+
+    return huesped #Devuelve el huesped con los acompaniantes o sin.
+
+def ingresar_acompanantes(): #Si se ingresa acompaniantes
+    bandera = True
+    acompanantes = [] #Se hace una lista con los diccionarios de los acompaniantes
+    max_acompanantes = 3 #El maximo de los acompaniantes es 3, ya que nuestras habitaciones maximo de 4 personas (Ingresante + Acompaniantes).
+
+    while bandera:
+
+        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+        print("===== INGRESE LOS DATOS DE LOS ACOMPANIANTES DE LA RESERVA =====") 
+        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+
+        num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
+
+        if 1 <= num_acompanantes <= max_acompanantes: #Si ingresamos el numero (1 - 3)
+            for i in range(num_acompanantes): 
+                print(f" Ingresando datos del acompañante 【 {i + 1} 】") 
+                nombre = str(input(" • Nombre ➞  "))
+                apellido = str(input(" • Apellido ➞  "))
+                dni = input(" • DNI ➞  ")
+
+                acompanante = { #Diccionario del acompaniante
+                    'nombre': nombre,
+                    'apellido': apellido,
+                    'documento': dni,
+                }
+
+                acompanantes.append(acompanante) #Se va agregando a la lista
+
+            bandera = False #Sale de la bandera.
+        else:
+            print(" ╳  Por favor, ingrese un número válido de acompañantes (1 a 3) ╳ ") 
+
+    return acompanantes #Retorna la lista.
+
+def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes): #asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes)
+
+    #Que beneficios tiene las habitaciones normal y premium. (Proximanente.)
+
+    seleccion_tipo = input("Seleccione qué tipo de habitación quiere, normal o premium: ").lower() #Que tipo de habitacion es premium o normal.
+    
+    # Determinar el tipo de habitación basado en el número de acompañantes.
+    if num_acompanantes <= 1: # (1-2)
+        if seleccion_tipo == "normal":
+            tipos = ['normal_2']
+        elif seleccion_tipo == "premium":
+            tipos = ['premium_2']
+        else:
+            print("Selección inválida.")
+            return None
+    else: #(3-4)
+        if seleccion_tipo == "normal":
+            tipos = ['normal_4']
+        elif seleccion_tipo == "premium":
+            tipos = ['premium_4']
+        else:
+            print("Selección inválida.")
+            return None
+
+# habitaciones = { #Vamos a tener 12 habitaciones ()   
+#     'normal_2': [{'capacidad': 2, 
+#                   'reservas': []} for _ in range(3)],
+#     'normal_4': [{'capacidad': 4, 
+#                   'reservas': []} for _ in range(3)], 
+#     'premium_2': [{'capacidad': 2, 
+#                    'reservas': []} for _ in range(3)],
+#     'premium_4': [{'capacidad': 4, 
+#                    'reservas': []} for _ in range(3)],
+# }
+
+    # Intentar asignar la habitación.
+    for tipo in tipos: #Tipo( i ) en tipos
+        for habitacion in habitaciones.get(tipo, []):
+            if esta_disponible(fecha_ingreso, fecha_salida, habitacion['reservas']):
+                habitacion['reservas'].append({
+                    'ingreso': fecha_ingreso,
+                    'salida': fecha_salida,
+                    'huesped': huespedes,  # El diccionario contiene al titular y los acompañantes
+                })
+                print(f"Habitación asignada: {tipo}")
+                return tipo
+
+    print("No hay habitaciones disponibles en este rango de fechas.")
+    return None
+
+def esta_disponible(fecha_ingreso, fecha_salida, reservas):
+    for reserva in reservas:
+        # Si el rango de la nueva reserva se solapa con alguna existente
+        if (fecha_salida > reserva['ingreso'] or fecha_ingreso < reserva['salida']):
+            return False
+    return True   
 
 def verHabitaciones(habitaciones):
     print("======================================================")
@@ -157,207 +328,9 @@ def verHabitaciones(habitaciones):
 def funcionTotalpagar():
     pass
 
-def funcionNumerocliente():
-    numeroCliente = random.randint(1000, 9999)
-    return numeroCliente
-
 def verificar_disponibilidad():
     pass
-
-def funcionIngreso():
-    bandera = True
-
-    while bandera:
-
-
-        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-        print("======= INGRESE LOS DATOS DEL TITULAR DE LA RESERVA =======")
-        print("====== ☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰ =====")
-        print("=========================================================== ")
-        print("=== SI EN ALGUN MOMENTO QUERES SALIR INGRESE \" Salir \" ===")
-        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-        
-        nombre = str(input(" • Nombre ➞  "))
-        if nombre.lower() == "salir":
-            print("Salir sin guardar datos.")
-            bandera = False
-        else:
-            apellido = str(input(" • Apellido ➞  "))
-            if apellido.lower() == "salir":
-                print("Salir sin guardar datos.")
-                bandera = False
-            else:
-                dni = input(" • DNI ➞  ")
-                if dni.lower() == "salir":
-                    print("Salir sin guardar datos.")
-                    bandera = False
-                else:
-                    mail = str(input(" • Mail 📧 ➞  "))
-                    if mail.lower() == "salir":
-                        print("Salir sin guardar datos.")
-                        bandera = False
-                    else:
-                        numero = input(" • Telefono 📞 ➞  ")
-                        if numero.lower() == "salir":
-                            print("Salir sin guardar datos.")
-                            bandera = False
-                        else:
-                            ingreso = input(" • Ingreso separados por un espacio (DD-MM) ➞  ")
-                            if ingreso.lower() == "salir":
-                                print("Salir sin guardar datos.")
-                                bandera = False
-                            else:
-                                dia, mes = map(int, ingreso.split())
-                                fecha_ingreso = convertir_fecha(dia, mes)
-                                bandera2 = True
-                                while bandera2 :
-                                    salida = input(" • Salida separados por un espacio (DD-MM) ➞  ")
-                                    if salida.lower() == "salir":
-                                        print("Salir sin guardar datos.")
-                                        bandera = False
-                                        bandera2 = False
-                                    else:                       
-                                        diaSalida, mesSalida = map(int, salida.split())
-                                        fecha_salida = convertir_fecha(diaSalida, mesSalida)
-
-                                        if fecha_salida <= fecha_ingreso:
-                                            print("✕ La fecha de salida no puede ser menor o igual a la fecha de ingreso. Inténtelo de nuevo. ✕")
-                                        else:
-                                            bandera2 = False
-
-                                if bandera and bandera2: # Se tienen que cumplir los 2 requisitos para que se ingrese un huesdep.
-                                    #Asignacion de numero de cliente
-                                    numeroCliente = funcionNumerocliente()
-
-                                    print("Se ingreso correctamente el Titular ✔ ")
-
-                                    # Crear el diccionario del huésped solo si no se eligió salir
-
-
-                                    huesped = {
-                                        'Nombre': nombre,
-                                        'Apellido': apellido,
-                                        'DNI': dni,
-                                        'Mail': mail,
-                                        'Número de teléfono': numero,
-                                        'Dia de ingreso': dia,
-                                        'Mes de ingreso': mes,
-                                        'Dia de Salida': diaSalida,
-                                        'Mes de Salida': mesSalida,
-                                        'Numero de cliente' :numeroCliente,
-                                        'Acompanantes' : []
-                                        }
-                                    
-                                    huespedes = acompaniantes(huesped)
-
-                                    tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes)
-
-                                    if tipo_habitacion:
-                                        print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
-                                    else:
-                                        print("No se pudo asignar una habitación.")
-
-                                    return huesped
-                                else:
-                                    return
-
-def acompaniantes(huesped):
-    option = input("¿Vas a ir con algún acompañante? (Si/No) ➞  ").lower()
-
-    if option == "si" or option == "s":
-                                        
-        acompaniantes = ingresar_acompanantes()
-        huesped['Acompanantes'] = acompaniantes
-        print("Se ingreso correctamente los acompañantes ✔ ")
-    else:
-        print("No se ingresaron acompaniantes")
-
-    return huesped
-    
-def ingresar_acompanantes():
-    bandera = True
-    acompanantes = []
-    max_acompanantes = 3
-
-    while bandera:
-        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-        print("===== INGRESE LOS DATOS DE LOS ACOMPANIANTES DE LA RESERVA =====")
-        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-        num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
-
-        if 1 <= num_acompanantes <= max_acompanantes:
-            for i in range(num_acompanantes):
-                print(f" Ingresando datos del acompañante 【 {i + 1} 】")
-
-                nombre = str(input(" • Nombre ➞  "))
-                apellido = str(input(" • Apellido ➞  "))
-                dni = input(" • DNI ➞  ")
-
-                acompanante = {
-                    'nombre': nombre,
-                    'apellido': apellido,
-                    'documento': dni,
-                }
-
-                acompanantes.append(acompanante)
-
-            bandera = False
-        else:
-            print(" ╳  Por favor, ingrese un número válido de acompañantes (1 a 3) ╳ ")
-
-    return acompanantes
-
-
-
-                                
-def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes):
-    seleccion_tipo = input("Seleccione qué tipo de habitación quiere, normal o premium: ").lower()
-    
-    # Determinar el tipo de habitación basado en el número de acompañantes
-    if num_acompanantes <= 1:
-        if seleccion_tipo == "normal":
-            tipos = ['normal_2']
-        elif seleccion_tipo == "premium":
-            tipos = ['premium_2']
-        else:
-            print("Selección inválida.")
-            return None
-    else:
-        if seleccion_tipo == "normal":
-            tipos = ['normal_4']
-        elif seleccion_tipo == "premium":
-            tipos = ['premium_4']
-        else:
-            print("Selección inválida.")
-            return None
-    
-
-    # Intentar asignar la habitación
-    for tipo in tipos:
-        for habitacion in habitaciones.get(tipo, []):  # Usa .get() para evitar KeyError si el tipo no existe
-            if esta_disponible(fecha_ingreso, fecha_salida, habitacion['reservas']):
-                habitacion['reservas'].append({
-                    'ingreso': fecha_ingreso,
-                    'salida': fecha_salida,
-                    'huesped': huespedes,  # El diccionario contiene al titular y los acompañantes
-                })
-                print(f"Habitación asignada: {tipo}")
-                return tipo
-
-    print("No hay habitaciones disponibles en este rango de fechas.")
-    return None
-
-
-
-    
-def esta_disponible(fecha_ingreso, fecha_salida, reservas):
-    for reserva in reservas:
-        # Si el rango de la nueva reserva se solapa con alguna existente
-        if (fecha_salida > reserva['ingreso'] or fecha_ingreso < reserva['salida']):
-            return False
-    return True                               
-    
-
+                            
 # def calcularDiasEstadia(diaIngreso, mesIngreso, diaSalida, mesSalida):
 #     diasTotales = 0
 #     # Contador de dias totales de estadia
