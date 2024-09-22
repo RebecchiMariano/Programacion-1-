@@ -267,7 +267,7 @@ def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes)
 
     # Intentar asignar la habitación.
     for tipo in tipos: #Tipo( i ) en tipos
-        for habitacion in habitaciones.get(tipo, []):
+        for habitacion in habitaciones.get(tipo, []): #Habitacion (i) en habitaciones
             if esta_disponible(fecha_ingreso, fecha_salida, habitacion['reservas']):
                 habitacion['reservas'].append({
                     'ingreso': fecha_ingreso,
@@ -280,10 +280,10 @@ def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes)
     print("No hay habitaciones disponibles en este rango de fechas.")
     return None
 
-def esta_disponible(fecha_ingreso, fecha_salida, reservas):
-    for reserva in reservas:
-        # Si el rango de la nueva reserva se solapa con alguna existente
-        if (fecha_salida > reserva['ingreso'] or fecha_ingreso < reserva['salida']):
+def esta_disponible(fecha_ingreso, fecha_salida, reservas): #Si esta disponible.
+    for reserva in reservas: #Va buscar una reserva (i) en las reservas
+        if (fecha_salida > reserva['ingreso'] or fecha_ingreso < reserva['salida']): #Si en las fechas de en
+           #15/2 y 
             return False
     return True   
 
