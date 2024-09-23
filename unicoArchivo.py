@@ -326,6 +326,7 @@ def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
     
     print("======================================================")
 
+
 # def funcionTotalpagar():
 #     pass
 
