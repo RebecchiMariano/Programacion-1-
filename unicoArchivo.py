@@ -95,6 +95,7 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
     fecha_ingreso = convertir_fecha(dia, mes) #Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
     bandera2 = True #Se inicializa siempre.
     while bandera2 :
+        #hola
 
         salida = input(" • Salida separados por un espacio (DD-MM) ➞  ")                    
         diaSalida, mesSalida = map(int, salida.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
