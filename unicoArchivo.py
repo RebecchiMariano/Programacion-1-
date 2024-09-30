@@ -81,98 +81,70 @@ def menu(): #Funcion del menu princial.
 
 def funcionIngreso(): # 1) Registrar el Ingreso.
 
-    bandera = True #Cuando la bandera se ponga en False salimos de la funcion Ingreso.
-
-    while bandera:
-
-
-        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-        print("======= INGRESE LOS DATOS DEL TITULAR DE LA RESERVA =======")
-        print("====== ☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰☰ =====")
-        print("=========================================================== ")
-        print("=== SI EN ALGUN MOMENTO QUERES SALIR INGRESE \" Salir \" ===")
-        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+    print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+    print("======= INGRESE LOS DATOS DEL TITULAR DE LA RESERVA =======")
+    print("=========================================================== ")
         
-        nombre = str(input(" • Nombre ➞  "))
-        if nombre.lower() == "salir": #Si nosotros ponemos Salir en algun input saldremos del programa y no se guardaran datos. ya que sino se ingresa salir pasa al siguiente Else y asi sigue.
-            print("Salir sin guardar datos.")
-            bandera = False
+    nombre = input(" • Nombre ➞  ")
+    apellido = input(" • Apellido ➞  ")
+    dni = input(" • DNI ➞  ")
+    mail = input(" • Mail 📧 ➞  ")
+    numero = input(" • Telefono 📞 ➞  ")
+    ingreso = input(" • Ingreso separados por un espacio (DD-MM) ➞  ")
+    dia, mes = map(int, ingreso.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
+    fecha_ingreso = convertir_fecha(dia, mes) #Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
+    bandera2 = True #Se inicializa siempre.
+    while bandera2 :
+
+        salida = input(" • Salida separados por un espacio (DD-MM) ➞  ")                    
+        diaSalida, mesSalida = map(int, salida.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
+        fecha_salida = convertir_fecha(diaSalida, mesSalida)#Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
+
+        if fecha_salida <= fecha_ingreso: #Nunca la fecha de ingreso puede ser menor o igual a la fecha de salida. 
+            print("✕ La fecha de salida no puede ser menor o igual a la fecha de ingreso. Inténtelo de nuevo. ✕")
         else:
-            apellido = str(input(" • Apellido ➞  "))
-            if apellido.lower() == "salir":
-                print("Salir sin guardar datos.")
-                bandera = False
-            else:
-                dni = input(" • DNI ➞  ")
-                if dni.lower() == "salir":
-                    print("Salir sin guardar datos.")
-                    bandera = False
-                else:
-                    mail = str(input(" • Mail 📧 ➞  "))
-                    if mail.lower() == "salir":
-                        print("Salir sin guardar datos.")
-                        bandera = False
-                    else:
-                        numero = input(" • Telefono 📞 ➞  ")
-                        if numero.lower() == "salir":
-                            print("Salir sin guardar datos.")
-                            bandera = False
-                        else:
-                            ingreso = input(" • Ingreso separados por un espacio (DD-MM) ➞  ")
-                            if ingreso.lower() == "salir":
-                                print("Salir sin guardar datos.")
-                                bandera = False
-                            else:
-                                dia, mes = map(int, ingreso.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
-                                fecha_ingreso = convertir_fecha(dia, mes) #Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
-                                bandera2 = True #Se inicializa siempre.
-                                while bandera2 :
-                                    salida = input(" • Salida separados por un espacio (DD-MM) ➞  ")
-                                    if salida.lower() == "salir":
-                                        print("Salir sin guardar datos.")
-                                        bandera = False 
-                                        bandera2 = False # La bandera1 y bandera2, se vuelven el falso si ponemos salir.
-                                    else:                       
-                                        diaSalida, mesSalida = map(int, salida.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
-                                        fecha_salida = convertir_fecha(diaSalida, mesSalida)#Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
+            bandera2 = False
 
-                                        if fecha_salida <= fecha_ingreso: #Nunca la fecha de ingreso puede ser menor o igual a la fecha de salida.
-                                            print("✕ La fecha de salida no puede ser menor o igual a la fecha de ingreso. Inténtelo de nuevo. ✕")
-                                        else:
-                                            bandera2 = False
-                                            
-                                bandera2 = True
-                                if bandera and bandera2: # Se tienen que cumplir los 2 requisitos para que se ingrese un huesdep.
+    print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+    print("=== Estas seguro que quieres guardar los datos del titular? ===")
+    print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+        
+    regresar = input("=== Ingrese No/n . Si quieres seguir ingrese cualquier caracter. === ➞  ")
+    print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+        
+    if regresar.lower() == 'n' or regresar.lower() == 'no':
+        print("Sin guardar datos...")
+        return None
+                           
+    numeroCliente = funcionNumerocliente() #Asignacion de numero de cliente.
+
+    print("Se ingreso correctamente el Titular ✔ ")
+
+    huesped = { #Se guardan todos los input en un diccionario.
+        'Nombre': nombre,
+        'Apellido': apellido,
+        'DNI': dni,
+        'Mail': mail,
+        'Número de teléfono': numero,
+        'Dia de ingreso': dia,
+        'Mes de ingreso': mes,
+        'Dia de Salida': diaSalida,
+        'Mes de Salida': mesSalida,
+        'Numero de cliente' :numeroCliente,
+        'Acompanantes' : [] #Se le va a ingresar una lista de los acompanantes del ingresado.
+    }
                                     
-                                    numeroCliente = funcionNumerocliente() #Asignacion de numero de cliente.
+    huespedes = acompaniantes(huesped) #Llamamos a la funcion acompaniantes con la biblioteca del ingresado.
 
-                                    print("Se ingreso correctamente el Titular ✔ ")
+    tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes) #Se le asignara una habitacion.
 
-                                    huesped = { #Se guardan todos los input en un diccionario.
-                                        'Nombre': nombre,
-                                        'Apellido': apellido,
-                                        'DNI': dni,
-                                        'Mail': mail,
-                                        'Número de teléfono': numero,
-                                        'Dia de ingreso': dia,
-                                        'Mes de ingreso': mes,
-                                        'Dia de Salida': diaSalida,
-                                        'Mes de Salida': mesSalida,
-                                        'Numero de cliente' :numeroCliente,
-                                        'Acompanantes' : [] #Se le va a ingresar una lista de los acompanantes del ingresado.
-                                        }
-                                    
-                                    huespedes = acompaniantes(huesped) #Llamamos a la funcion acompaniantes con la biblioteca del ingresado.
+    if tipo_habitacion:
+        print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
+    else:
+        print("No se pudo asignar una habitación.")
 
-                                    tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes) #Se le asignara una habitacion.
-                                    if tipo_habitacion:
-                                        print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
-                                    else:
-                                        print("No se pudo asignar una habitación.")
+    return huesped
 
-                                    return huesped
-                                else:
-                                    return #Volver al menu.
                                 
 def convertir_fecha(dia, mes): #Convertimos la fecha con esta funcion con la libreria DateTime.
     return datetime(2024, mes, dia)
@@ -213,8 +185,8 @@ def ingresar_acompanantes(): #Si se ingresa acompaniantes.
         if 1 <= num_acompanantes <= max_acompanantes: #Si ingresamos el numero (1 - 3).
             for i in range(num_acompanantes): 
                 print(f" Ingresando datos del acompañante 【 {i + 1} 】") 
-                nombre = str(input(" • Nombre ➞  "))
-                apellido = str(input(" • Apellido ➞  "))
+                nombre = (input(" • Nombre ➞  "))
+                apellido = (input(" • Apellido ➞  "))
                 dni = input(" • DNI ➞  ")
 
                 acompanante = { #Diccionario del acompaniante.
@@ -310,8 +282,8 @@ def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
                     # Obtener los datos del huésped
                     huesped = reserva.get('huesped', {}) #Traemos los huesped de la reserva.
                     acompanantes = huesped.get('Acompanantes', []) #Tramemos los acompaniantes de huespedes.
-                    nombre_huesped = huesped.get('Nombre', 'Nombre no disponible') #Nombra del huesped titular.
-                    apellido_huesped = huesped.get('Apellido', 'Apellido no disponible')#Apellido del huesped titular.
+                    nombre_huesped = huesped.get('Nombre') #Nombra del huesped titular.
+                    apellido_huesped = huesped.get('Apellido')#Apellido del huesped titular.
                     
                     print(f"   Titular: {nombre_huesped} {apellido_huesped}") #Nombre y apellido.
                     
@@ -319,8 +291,8 @@ def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
                     if acompanantes:  # Aquí se comprueba si hay acompañantes
                         print("   Acompañantes:")
                         for acompanante in acompanantes: #Recorro los acompaniantes.
-                            nombre_acompanante = acompanante.get('nombre', 'Nombre no disponible') #Nombre de los acompaniantes.
-                            apellido_acompanante = acompanante.get('apellido', 'Apellido no disponible') #Apellido de los acompaniantes.
+                            nombre_acompanante = acompanante.get('nombre') #Nombre de los acompaniantes.
+                            apellido_acompanante = acompanante.get('apellido') #Apellido de los acompaniantes.
                             print(f"      - {nombre_acompanante} {apellido_acompanante}") #Nombre y apellido.
             print("------------------------------------------------------")
     
