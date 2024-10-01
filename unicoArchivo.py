@@ -4,21 +4,35 @@ import random
 
 habitaciones = { #Vamos a tener 12 habitaciones ()
     
-    'normal_2': [{'capacidad': 2, 
+    'normal_2': [{'capacidad': 2,
+                  'costo': 10000, 
                   'reservas': []} for _ in range(3)], #Creamos 3 habitaciones normales, que tienen una capacidad de 2 personas
                                                       #y dentro habra una lista de reservas.
-    'normal_4': [{'capacidad': 4, 
+    'normal_4': [{'capacidad': 4,
+                  'costo': 20000, 
                   'reservas': []} for _ in range(3)], #Creamos 3 habitaciones normales, que tienen una capacidad de 4 personas
                                                       #y dentro habra una lista de reservas.
-    'premium_2': [{'capacidad': 2, 
+    'premium_2': [{'capacidad': 2,
+                   'costo': 25000, 
                    'reservas': []} for _ in range(3)],#Creamos 3 habitaciones premium, que tienen una capacidad de 2 personas
                                                       #y dentro habra una lista de reservas.
-    'premium_4': [{'capacidad': 4, 
+    'premium_4': [{'capacidad': 4,
+                   'costo': 35000, 
                    'reservas': []} for _ in range(3)],#Creamos 3 habitaciones premium, que tienen una capacidad de 4 personas
                                                       #y dentro habra una lista de reservas.
 }
 
-def menu(): #Funcion del menu princial.
+def pagoTotal():
+    while ingreso
+    sumaDias = ingreso, dias, mes + salida, dias, mes
+    if mes ingreso == mes salida:
+        mes dias == 0
+        #tendria que quedar algo asi mes ingreso = 2 y mes salida =2 
+        #mes 0 + 2
+        # ejemplo final ingreso dias 15 salida dias 30= 
+         
+
+def menu():  #Funcion del menu princial.
 
     bandera = True #Con esta bandera cuando lo pongamos en Falso terminaremos el Programa principal.
 
@@ -147,8 +161,8 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
     return huesped
 
                                 
-def convertir_fecha(dia, mes): #Convertimos la fecha con esta funcion con la libreria DateTime.
-    return datetime(2024, mes, dia)
+def convertir_fecha(dia, mes): #Convertimos la fecha con esta funcion con la libreria DateTime. La utilizamos para la funcion ingreso
+    return datetime(2024, mes, dia) 
 
 def funcionNumerocliente():
     numeroCliente = random.randint(1000, 9999) #Se le asignara una id al cliente para que sea mas facil identificarlo.
@@ -228,16 +242,16 @@ def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes)
             print("Selección inválida.")
             return None
 
-# habitaciones = { #Vamos a tener 12 habitaciones ()   
-#     'normal_2': [{'capacidad': 2, 
-#                   'reservas': []} for _ in range(3)],
-#     'normal_4': [{'capacidad': 4, 
-#                   'reservas': []} for _ in range(3)], 
-#     'premium_2': [{'capacidad': 2, 
-#                    'reservas': []} for _ in range(3)],
-#     'premium_4': [{'capacidad': 4, 
-#                    'reservas': []} for _ in range(3)],
-# }
+    # habitaciones = { #Vamos a tener 12 habitaciones ()   
+    #     'normal_2': [{'capacidad': 2, 
+    #                   'reservas': []} for _ in range(3)],
+    #     'normal_4': [{'capacidad': 4, 
+    #                   'reservas': []} for _ in range(3)], 
+    #     'premium_2': [{'capacidad': 2, 
+    #                    'reservas': []} for _ in range(3)],
+    #     'premium_4': [{'capacidad': 4, 
+    #                    'reservas': []} for _ in range(3)],
+    # }
 
     # Intentar asignar la habitación.
     for tipo in tipos: #Tipo( i ) en tipos.
@@ -299,7 +313,7 @@ def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
     
     print("======================================================")
 
-
+    
 # def funcionTotalpagar():
 #     pass
 
