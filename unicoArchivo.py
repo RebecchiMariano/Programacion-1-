@@ -22,14 +22,52 @@ habitaciones = { #Vamos a tener 12 habitaciones ()
                                                       #y dentro habra una lista de reservas.
 }
 
-def pagoTotal():
-    while ingreso
-    sumaDias = ingreso, dias, mes + salida, dias, mes
-    if mes ingreso == mes salida:
-        mes dias == 0
-        #tendria que quedar algo asi mes ingreso = 2 y mes salida =2 
-        #mes 0 + 2
-        # ejemplo final ingreso dias 15 salida dias 30= 
+def buscarMenu():
+    bandera = True
+
+    
+
+    while bandera:
+
+        print("============================================== ")
+        print("┇                🏨 BUSCAR 🏨               ┇ ")
+        print("============================================== ")
+        print("┇                                            ┇ ")
+        print("┇         1. Buscar x Numero de Reserva      ┇ ")
+        print("┇         2. Buscar x Nombre y Apellido      ┇ ")
+        print("┇         3. Buscar x Habitacion             ┇ ")
+        print("┇         4. Buscar x Fecha de Reserva       ┇ ")
+        print("┇         5. Buscar x Fecha de Estancia      ┇ ")
+        print("┇         6. Buscar x Rango de Fechas        ┇ ")
+        print("┇         7. Buscar x Estado de Reserva      ┇ ")
+        print("┇         8. Buscar x Tipo de Habitación     ┇ ")
+        print("┇         9. Buscar x Número de Huéspedes    ┇ ")
+        print("┇         10. Buscar x Método de Pago        ┇ ")
+        print("┇                                            ┇ ")
+        print("┇                 0. SALIR                   ┇ ")
+        print("┇                                            ┇ ")
+        print("============================================== ")
+
+        opcion = int(input("Seleccione una opción del menú ➡  "))
+
+        if opcion >= 10 or opcion <= 0:
+            print("✕ El numero que ingresaste no esta en el rango de opciones. ✕")
+            
+        
+            
+    
+
+    
+
+
+# def pagoTotal():
+#     while ingreso
+#     sumaDias = ingreso, dias, mes + salida, dias, mes
+#     if mes ingreso == mes salida:
+#         mes dias == 0
+#         #tendria que quedar algo asi mes ingreso = 2 y mes salida =2 
+#         #mes 0 + 2
+#         # ejemplo final ingreso dias 15 salida dias 30= 
          
 
 def menu():  #Funcion del menu princial.
@@ -38,19 +76,18 @@ def menu():  #Funcion del menu princial.
 
     while bandera:
 
-        print("====================================================== ")
-        print("┇            🏨 BIENVENIDOS AL SISTEMA 🏨           ┇")
-        print("====================================================== ")
-        print("┇                                                    ┇")
-        print("┇         1. Registrar Ingreso                       ┇")
-        print("┇         2. Ver Habitaciones                        ┇")
-        print("┇         3. Buscar                                  ┇")
-        print("┇         4. Checkout                                ┇")
-        print("┇                                                    ┇")
-        print("┇                                                    ┇")
-        print("┇                    0. SALIR                        ┇")
-        print("┇                                                    ┇")
-        print("====================================================== ")
+        print("============================================ ")
+        print("┇       🏨 BIENVENIDOS AL SISTEMA 🏨      ┇ ")
+        print("============================================ ")
+        print("┇                                          ┇ ")
+        print("┇         1. Registrar Ingreso             ┇ ")
+        print("┇         2. Ver Habitaciones              ┇ ")
+        print("┇         3. Buscar                        ┇ ")
+        print("┇         4. Checkout                      ┇ ")
+        print("┇                                          ┇ ")
+        print("┇                 0. SALIR                 ┇ ")
+        print("┇                                          ┇ ")
+        print("============================================ ")
 
         bandera2 = True #Con esta bandera cuando lo pongamos en Falso volveremos al menu ingresando 0.
 
@@ -69,7 +106,7 @@ def menu():  #Funcion del menu princial.
                 if volver == 0:
                     bandera2 = False 
         elif respuesta == 3:
-            #Funcion Buscar.
+            buscarMenu()
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:
@@ -191,7 +228,7 @@ def ingresar_acompanantes(): #Si se ingresa acompaniantes.
 
         num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
 
-        if 1 <= num_acompanantes and num_acompanantes <= max_acompanantes: #Si ingresamos el numero (1 - 3).
+        if 1 <= num_acompanantes or num_acompanantes <= max_acompanantes: #Si ingresamos el numero (1 - 3).
             for i in range(num_acompanantes): 
                 print(f" Ingresando datos del acompañante 【 {i + 1} 】") 
                 nombre = (input(" • Nombre ➞  "))
