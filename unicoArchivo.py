@@ -39,14 +39,14 @@ def menu():  #Funcion del menu princial.
     while bandera:
 
         print("====================================================== ")
-        print("┇            🏨 BIENVENIDOS AL SISTEMA 🏨            ┇")
+        print("┇            🏨 BIENVENIDOS AL SISTEMA 🏨           ┇")
         print("====================================================== ")
         print("┇                                                    ┇")
         print("┇         1. Registrar Ingreso                       ┇")
-        print("┇         2. Habitaciones Disponibles                ┇")
-        print("┇         3. Check Out                               ┇")
-        print("┇         4. Buscar reserva x Nombre y Apellido      ┇")
-        print("┇         5. Buscar reserva x Numero de Reserva      ┇")
+        print("┇         2. Ver Habitaciones                        ┇")
+        print("┇         3. Buscar                                  ┇")
+        print("┇         4. Checkout                                ┇")
+        print("┇                                                    ┇")
         print("┇                                                    ┇")
         print("┇                    0. SALIR                        ┇")
         print("┇                                                    ┇")
@@ -69,23 +69,17 @@ def menu():  #Funcion del menu princial.
                 if volver == 0:
                     bandera2 = False 
         elif respuesta == 3:
-            #Funcion Check Out.
+            #Funcion Buscar.
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:
                     bandera2 = False 
         elif respuesta == 4:
-            #Funcion Buscar Reserva x N y A.
+            #Checkout.
             while bandera2:
                 volver = int(input("Para volver al menu ingrese ( 0 ) : "))
                 if volver == 0:
-                    bandera2 = False 
-        elif respuesta == 5:
-            #Funcion Buscar Reserva x Nro de Reserva.
-            while bandera2:
-                volver = int(input("Para volver al menu ingrese ( 0 ) : "))
-                if volver == 0:  
-                    bandera2 = False      
+                    bandera2 = False     
         elif respuesta == 0: #Si se ingresa 0 salimos del programa.
             bandera = False  
         else:
@@ -197,7 +191,7 @@ def ingresar_acompanantes(): #Si se ingresa acompaniantes.
 
         num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
 
-        if 1 <= num_acompanantes <= max_acompanantes: #Si ingresamos el numero (1 - 3).
+        if 1 <= num_acompanantes and num_acompanantes <= max_acompanantes: #Si ingresamos el numero (1 - 3).
             for i in range(num_acompanantes): 
                 print(f" Ingresando datos del acompañante 【 {i + 1} 】") 
                 nombre = (input(" • Nombre ➞  "))
