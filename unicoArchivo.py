@@ -1,6 +1,8 @@
 #IMPORTADA BIBLIOTECA DATETIME, con el fin de trabajar con fechas y horas.
 from datetime import datetime
 import random
+import os
+
 
 habitaciones = { #Vamos a tener 12 habitaciones ()
     
@@ -91,38 +93,64 @@ def menu():  #Funcion del menu princial.
 
         bandera2 = True #Con esta bandera cuando lo pongamos en Falso volveremos al menu ingresando 0.
 
-        respuesta = int(input("Seleccione una opción del menú ➡  "))
+        try:
+            respuesta = int(input("Seleccione una opción del menú ➡  "))
+        except ValueError:
+            print(" ---------------------------------------  ")
+            print(" Error - No se ingreso un numero valido.  ")
+            print(" ---------------------------------------  ")
+        finally:
 
-        if respuesta == 1: #Registrar el Ingreso.
-            funcionIngreso()
-            while bandera2:
-                volver = int(input("Para volver al menu ingrese ( 0 ) : "))
-                if volver == 0:
-                    bandera2 = False 
-        elif respuesta == 2:  #Ver habitacion.
-            verHabitaciones(habitaciones)
-            while bandera2:
-                volver = int(input("Para volver al menu ingrese ( 0 ) : "))
-                if volver == 0:
-                    bandera2 = False 
-        elif respuesta == 3:
-            buscarMenu()
-            while bandera2:
-                volver = int(input("Para volver al menu ingrese ( 0 ) : "))
-                if volver == 0:
-                    bandera2 = False 
-        elif respuesta == 4:
-            #Checkout.
-            while bandera2:
-                volver = int(input("Para volver al menu ingrese ( 0 ) : "))
-                if volver == 0:
-                    bandera2 = False     
-        elif respuesta == 0: #Si se ingresa 0 salimos del programa.
-            bandera = False  
-        else:
+            if respuesta == 1: #Registrar el Ingreso.
+                funcionIngreso()
+                while bandera2:
+                    try:
+                        volver = int(input("Para volver al menu ingrese ( 0 ) : "))
+                    except ValueError:
+                        print("Error - No se ingreso un numero valido.")
+                    finally:
+                        if volver == 0:
+                            bandera2 = False 
+            elif respuesta == 2:  #Ver habitacion.
+                verHabitaciones(habitaciones)
+                while bandera2:
+                    try:
+                        volver = int(input("Para volver al menu ingrese ( 0 ) : "))
+                    except ValueError:
+                        print("Error - No se ingreso un numero valido.")
+                    finally:
+                        if volver == 0:
+                            bandera2 = False  
+            elif respuesta == 3:
+                buscarMenu()
+                while bandera2:
+                    try:
+                        volver = int(input("Para volver al menu ingrese ( 0 ) : "))
+                    except ValueError:
+                        print("Error - No se ingreso un numero valido.")
+                    finally:
+                        if volver == 0:
+                            bandera2 = False  
+            elif respuesta == 4:
+                #Checkout.
+                while bandera2:
+                    try:
+                        volver = int(input("Para volver al menu ingrese ( 0 ) : "))
+                    except ValueError:
+                        print("Error - No se ingreso un numero valido.")
+                    finally:
+                        if volver == 0:
+                            bandera2 = False     
+            elif respuesta == 0: #Si se ingresa 0 salimos del programa.
+                bandera = False  
+            else:
+                
+                print("✕ Por favor, Ingrese un numero del (0 - 5) ✕")
 
-            print("✕ El numero que ingresaste no esta en el rango de opciones. ✕")
-            print("✕✕ Por favor, Ingrese un numero del (0 - 5) ✕✕")
+                input("Presione Enter para continuar...")
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+        
 
 def funcionIngreso(): # 1) Registrar el Ingreso.
 
