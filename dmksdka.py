@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 def verificar_nombre():
     
     while True:
@@ -71,7 +72,51 @@ def verificar_numero():
             print("    Error - No se ingreso un numero 📞.    ")
             print(" ----------------------------------------- ")
 
+def convertir_fecha(dia, mes,anio): #Convertimos la fecha con esta funcion con la libreria DateTime. La utilizamos para la funcion ingreso
+    return datetime(anio , mes, dia) 
 
+def verificar_fecha_ingreso():
+    while True:
+
+        try:
+            
+            ingreso = input(" • Fecha de Ingreso separados por un espacio (DD-MM-YYYY) ➞  ")
+            dia, mes, anio = map(int, ingreso.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
+            fecha_ingreso = convertir_fecha(dia, mes, anio)
+            fecha_actual = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) #Esto nos dira la fechecha de ahora.
+            
+            
+            if fecha_actual <= fecha_ingreso:
+                return fecha_ingreso
+            else:
+                print("x La fecha ingresada es menor a la fecha actual. x")
+
+        except ValueError:
+            print(" ----------------------------------------- ")
+            print("  Error - No se ingreso una fecha valida.  ")
+            print(" ----------------------------------------- ")
+
+
+
+def verificar_fecha_salida(fecha_ingreso):
+    while True:
+        
+
+        try:
+            
+            salida = input(" • Fecha de Salida separados por un espacio (DD-MM-YYYY) ➞  ")                    
+            diaSalida, mesSalida, anioSalida = map(int, salida.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
+            fecha_salida = convertir_fecha(diaSalida, mesSalida, anioSalida)#Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
+            
+            if fecha_ingreso <= fecha_salida:
+                return fecha_salida
+            else:
+                print("x La fecha ingresada es menor a la fecha de ingreso. x")
+
+        except ValueError:
+            print(" ----------------------------------------- ")
+            print("  Error - No se ingreso una fecha valida.  ")
+            print(" ----------------------------------------- ")
 
     
 nombre = verificar_nombre()
@@ -80,4 +125,8 @@ pais = verificar_pais()
 dni_pasaporte = verificar_dni_pasaporte()
 correo = verificar_correo()
 numero = verificar_numero()
+fecha_ingreso = verificar_fecha_ingreso()
+fecha_salida = verificar_fecha_salida(fecha_ingreso)
+
+
 

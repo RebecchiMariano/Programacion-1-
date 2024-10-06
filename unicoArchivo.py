@@ -28,7 +28,6 @@ def buscarMenu():
     bandera = True
 
     
-
     while bandera:
 
         print("============================================== ")
@@ -56,12 +55,6 @@ def buscarMenu():
             print("✕ El numero que ingresaste no esta en el rango de opciones. ✕")
             
         
-            
-    
-
-    
-
-
 # def pagoTotal():
 #     while ingreso
 #     sumaDias = ingreso, dias, mes + salida, dias, mes
@@ -118,8 +111,7 @@ def menu():  # Función del menú principal.
                 print("✕ Por favor, ingrese un número válido del (0 - 4). ✕")
                 input("Presione Enter para continuar...")
                 os.system('cls' if os.name == 'nt' else 'clear')
-
-        
+       
 
 def funcionIngreso(): # 1) Registrar el Ingreso.
 
@@ -127,26 +119,15 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
     print("======= INGRESE LOS DATOS DEL TITULAR DE LA RESERVA =======")
     print("=========================================================== ")
         
-    nombre = input(" • Nombre ➞  ")
-    apellido = input(" • Apellido ➞  ")
-    dni = input(" • DNI ➞  ")
-    mail = input(" • Mail 📧 ➞  ")
-    numero = input(" • Telefono 📞 ➞  ")
-    ingreso = input(" • Ingreso separados por un espacio (DD-MM) ➞  ")
-    dia, mes, anio = map(int, ingreso.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
-    fecha_ingreso = convertir_fecha(dia, mes, anio) #Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
-    bandera2 = True #Se inicializa siempre.
-    while bandera2 :
-        #hola2
-
-        salida = input(" • Salida separados por un espacio (DD-MM-YYYY) ➞  ")                    
-        diaSalida, mesSalida, anioSalida = map(int, salida.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
-        fecha_salida = convertir_fecha(diaSalida, mesSalida, anioSalida)#Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
-
-        if fecha_salida <= fecha_ingreso: #Nunca la fecha de ingreso puede ser menor o igual a la fecha de salida. 
-            print("✕ La fecha de salida no puede ser menor o igual a la fecha de ingreso. Inténtelo de nuevo. ✕")
-        else:
-            bandera2 = False
+    nombre = verificar_nombre()
+    apellido = verificar_apellido()
+    pais = verificar_pais()
+    dni_pasaporte = verificar_dni_pasaporte()
+    correo = verificar_correo()
+    numero = verificar_numero()
+    fecha_ingreso = verificar_fecha_ingreso()
+    fecha_salida = verificar_fecha_salida(fecha_ingreso)
+    edad = "Mayor"
 
     print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
     print("=== Estas seguro que quieres guardar los datos del titular? ===")
@@ -161,25 +142,26 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
                            
     numeroCliente = funcionNumerocliente() #Asignacion de numero de cliente.
 
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     print("Se ingreso correctamente el Titular ✔ ")
 
     huesped = { #Se guardan todos los input en un diccionario.
         'Nombre': nombre,
         'Apellido': apellido,
-        'DNI': dni,
-        'Mail': mail,
+        'Documento': dni_pasaporte,
+        'Pais': pais,
+        'Correo': correo,
         'Número de teléfono': numero,
-        'Dia de ingreso': dia,
-        'Mes de ingreso': mes,
-        'Anio de ingreso': anio,
-        'Dia de Salida': diaSalida,
-        'Mes de Salida': mesSalida,
-        'Anio de Salida' : anioSalida,
+        'Fecha de Ingreso': fecha_ingreso,
+        'Fecha de Salida': fecha_salida,
+        'Edad': edad,
         'Numero de cliente' :numeroCliente,
         'Acompanantes' : [] #Se le va a ingresar una lista de los acompanantes del ingresado.
     }
                                     
     huespedes = acompaniantes(huesped) #Llamamos a la funcion acompaniantes con la biblioteca del ingresado.
+    os.system('cls' if os.name == 'nt' else 'clear')
 
     tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes) #Se le asignara una habitacion.
 
@@ -190,6 +172,114 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
 
     return huesped
 
+def verificar_nombre():
+    
+    while True:
+        nombre = input(" • Nombre ➞  ").capitalize()
+        if nombre.isalpha(): #Retorna tru si todos los caracteres utilizados son letras
+            return nombre
+        else:
+            print(" ---------------------------------------  ")
+            print("        Error - ingresó un número       . ")
+            print(" ---------------------------------------  ")
+
+def verificar_apellido():
+    
+    while True:
+        apellido = input(" • Apellido ➞  ").capitalize()
+        if apellido.isalpha(): #Retorna true si todos los caracteres utilizados son letras
+            return apellido
+        else:
+            print(" ---------------------------------------  ")
+            print("        Error - ingresó un número       . ")
+            print(" ---------------------------------------  ")
+
+def verificar_pais():
+
+    while True:
+        pais = input(" • Pais 🌍 ➞  ").capitalize() #La primera letra la pone en mayuscula.
+        if pais.isalpha(): #Retorna tru si todos los caracteres utilizados son letras
+            return pais
+        else:
+            print(" ---------------------------------------  ")
+            print("        Error - ingresó un número       . ")
+            print(" ---------------------------------------  ")
+
+def verificar_dni_pasaporte():
+    while True:
+        dni_pasaporte = input(" • DNI o Pasaporte ➞  ")
+        if dni_pasaporte.isdigit() and len(dni_pasaporte) == 8:#Retorna true si todos los caracteres utilizados son numero y tiene un largo de 8 numeros
+          print("Se ingreso un DNI ✔")
+          return dni_pasaporte
+        elif len(dni_pasaporte) == 9:
+            print("Se ingreso un Pasaporte ✔")
+            dni_pasaporte = dni_pasaporte.upper() #Convierte todo las letras en mayuscular
+            return dni_pasaporte
+        else:
+            print(" ----------------------------------------- ")
+            print(" Error - No es ni un Pasaporte, ni un DNI. ")
+            print(" ----------------------------------------- ")
+
+def verificar_correo():
+    while True:
+        correo = input(" • Correo 📧 ➞  ")
+        if correo.count("@") == 1 and correo.count(".") == 1:
+            return correo
+        else:
+            print(" ----------------------------------------- ")
+            print("     Error - No se ingreso un correo.      ")
+            print(" ----------------------------------------- ")
+
+def verificar_numero():
+    while True:
+        numero = input(" • Telefono 📞 ➞  ")
+        if numero.isdigit(): #Retorna true si todos los caracteres utilizados son numero
+            return numero
+        else:
+            print(" ----------------------------------------- ")
+            print("    Error - No se ingreso un numero 📞.    ")
+            print(" ----------------------------------------- ")
+
+def verificar_fecha_ingreso():
+    while True:
+
+        try:
+            
+            ingreso = input(" • Fecha de Ingreso separados por un espacio (DD-MM-YYYY) ➞  ")
+            dia, mes, anio = map(int, ingreso.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
+            fecha_ingreso = convertir_fecha(dia, mes, anio)
+            fecha_actual = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) #Esto nos dira la fechecha de ahora.
+            
+            
+            if fecha_actual <= fecha_ingreso:
+                return fecha_ingreso
+            else:
+                print("x La fecha ingresada es menor a la fecha actual. x")
+
+        except ValueError:
+            print(" ----------------------------------------- ")
+            print("  Error - No se ingreso una fecha valida.  ")
+            print(" ----------------------------------------- ")
+
+def verificar_fecha_salida(fecha_ingreso):
+    while True:
+        
+
+        try:
+            
+            salida = input(" • Fecha de Salida separados por un espacio (DD-MM-YYYY) ➞  ")                    
+            diaSalida, mesSalida, anioSalida = map(int, salida.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
+            fecha_salida = convertir_fecha(diaSalida, mesSalida, anioSalida)#Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
+            
+            if fecha_ingreso <= fecha_salida:
+                return fecha_salida
+            else:
+                print("x La fecha ingresada es menor a la fecha de ingreso. x")
+
+        except ValueError:
+            print(" ----------------------------------------- ")
+            print("  Error - No se ingreso una fecha valida.  ")
+            print(" ----------------------------------------- ")
                                 
 def convertir_fecha(dia, mes,anio): #Convertimos la fecha con esta funcion con la libreria DateTime. La utilizamos para la funcion ingreso
     return datetime(anio , mes, dia) 
@@ -230,21 +320,20 @@ def ingresar_acompanantes(): #Si se ingresa acompaniantes.
         if 1 <= num_acompanantes or num_acompanantes <= max_acompanantes: #Si ingresamos el numero (1 - 3).
             for i in range(num_acompanantes): 
                 print(f" Ingresando datos del acompañante 【 {i + 1} 】") 
-                nombre = (input(" • Nombre ➞  "))
-                apellido = (input(" • Apellido ➞  "))
-                dni = input(" • DNI ➞  ")
-
+                nombre = verificar_nombre()
+                apellido = verificar_apellido()
+                dni_pasaporte = verificar_dni_pasaporte()
                 acompanante = { #Diccionario del acompaniante.
                     'nombre': nombre,
                     'apellido': apellido,
-                    'documento': dni,
+                    'documento': dni_pasaporte,
                 }
 
                 acompanantes.append(acompanante) #Se va agregando a la lista.
 
             bandera = False #Sale de la bandera.
         else:
-            print(" ╳  Por favor, ingrese un número válido de acompañantes (1 a 3) ╳ ") 
+            print("x Por favor, ingrese un número válido de acompañantes (1 a 3) x") 
 
     return acompanantes #Retorna la lista.
 
