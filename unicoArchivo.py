@@ -70,14 +70,12 @@ def buscarMenu():
 #         #tendria que quedar algo asi mes ingreso = 2 y mes salida =2 
 #         #mes 0 + 2
 #         # ejemplo final ingreso dias 15 salida dias 30= 
-         
 
-def menu():  #Funcion del menu princial.
-
-    bandera = True #Con esta bandera cuando lo pongamos en Falso terminaremos el Programa principal.
+def menu():  # Función del menú principal.
+    bandera = True  # Con esta bandera controlamos el ciclo principal del menú.
 
     while bandera:
-
+        # Mostrar el menú
         print("============================================ ")
         print("┇       🏨 BIENVENIDOS AL SISTEMA 🏨      ┇ ")
         print("============================================ ")
@@ -91,65 +89,36 @@ def menu():  #Funcion del menu princial.
         print("┇                                          ┇ ")
         print("============================================ ")
 
-        bandera2 = True #Con esta bandera cuando lo pongamos en Falso volveremos al menu ingresando 0.
+        # Inicializamos la variable de respuesta en None
+        respuesta = None
 
+        # Validamos la entrada del usuario
         try:
             respuesta = int(input("Seleccione una opción del menú ➡  "))
         except ValueError:
             print(" ---------------------------------------  ")
-            print(" Error - No se ingreso un numero valido.  ")
+            print(" Error - No se ingresó un número válido. ")
             print(" ---------------------------------------  ")
-        finally:
-
-            if respuesta == 1: #Registrar el Ingreso.
-                funcionIngreso()
-                while bandera2:
-                    try:
-                        volver = int(input("Para volver al menu ingrese ( 0 ) : "))
-                    except ValueError:
-                        print("Error - No se ingreso un numero valido.")
-                    finally:
-                        if volver == 0:
-                            bandera2 = False 
-            elif respuesta == 2:  #Ver habitacion.
-                verHabitaciones(habitaciones)
-                while bandera2:
-                    try:
-                        volver = int(input("Para volver al menu ingrese ( 0 ) : "))
-                    except ValueError:
-                        print("Error - No se ingreso un numero valido.")
-                    finally:
-                        if volver == 0:
-                            bandera2 = False  
-            elif respuesta == 3:
-                buscarMenu()
-                while bandera2:
-                    try:
-                        volver = int(input("Para volver al menu ingrese ( 0 ) : "))
-                    except ValueError:
-                        print("Error - No se ingreso un numero valido.")
-                    finally:
-                        if volver == 0:
-                            bandera2 = False  
-            elif respuesta == 4:
-                #Checkout.
-                while bandera2:
-                    try:
-                        volver = int(input("Para volver al menu ingrese ( 0 ) : "))
-                    except ValueError:
-                        print("Error - No se ingreso un numero valido.")
-                    finally:
-                        if volver == 0:
-                            bandera2 = False     
-            elif respuesta == 0: #Si se ingresa 0 salimos del programa.
-                bandera = False  
-            else:
-                
-                print("✕ Por favor, Ingrese un numero del (0 - 5) ✕")
-
-                input("Presione Enter para continuar...")
-
+            input("Presione Enter para continuar...")
             os.system('cls' if os.name == 'nt' else 'clear')
+
+        if respuesta == 1:  # Registrar el Ingreso.
+            funcionIngreso()
+        elif respuesta == 2:  # Ver habitaciones.
+            verHabitaciones(habitaciones)
+        elif respuesta == 3:  # Buscar.
+            buscarMenu()
+        elif respuesta == 4:  # Checkout.
+            realizarCheckout()
+        elif respuesta == 0:  # Salir del programa.
+            bandera = False
+            print("Saliendo del sistema. ¡Hasta luego!")
+        else:
+            if respuesta is not None:  # Solo mostrar si la respuesta no fue None
+                print("✕ Por favor, ingrese un número válido del (0 - 4). ✕")
+                input("Presione Enter para continuar...")
+                os.system('cls' if os.name == 'nt' else 'clear')
+
         
 
 def funcionIngreso(): # 1) Registrar el Ingreso.
@@ -164,15 +133,15 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
     mail = input(" • Mail 📧 ➞  ")
     numero = input(" • Telefono 📞 ➞  ")
     ingreso = input(" • Ingreso separados por un espacio (DD-MM) ➞  ")
-    dia, mes = map(int, ingreso.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
-    fecha_ingreso = convertir_fecha(dia, mes) #Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
+    dia, mes, anio = map(int, ingreso.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
+    fecha_ingreso = convertir_fecha(dia, mes, anio) #Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
     bandera2 = True #Se inicializa siempre.
     while bandera2 :
-        #hola
+        #hola2
 
-        salida = input(" • Salida separados por un espacio (DD-MM) ➞  ")                    
-        diaSalida, mesSalida = map(int, salida.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
-        fecha_salida = convertir_fecha(diaSalida, mesSalida)#Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
+        salida = input(" • Salida separados por un espacio (DD-MM-YYYY) ➞  ")                    
+        diaSalida, mesSalida, anioSalida = map(int, salida.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
+        fecha_salida = convertir_fecha(diaSalida, mesSalida, anioSalida)#Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
 
         if fecha_salida <= fecha_ingreso: #Nunca la fecha de ingreso puede ser menor o igual a la fecha de salida. 
             print("✕ La fecha de salida no puede ser menor o igual a la fecha de ingreso. Inténtelo de nuevo. ✕")
@@ -202,8 +171,10 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
         'Número de teléfono': numero,
         'Dia de ingreso': dia,
         'Mes de ingreso': mes,
+        'Anio de ingreso': anio,
         'Dia de Salida': diaSalida,
         'Mes de Salida': mesSalida,
+        'Anio de Salida' : anioSalida,
         'Numero de cliente' :numeroCliente,
         'Acompanantes' : [] #Se le va a ingresar una lista de los acompanantes del ingresado.
     }
@@ -220,8 +191,8 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
     return huesped
 
                                 
-def convertir_fecha(dia, mes): #Convertimos la fecha con esta funcion con la libreria DateTime. La utilizamos para la funcion ingreso
-    return datetime(2024, mes, dia) 
+def convertir_fecha(dia, mes,anio): #Convertimos la fecha con esta funcion con la libreria DateTime. La utilizamos para la funcion ingreso
+    return datetime(anio , mes, dia) 
 
 def funcionNumerocliente():
     numeroCliente = random.randint(1000, 9999) #Se le asignara una id al cliente para que sea mas facil identificarlo.
@@ -325,7 +296,7 @@ def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes)
                 print(f"Habitación asignada: {tipo}")
                 return tipo 
 
-    print("No hay habitaciones disponibles en este rango de fechas.") #Else. Si no encuentra una reserva en la lista de reserva devuelve.
+    print("No hay habitaciones disponibles en este rango de fechas. :( ") #Else. Si no encuentra una reserva en la lista de reserva devuelve.
     return None
 
 def esta_disponible(fecha_ingreso, fecha_salida, reservas): #Si esta disponible.
