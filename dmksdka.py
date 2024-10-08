@@ -25,7 +25,7 @@ def verificar_apellido():
             print(" ---------------------------------------  ")
 
 
-def verificar_pais():
+def verificar_nacionalidad():
 
     while True:
         pais = input("Por favor, ingrese un país: ").capitalize() #La primera letra la pone en mayuscula.
@@ -37,9 +37,9 @@ def verificar_pais():
             print(" ---------------------------------------  ")
 
 
-def verificar_dni_pasaporte():
+def verificar_dni():
     while True:
-        dni_pasaporte = input(" • DNI o Pasaporte ➞  ")
+        dni_pasaporte = input(" • DNI ➞  ")
         if dni_pasaporte.isdigit() and len(dni_pasaporte) == 8:#Retorna true si todos los caracteres utilizados son numero y tiene un largo de 8 numeros
           print("Se ingreso un DNI ✔")
           return dni_pasaporte
@@ -54,7 +54,7 @@ def verificar_dni_pasaporte():
 
 def verificar_correo():
     while True:
-        correo = input(" • DNI o Pasaporte ➞  ")
+        correo = input(" • Correo ➞  ")
         if correo.count("@") == 1 and correo.count(".") == 1:
             return correo
         else:
@@ -118,15 +118,38 @@ def verificar_fecha_salida(fecha_ingreso):
             print("  Error - No se ingreso una fecha valida.  ")
             print(" ----------------------------------------- ")
 
+def archivos(nombre,apellido,nacionalidad,dni,correo,numero,fecha_ingreso,fecha_salida):
+    try:
+        archivo = open("reservas.csv","wt")
+
+        huesped = str(nombre)+";"+str(apellido)+";"+str(nacionalidad)+";"+str(dni)+";"+str(correo)+";"+str(numero)+";"+str(fecha_ingreso)+";"+str(fecha_ingreso)+"\n"
+
+        archivo.write(huesped)
+        
+        print("Archivo generado correctamente!") 
+    except IOError:
+        print("No se puede abrir el archivo")
+    finally:
+        try:
+            archivo.close()
+        except NameError:
+            print("No encontro el archivo ")
     
 nombre = verificar_nombre()
 apellido = verificar_apellido()
-pais = verificar_pais()
-dni_pasaporte = verificar_dni_pasaporte()
+nacionalidad = verificar_nacionalidad()
+dni = verificar_dni()
 correo = verificar_correo()
 numero = verificar_numero()
 fecha_ingreso = verificar_fecha_ingreso()
 fecha_salida = verificar_fecha_salida(fecha_ingreso)
+archivo = archivos(nombre,apellido,nacionalidad,dni,correo,numero,fecha_ingreso,fecha_salida)
+
+
+
+
+
+
 
 
 
