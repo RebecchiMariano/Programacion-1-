@@ -3,26 +3,118 @@ from datetime import datetime
 import random
 import os
 
+#Habitaciones
+#Tipo de habitacion:
+#habitaciones normales de 2 persons == 1
 
-habitaciones = { #Vamos a tener 12 habitaciones ()
+#habitaciones normales de 4 persons == 2
+
+#habitaciones premium de 2 persons == 3
+
+#habitaciones premium de 4 persons == 4
+
+#Estado de Habitaciones:
+#0 libre 1 ocupado
+
+habitacionesArray=[
+    #habitaciones normales de 2 personas
+    {'tipoHabitacion': 1,
+    'valor': 50000,
+    'cantidadPersonas': 2
+    'estado': 0
+    'numeroHabitacion': "Roble 1"
+    },
     
-    'normal_2': [{'capacidad': 2,
-                  'costo': 10000, 
-                  'reservas': []} for _ in range(3)], #Creamos 3 habitaciones normales, que tienen una capacidad de 2 personas
-                                                      #y dentro habra una lista de reservas.
-    'normal_4': [{'capacidad': 4,
-                  'costo': 20000, 
-                  'reservas': []} for _ in range(3)], #Creamos 3 habitaciones normales, que tienen una capacidad de 4 personas
-                                                      #y dentro habra una lista de reservas.
-    'premium_2': [{'capacidad': 2,
-                   'costo': 25000, 
-                   'reservas': []} for _ in range(3)],#Creamos 3 habitaciones premium, que tienen una capacidad de 2 personas
-                                                      #y dentro habra una lista de reservas.
-    'premium_4': [{'capacidad': 4,
-                   'costo': 35000, 
-                   'reservas': []} for _ in range(3)],#Creamos 3 habitaciones premium, que tienen una capacidad de 4 personas
-                                                      #y dentro habra una lista de reservas.
-}
+    {'tipoHabitacion': 1,
+    'valor': 50000,
+    'cantidadPersonas': 2
+    'estado': 0
+    'numeroHabitacion': "Roble 2"},
+    
+    {'tipoHabitacion': 1,
+    'valor': 50000,
+    'cantidadPersonas': 2
+    'estado': 0
+    'numeroHabitacion': "Roble 3"},
+    
+    #habitaciones normales 4 personas
+    
+    {'tipoHabitacion': 2,
+    'valor': 80000,
+    'cantidadPersonas': 4
+    'estado': 0
+    'numeroHabitacion': "Sauce 1"},
+    
+    {'tipoHabitacion': 2,
+    'valor': 80000,
+    'cantidadPersonas': 4
+    'estado': 0
+    'numeroHabitacion': "Sauce 2"},
+    
+    {'tipoHabitacion': 2,
+    'valor': 80000,
+    'cantidadPersonas': 4
+    'estado': 0
+    'numeroHabitacion': "Sauce 3"},
+    
+    #habitaciones premium de 2 personas
+    {'tipoHabitacion': 3,
+    'valor': 80000,
+    'cantidadPersonas': 2
+    'estado': 0
+    'numeroHabitacion': "Naranjo 1"},
+    
+    {'tipoHabitacion': 3,
+    'valor': 80000,
+    'cantidadPersonas': 2
+    'estado': 0
+    'numeroHabitacion': "Naranjo 2"},
+    
+    {'tipoHabitacion': 3,
+    'valor': 80000,
+    'cantidadPersonas': 2
+    'estado': 0
+    'numeroHabitacion': "Naranjo 3"},
+    
+    #habitaciones premium de 4 personas
+    {'tipoHabitacion': 4,
+    'valor': 120000,
+    'cantidadPersonas': 2
+    'estado': 0
+    'numeroHabitacion': "Palmera 1"},
+    
+    {'tipoHabitacion': 4,
+    'valor': 120000,
+    'cantidadPersonas': 2
+    'estado': 0
+    'numeroHabitacion': "Palmera 2 "},
+    
+    {'tipoHabitacion': 4,
+    'valor': 120000,
+    'cantidadPersonas': 2
+    'estado': 0
+    'numeroHabitacion': "Palmera 3"},
+]
+
+
+# def habitacion(): 
+#     'normal_2': [{'capacidad': 2,
+#                   'costo': 10000, 
+#                   'reservas': []} for _ in range(3)], #Creamos 3 habitaciones normales, que tienen una capacidad de 2 personas
+#                                                       y dentro habra una lista de reservas.
+#     'normal_4': [{'capacidad': 4,
+#                   'costo': 20000, 
+#                   'reservas': []} for _ in range(3)], #Creamos 3 habitaciones normales, que tienen una capacidad de 4 personas
+#                                                       y dentro habra una lista de reservas.
+#     'premium_2': [{'capacidad': 2,
+#                    'costo': 25000, 
+#                    'reservas': []} for _ in range(3)],#Creamos 3 habitaciones premium, que tienen una capacidad de 2 personas
+#                                                       y dentro habra una lista de reservas.
+#     'premium_4': [{'capacidad': 4,
+#                    'costo': 35000, 
+#                    'reservas': []} for _ in range(3)],#Creamos 3 habitaciones premium, que tienen una capacidad de 4 personas
+#                                                       y dentro habra una lista de reservas.
+
 
 def buscarMenu():
     bandera = True
@@ -338,28 +430,43 @@ def ingresar_acompanantes(): #Si se ingresa acompaniantes.
     return acompanantes #Retorna la lista.
 
 def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes): #asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes).
-
-    #Que beneficios tiene las habitaciones normal y premium. (Proximanente.)
-
-    seleccion_tipo = input("Seleccione qué tipo de habitación quiere, normal o premium: ").lower() #Que tipo de habitacion es premium o normal.
+    
+    tipoHabitacion = int(input("Que tipo de habitacion quiere normal(1) premium(2)"))
     
     # Determinar el tipo de habitación basado en el número de acompañantes.
-    if num_acompanantes <= 1: # (1-2)
-        if seleccion_tipo == "normal":
-            tipos = ['normal_2']
-        elif seleccion_tipo == "premium":
-            tipos = ['premium_2']
-        else:
-            print("Selección inválida.")
-            return None
-    else: #(3-4)
-        if seleccion_tipo == "normal":
-            tipos = ['normal_4']
-        elif seleccion_tipo == "premium":
-            tipos = ['premium_4']
-        else:
-            print("Selección inválida.")
-            return None
+    if num_acompanantes <= 1 and tipoHabitacion == 1:  
+        for habitacion in habitacionesArray:
+            if habitacion['tipoHabitacion'] == 1 and habitacion['estado'] == 0:
+            # Marcar la habitación como ocupada
+            habitacion['estado'] = 1
+            print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
+    elif num_acompanantes >=2 and tipoHabitacion ==1:
+            for habitacion in habitacionesArray:
+                if habitacion['tipoHabitacion'] == 2 and habitacion['estado'] == 0:
+                    # Marcar la habitación como ocupada
+                    habitacion['estado'] = 1
+                    print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
+    elif num_acompanantes <= 1 and tipoHabitacion == 2:  
+        for habitacion in habitacionesArray:
+            if habitacion['tipoHabitacion'] == 3 and habitacion['estado'] == 0:
+            # Marcar la habitación como ocupada
+            habitacion['estado'] = 1
+            print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
+    elif num_acompanantes <= 2 and tipoHabitacion == 2:  
+        for habitacion in habitacionesArray:
+            if habitacion['tipoHabitacion'] == 4 and habitacion['estado'] == 0:
+            # Marcar la habitación como ocupada
+            habitacion['estado'] = 1
+            print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
+
+    # else: #(3-4)
+    #     if seleccion_tipo == "normal":
+    #         tipos = ['normal_4']
+    #     elif seleccion_tipo == "premium":
+    #         tipos = ['premium_4']
+    #     else:
+    #         print("Selección inválida.")
+    #         return None
 
     # habitaciones = { #Vamos a tener 12 habitaciones ()   
     #     'normal_2': [{'capacidad': 2, 
