@@ -16,85 +16,102 @@ import os
 #Estado de Habitaciones:
 #0 libre 1 ocupado
 
-habitacionesArray=[
-    #habitaciones normales de 2 personas
-    {'tipoHabitacion': 1,
-    'valor': 50000,
-    'cantidadPersonas': 2
-    'estado': 0
-    'numeroHabitacion': "Roble 1"
+reservas = []
+
+habitacionesArray = [
+    # habitaciones normales de 2 personas
+    {
+        'tipoHabitacion': 1,
+        'valor': 50000,
+        'cantidadPersonas': 2,
+        'estado': 0,
+        'numeroHabitacion': "Roble 1"
+    },
+    {
+        'tipoHabitacion': 1,
+        'valor': 50000,
+        'cantidadPersonas': 2,
+        'estado': 0,
+        'numeroHabitacion': "Roble 2"
+    },
+    {
+        'tipoHabitacion': 1,
+        'valor': 50000,
+        'cantidadPersonas': 2,
+        'estado': 0,
+        'numeroHabitacion': "Roble 3"
     },
     
-    {'tipoHabitacion': 1,
-    'valor': 50000,
-    'cantidadPersonas': 2
-    'estado': 0
-    'numeroHabitacion': "Roble 2"},
+    # habitaciones normales 4 personas
+    {
+        'tipoHabitacion': 2,
+        'valor': 80000,
+        'cantidadPersonas': 4,
+        'estado': 0,
+        'numeroHabitacion': "Sauce 1"
+    },
+    {
+        'tipoHabitacion': 2,
+        'valor': 80000,
+        'cantidadPersonas': 4,
+        'estado': 0,
+        'numeroHabitacion': "Sauce 2"
+    },
+    {
+        'tipoHabitacion': 2,
+        'valor': 80000,
+        'cantidadPersonas': 4,
+        'estado': 0,
+        'numeroHabitacion': "Sauce 3"
+    },
     
-    {'tipoHabitacion': 1,
-    'valor': 50000,
-    'cantidadPersonas': 2
-    'estado': 0
-    'numeroHabitacion': "Roble 3"},
+    # habitaciones premium de 2 personas
+    {
+        'tipoHabitacion': 3,
+        'valor': 80000,
+        'cantidadPersonas': 2,
+        'estado': 0,
+        'numeroHabitacion': "Naranjo 1"
+    },
+    {
+        'tipoHabitacion': 3,
+        'valor': 80000,
+        'cantidadPersonas': 2,
+        'estado': 0,
+        'numeroHabitacion': "Naranjo 2"
+    },
+    {
+        'tipoHabitacion': 3,
+        'valor': 80000,
+        'cantidadPersonas': 2,
+        'estado': 0,
+        'numeroHabitacion': "Naranjo 3"
+    },
     
-    #habitaciones normales 4 personas
-    
-    {'tipoHabitacion': 2,
-    'valor': 80000,
-    'cantidadPersonas': 4
-    'estado': 0
-    'numeroHabitacion': "Sauce 1"},
-    
-    {'tipoHabitacion': 2,
-    'valor': 80000,
-    'cantidadPersonas': 4
-    'estado': 0
-    'numeroHabitacion': "Sauce 2"},
-    
-    {'tipoHabitacion': 2,
-    'valor': 80000,
-    'cantidadPersonas': 4
-    'estado': 0
-    'numeroHabitacion': "Sauce 3"},
-    
-    #habitaciones premium de 2 personas
-    {'tipoHabitacion': 3,
-    'valor': 80000,
-    'cantidadPersonas': 2
-    'estado': 0
-    'numeroHabitacion': "Naranjo 1"},
-    
-    {'tipoHabitacion': 3,
-    'valor': 80000,
-    'cantidadPersonas': 2
-    'estado': 0
-    'numeroHabitacion': "Naranjo 2"},
-    
-    {'tipoHabitacion': 3,
-    'valor': 80000,
-    'cantidadPersonas': 2
-    'estado': 0
-    'numeroHabitacion': "Naranjo 3"},
-    
-    #habitaciones premium de 4 personas
-    {'tipoHabitacion': 4,
-    'valor': 120000,
-    'cantidadPersonas': 2
-    'estado': 0
-    'numeroHabitacion': "Palmera 1"},
-    
-    {'tipoHabitacion': 4,
-    'valor': 120000,
-    'cantidadPersonas': 2
-    'estado': 0
-    'numeroHabitacion': "Palmera 2 "},
-    
-    {'tipoHabitacion': 4,
-    'valor': 120000,
-    'cantidadPersonas': 2
-    'estado': 0
-    'numeroHabitacion': "Palmera 3"},
+    # habitaciones premium de 4 personas
+    {
+        'tipoHabitacion': 4,
+        'valor': 120000,
+        'cantidadPersonas': 4,  
+        'estado': 0,
+        'numeroHabitacion': "Palmera 1"
+    },
+    {
+        'tipoHabitacion': 4,
+        'valor': 120000,
+        'cantidadPersonas': 4,  
+        'estado': 0,
+        'numeroHabitacion': "Palmera 2"
+    },
+    {
+        'tipoHabitacion': 4,
+        'valor': 120000,
+        'cantidadPersonas': 4,  
+        'estado': 0,
+        'numeroHabitacion': "Palmera 3"
+    },
 ]
+
 
 
 # def habitacion(): 
@@ -115,6 +132,56 @@ habitacionesArray=[
 #                    'reservas': []} for _ in range(3)],#Creamos 3 habitaciones premium, que tienen una capacidad de 4 personas
 #                                                       y dentro habra una lista de reservas.
 
+def guardar_reserva_archivo(reserva):
+    try:
+        archivo = open("reservas.csv","a")
+
+        reserva_renglon = str(reserva.get('Nombre'))+";"+str(reserva.get('Apellido'))+";"+str(reserva.get('Nacionalidad'))+";"+str(reserva.get('Documento'))+";"+str(reserva.get('Correo'))+";"+str(reserva.get('Numero tel'))+";"+str(reserva.get('Fecha_ingreso'))+";"+str(reserva.get('Fecha_salida'))+";"+str(reserva.get('Edad'))+";"+str(reserva.get('Numero de cliente'))+";"+str(",".join(reserva.get("Acompanantes")))+"\n"
+
+        archivo.write(reserva_renglon)
+        
+        print("Reserva guardada correctamente!") 
+    except IOError:
+        print("No se puede abrir el archivo")
+    finally:
+        try:
+            archivo.close()
+        except NameError:
+            print("No encontro el archivo ")
+
+def cargar_reservas_archivos():
+    reservas = []
+    try:
+        archivo = open("reservas.csv","r")
+
+        renglones = archivo.read().split("\n")
+
+        renglones.pop()   #Eliminamos el ultimo renglon vacio.
+
+        for renglon in renglones:
+            reserva = {}
+            reserva["Nombre"]=renglon.split(";")[0]
+            reserva["Apellido"]=renglon.split(";")[1]
+            reserva["Nacionalidad"]=renglon.split(";")[2]
+            reserva["Documento"]=renglon.split(";")[3]
+            reserva["Correo"]=renglon.split(";")[4]
+            reserva["Numero tel"]=renglon.split(";")[5]
+            reserva["Fecha_ingreso"]=renglon.split(";")[6]
+            reserva["Fecha_salida"]=renglon.split(";")[7]
+            reserva["Edad"]=renglon.split(";")[8]
+            reserva["Numero de cliente"]=renglon.split(";")[9]
+            reserva["Acompanantes"]=renglon.split(";")[10].split(",")
+
+            reservas.append(reserva)
+    except IOError:
+        print("No se puede abrir el archivo")
+    finally:
+        try:
+            print("Se cargaron las reservas.")
+            archivo.close()
+            return reservas
+        except NameError:
+            print("No encontro el archivo ")
 
 def buscarMenu():
     bandera = True
@@ -156,7 +223,7 @@ def buscarMenu():
 #         #mes 0 + 2
 #         # ejemplo final ingreso dias 15 salida dias 30= 
 
-def menu():  # Función del menú principal.
+def menu(reservas):  # Función del menú principal.
     bandera = True  # Con esta bandera controlamos el ciclo principal del menú.
 
     while bandera:
@@ -188,7 +255,10 @@ def menu():  # Función del menú principal.
             os.system('cls' if os.name == 'nt' else 'clear')
 
         if respuesta == 1:  # Registrar el Ingreso.
-            funcionIngreso()
+            reserva = funcionIngreso()
+            if reserva != None:
+                reservas.append(reserva)
+                guardar_reserva_archivo(reserva)
         elif respuesta == 2:  # Ver habitaciones.
             verHabitaciones(habitaciones)
         elif respuesta == 3:  # Buscar.
@@ -213,7 +283,7 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
         
     nombre = verificar_nombre()
     apellido = verificar_apellido()
-    pais = verificar_pais()
+    nacionalidad = verificar_pais()
     dni_pasaporte = verificar_dni_pasaporte()
     correo = verificar_correo()
     numero = verificar_numero()
@@ -242,25 +312,24 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
         'Nombre': nombre,
         'Apellido': apellido,
         'Documento': dni_pasaporte,
-        'Pais': pais,
+        'Nacionalidad': nacionalidad,
         'Correo': correo,
-        'Número de teléfono': numero,
-        'Fecha de Ingreso': fecha_ingreso,
-        'Fecha de Salida': fecha_salida,
+        'Numero tel': numero,
+        'Fecha_ingreso': fecha_ingreso,
+        'Fecha_salida': fecha_salida,
         'Edad': edad,
         'Numero de cliente' :numeroCliente,
         'Acompanantes' : [] #Se le va a ingresar una lista de los acompanantes del ingresado.
     }
                                     
     huespedes = acompaniantes(huesped) #Llamamos a la funcion acompaniantes con la biblioteca del ingresado.
-    os.system('cls' if os.name == 'nt' else 'clear')
 
-    tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes) #Se le asignara una habitacion.
+    # tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes) #Se le asignara una habitacion.
 
-    if tipo_habitacion:
-        print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
-    else:
-        print("No se pudo asignar una habitación.")
+    # if tipo_habitacion:
+    #     print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
+    # else:
+    #     print("No se pudo asignar una habitación.")
 
     return huesped
 
@@ -414,12 +483,7 @@ def ingresar_acompanantes(): #Si se ingresa acompaniantes.
                 print(f" Ingresando datos del acompañante 【 {i + 1} 】") 
                 nombre = verificar_nombre()
                 apellido = verificar_apellido()
-                dni_pasaporte = verificar_dni_pasaporte()
-                acompanante = { #Diccionario del acompaniante.
-                    'nombre': nombre,
-                    'apellido': apellido,
-                    'documento': dni_pasaporte,
-                }
+                acompanante = nombre + " " + apellido
 
                 acompanantes.append(acompanante) #Se va agregando a la lista.
 
@@ -437,9 +501,9 @@ def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes)
     if num_acompanantes <= 1 and tipoHabitacion == 1:  
         for habitacion in habitacionesArray:
             if habitacion['tipoHabitacion'] == 1 and habitacion['estado'] == 0:
-            # Marcar la habitación como ocupada
-            habitacion['estado'] = 1
-            print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
+                # Marcar la habitación como ocupada
+                habitacion['estado'] = 1
+                print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
     elif num_acompanantes >=2 and tipoHabitacion ==1:
             for habitacion in habitacionesArray:
                 if habitacion['tipoHabitacion'] == 2 and habitacion['estado'] == 0:
@@ -449,15 +513,15 @@ def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes)
     elif num_acompanantes <= 1 and tipoHabitacion == 2:  
         for habitacion in habitacionesArray:
             if habitacion['tipoHabitacion'] == 3 and habitacion['estado'] == 0:
-            # Marcar la habitación como ocupada
-            habitacion['estado'] = 1
-            print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
+                # Marcar la habitación como ocupada
+                habitacion['estado'] = 1
+                print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
     elif num_acompanantes <= 2 and tipoHabitacion == 2:  
         for habitacion in habitacionesArray:
             if habitacion['tipoHabitacion'] == 4 and habitacion['estado'] == 0:
-            # Marcar la habitación como ocupada
-            habitacion['estado'] = 1
-            print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
+                # Marcar la habitación como ocupada
+                habitacion['estado'] = 1
+                print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
 
     # else: #(3-4)
     #     if seleccion_tipo == "normal":
@@ -580,4 +644,5 @@ def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
 # def buscarReservaPorNumero(): #con la variable global de la funcion funcionNumerocliente():
 #     pass
 
-menu() #Menu del programa.
+reservas = cargar_reservas_archivos()
+menu(reservas) #Menu del programa.

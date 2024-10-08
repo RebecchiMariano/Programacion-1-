@@ -11,8 +11,6 @@ def verificar_nombre():
             print("        Error - ingresó un número       . ")
             print(" ---------------------------------------  ")
 
-    
-
 def verificar_apellido():
     
     while True:
@@ -24,7 +22,6 @@ def verificar_apellido():
             print("        Error - ingresó un número       . ")
             print(" ---------------------------------------  ")
 
-
 def verificar_nacionalidad():
 
     while True:
@@ -35,7 +32,6 @@ def verificar_nacionalidad():
             print(" ---------------------------------------  ")
             print("        Error - ingresó un número       . ")
             print(" ---------------------------------------  ")
-
 
 def verificar_dni():
     while True:
@@ -96,8 +92,6 @@ def verificar_fecha_ingreso():
             print("  Error - No se ingreso una fecha valida.  ")
             print(" ----------------------------------------- ")
 
-
-
 def verificar_fecha_salida(fecha_ingreso):
     while True:
         
@@ -120,9 +114,9 @@ def verificar_fecha_salida(fecha_ingreso):
 
 def archivos(nombre,apellido,nacionalidad,dni,correo,numero,fecha_ingreso,fecha_salida):
     try:
-        archivo = open("reservas.csv","wt")
+        archivo = open("reservas.csv","w")
 
-        huesped = str(nombre)+";"+str(apellido)+";"+str(nacionalidad)+";"+str(dni)+";"+str(correo)+";"+str(numero)+";"+str(fecha_ingreso)+";"+str(fecha_ingreso)+"\n"
+        huesped = str(nombre)+";"+str(apellido)+";"+str(nacionalidad)+";"+str(dni)+";"+str(correo)+";"+str(numero)+";"+str(fecha_ingreso)+";"+str(fecha_salida)+"\n"
 
         archivo.write(huesped)
         
@@ -134,7 +128,8 @@ def archivos(nombre,apellido,nacionalidad,dni,correo,numero,fecha_ingreso,fecha_
             archivo.close()
         except NameError:
             print("No encontro el archivo ")
-    
+
+
 nombre = verificar_nombre()
 apellido = verificar_apellido()
 nacionalidad = verificar_nacionalidad()
