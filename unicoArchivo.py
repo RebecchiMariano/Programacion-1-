@@ -112,7 +112,15 @@ habitacionesArray = [
     },
 ]
 
+def buscar_reserva():
 
+def asignar_habitacion(num_acompanates):
+    if num_acompanates == 1 :
+        for habitacion in habitacionesArray:
+            habitacion == 
+
+        
+    else:
 
 # def habitacion(): 
 #     'normal_2': [{'capacidad': 2,
@@ -283,8 +291,8 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
         
     nombre = verificar_nombre()
     apellido = verificar_apellido()
-    nacionalidad = verificar_pais()
-    dni_pasaporte = verificar_dni_pasaporte()
+    nacionalidad = verificar_nacionalidad()
+    dni_pasaporte = verificar_dni(nacionalidad)
     correo = verificar_correo()
     numero = verificar_numero()
     fecha_ingreso = verificar_fecha_ingreso()
@@ -324,6 +332,8 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
                                     
     huespedes = acompaniantes(huesped) #Llamamos a la funcion acompaniantes con la biblioteca del ingresado.
 
+
+
     # tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes) #Se le asignara una habitacion.
 
     # if tipo_habitacion:
@@ -355,10 +365,10 @@ def verificar_apellido():
             print("        Error - ingresó un número       . ")
             print(" ---------------------------------------  ")
 
-def verificar_pais():
+def verificar_nacionalidad():
 
     while True:
-        pais = input(" • Pais 🌍 ➞  ").capitalize() #La primera letra la pone en mayuscula.
+        pais = input(" • Nacionalidad 🌍 ➞  ").capitalize() #La primera letra la pone en mayuscula.
         if pais.isalpha(): #Retorna tru si todos los caracteres utilizados son letras
             return pais
         else:
@@ -366,20 +376,20 @@ def verificar_pais():
             print("        Error - ingresó un número       . ")
             print(" ---------------------------------------  ")
 
-def verificar_dni_pasaporte():
-    while True:
-        dni_pasaporte = input(" • DNI o Pasaporte ➞  ")
-        if dni_pasaporte.isdigit() and len(dni_pasaporte) == 8:#Retorna true si todos los caracteres utilizados son numero y tiene un largo de 8 numeros
-          print("Se ingreso un DNI ✔")
-          return dni_pasaporte
-        elif len(dni_pasaporte) == 9:
-            print("Se ingreso un Pasaporte ✔")
-            dni_pasaporte = dni_pasaporte.upper() #Convierte todo las letras en mayuscular
-            return dni_pasaporte
-        else:
-            print(" ----------------------------------------- ")
-            print(" Error - No es ni un Pasaporte, ni un DNI. ")
-            print(" ----------------------------------------- ")
+def verificar_dni(nacionalidad):
+    if nacionalidad == "Argentina":
+        while True:
+        
+            dni = input(" • DNI ➞  ")
+            if dni.isdigit() and len(dni) == 8:#Retorna true si todos los caracteres utilizados son numero y tiene un largo de 8 numeros
+    
+            
+                return dni
+            else:
+                print(" ----------------------------------------- ")
+                print(" Error - No es ni un Pasaporte, ni un DNI. ")
+                print(" ----------------------------------------- ")
+    return None
 
 def verificar_correo():
     while True:
@@ -493,71 +503,41 @@ def ingresar_acompanantes(): #Si se ingresa acompaniantes.
 
     return acompanantes #Retorna la lista.
 
-def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes): #asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes).
+
+
+
+# def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes): #asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes).
     
-    tipoHabitacion = int(input("Que tipo de habitacion quiere normal(1) premium(2)"))
+#     tipoHabitacion = int(input("Que tipo de habitacion quiere normal(1) premium(2)"))
     
-    # Determinar el tipo de habitación basado en el número de acompañantes.
-    if num_acompanantes <= 1 and tipoHabitacion == 1:  
-        for habitacion in habitacionesArray:
-            if habitacion['tipoHabitacion'] == 1 and habitacion['estado'] == 0:
-                # Marcar la habitación como ocupada
-                habitacion['estado'] = 1
-                print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
-    elif num_acompanantes >=2 and tipoHabitacion ==1:
-            for habitacion in habitacionesArray:
-                if habitacion['tipoHabitacion'] == 2 and habitacion['estado'] == 0:
-                    # Marcar la habitación como ocupada
-                    habitacion['estado'] = 1
-                    print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
-    elif num_acompanantes <= 1 and tipoHabitacion == 2:  
-        for habitacion in habitacionesArray:
-            if habitacion['tipoHabitacion'] == 3 and habitacion['estado'] == 0:
-                # Marcar la habitación como ocupada
-                habitacion['estado'] = 1
-                print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
-    elif num_acompanantes <= 2 and tipoHabitacion == 2:  
-        for habitacion in habitacionesArray:
-            if habitacion['tipoHabitacion'] == 4 and habitacion['estado'] == 0:
-                # Marcar la habitación como ocupada
-                habitacion['estado'] = 1
-                print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
+#     # Determinar el tipo de habitación basado en el número de acompañantes.
+#     if num_acompanantes <= 1 and tipoHabitacion == 1:  
+#         for habitacion in habitacionesArray:
+#             if habitacion['tipoHabitacion'] == 1 and habitacion['estado'] == 0:
+#                 # Marcar la habitación como ocupada
+#                 habitacion['estado'] = 1
+#                 print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
+#     elif num_acompanantes >=2 and tipoHabitacion ==1:
+#             for habitacion in habitacionesArray:
+#                 if habitacion['tipoHabitacion'] == 2 and habitacion['estado'] == 0:
+#                     # Marcar la habitación como ocupada
+#                     habitacion['estado'] = 1
+#                     print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
+#     elif num_acompanantes <= 1 and tipoHabitacion == 2:  
+#         for habitacion in habitacionesArray:
+#             if habitacion['tipoHabitacion'] == 3 and habitacion['estado'] == 0:
+#                 # Marcar la habitación como ocupada
+#                 habitacion['estado'] = 1
+#                 print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
+#     elif num_acompanantes <= 2 and tipoHabitacion == 2:  
+#         for habitacion in habitacionesArray:
+#             if habitacion['tipoHabitacion'] == 4 and habitacion['estado'] == 0:
+#                 # Marcar la habitación como ocupada
+#                 habitacion['estado'] = 1
+#                 print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
 
-    # else: #(3-4)
-    #     if seleccion_tipo == "normal":
-    #         tipos = ['normal_4']
-    #     elif seleccion_tipo == "premium":
-    #         tipos = ['premium_4']
-    #     else:
-    #         print("Selección inválida.")
-    #         return None
-
-    # habitaciones = { #Vamos a tener 12 habitaciones ()   
-    #     'normal_2': [{'capacidad': 2, 
-    #                   'reservas': []} for _ in range(3)],
-    #     'normal_4': [{'capacidad': 4, 
-    #                   'reservas': []} for _ in range(3)], 
-    #     'premium_2': [{'capacidad': 2, 
-    #                    'reservas': []} for _ in range(3)],
-    #     'premium_4': [{'capacidad': 4, 
-    #                    'reservas': []} for _ in range(3)],
-    # }
-
-    # Intentar asignar la habitación.
-    for tipo in tipos: #Tipo( i ) en tipos.
-        for habitacion in habitaciones.get(tipo, []): #Habitacion (i) en habitaciones.
-            if esta_disponible(fecha_ingreso, fecha_salida, habitacion['reservas']): #Funcion abajo.
-                habitacion['reservas'].append({ #Se agrega las fechas de ingreso y la de los huespedes.
-                    'ingreso': fecha_ingreso,
-                    'salida': fecha_salida,
-                    'huesped': huespedes,  # El diccionario contiene al titular y los acompañantes.
-                    #Agregar el numero de la reserva.
-                })
-                print(f"Habitación asignada: {tipo}")
-                return tipo 
-
-    print("No hay habitaciones disponibles en este rango de fechas. :( ") #Else. Si no encuentra una reserva en la lista de reserva devuelve.
-    return None
+    
+    
 
 def esta_disponible(fecha_ingreso, fecha_salida, reservas): #Si esta disponible.
     for reserva in reservas: #Va buscar una reserva (i) en las reservas
