@@ -19,6 +19,100 @@ import json
 
 reservas = []
 
+habitacionesArray = [
+    # habitaciones normales de 2 personas
+    {
+        'tipoHabitacion': 1,
+        'valor': 50000,
+        'cantidadPersonas': 2,
+        'estado': 0,
+        'numeroHabitacion': "Roble 1"
+    },
+    {
+        'tipoHabitacion': 1,
+        'valor': 50000,
+        'cantidadPersonas': 2,
+        'estado': 0,
+        'numeroHabitacion': "Roble 2"
+    },
+    {
+        'tipoHabitacion': 1,
+        'valor': 50000,
+        'cantidadPersonas': 2,
+        'estado': 0,
+        'numeroHabitacion': "Roble 3"
+    },
+    
+    # habitaciones normales 4 personas
+    {
+        'tipoHabitacion': 2,
+        'valor': 80000,
+        'cantidadPersonas': 4,
+        'estado': 0,
+        'numeroHabitacion': "Sauce 1"
+    },
+    {
+        'tipoHabitacion': 2,
+        'valor': 80000,
+        'cantidadPersonas': 4,
+        'estado': 0,
+        'numeroHabitacion': "Sauce 2"
+    },
+    {
+        'tipoHabitacion': 2,
+        'valor': 80000,
+        'cantidadPersonas': 4,
+        'estado': 0,
+        'numeroHabitacion': "Sauce 3"
+    },
+    
+    # habitaciones premium de 2 personas
+    {
+        'tipoHabitacion': 3,
+        'valor': 80000,
+        'cantidadPersonas': 2,
+        'estado': 0,
+        'numeroHabitacion': "Naranjo 1"
+    },
+    {
+        'tipoHabitacion': 3,
+        'valor': 80000,
+        'cantidadPersonas': 2,
+        'estado': 0,
+        'numeroHabitacion': "Naranjo 2"
+    },
+    {
+        'tipoHabitacion': 3,
+        'valor': 80000,
+        'cantidadPersonas': 2,
+        'estado': 0,
+        'numeroHabitacion': "Naranjo 3"
+    },
+    
+    # habitaciones premium de 4 personas
+    {
+        'tipoHabitacion': 4,
+        'valor': 120000,
+        'cantidadPersonas': 4,  
+        'estado': 0,
+        'numeroHabitacion': "Palmera 1"
+    },
+    {
+        'tipoHabitacion': 4,
+        'valor': 120000,
+        'cantidadPersonas': 4,  
+        'estado': 0,
+        'numeroHabitacion': "Palmera 2"
+    },
+    {
+        'tipoHabitacion': 4,
+        'valor': 120000,
+        'cantidadPersonas': 4,  
+        'estado': 0,
+        'numeroHabitacion': "Palmera 3"
+    },
+]
+
 
 # def asignar_habitacion(num_acompanates):
 #     if num_acompanates == 1 :
@@ -30,18 +124,23 @@ reservas = []
 
 #         pass
 
-def cargar_habitaciones():
-    with open('habitaciones.json', 'r') as file:
-        habitaciones = json.load(file)
-    return habitaciones
-
-def guardar_habitaciones(habitaciones):
-    with open('habitaciones.json', 'w') as file:
-        json.dump(habitaciones, file, indent=4)
-
-def mostrar_habitaciones(habitaciones):
-    for habitacion in habitaciones:
-        print(f"- {habitacion['numeroHabitacion']} (tipo: {habitacion['tipoHabitacion']}, valor: {habitacion['valor']}, personas: {habitacion['cantidadPersonas']}, estado: {habitacion['estado']})")
+# def habitacion(): 
+#     'normal_2': [{'capacidad': 2,
+#                   'costo': 10000, 
+#                   'reservas': []} for _ in range(3)], #Creamos 3 habitaciones normales, que tienen una capacidad de 2 personas
+#                                                       y dentro habra una lista de reservas.
+#     'normal_4': [{'capacidad': 4,
+#                   'costo': 20000, 
+#                   'reservas': []} for _ in range(3)], #Creamos 3 habitaciones normales, que tienen una capacidad de 4 personas
+#                                                       y dentro habra una lista de reservas.
+#     'premium_2': [{'capacidad': 2,
+#                    'costo': 25000, 
+#                    'reservas': []} for _ in range(3)],#Creamos 3 habitaciones premium, que tienen una capacidad de 2 personas
+#                                                       y dentro habra una lista de reservas.
+#     'premium_4': [{'capacidad': 4,
+#                    'costo': 35000, 
+#                    'reservas': []} for _ in range(3)],#Creamos 3 habitaciones premium, que tienen una capacidad de 4 personas
+#                                                       y dentro habra una lista de reservas.
 
 def guardar_reserva_archivo(reserva):
     try:
@@ -171,8 +270,7 @@ def menu(reservas):  # Función del menú principal.
                 reservas.append(reserva)
                 guardar_reserva_archivo(reserva)
         elif respuesta == 2:  # Ver habitaciones.
-            print("Habitaciones actuales:")
-            mostrar_habitaciones(habitaciones)
+            verHabitaciones(habitaciones)
         elif respuesta == 3:  # Buscar.
             buscarMenu()
         elif respuesta == 4:  # Checkout.
@@ -529,5 +627,4 @@ def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
 #     pass
 
 reservas = cargar_reservas_archivos()
-habitaciones = cargar_habitaciones()
 menu(reservas) #Menu del programa.

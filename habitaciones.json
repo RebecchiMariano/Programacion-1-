@@ -1,0 +1,86 @@
+[
+    {
+        "tipoHabitacion": 1,
+        "valor": 50000,
+        "cantidadPersonas": 2,
+        "estado": 0,
+        "numeroHabitacion": "Roble 1"
+    },
+    {
+        "tipoHabitacion": 1,
+        "valor": 50000,
+        "cantidadPersonas": 2,
+        "estado": 0,
+        "numeroHabitacion": "Roble 2"
+    },
+    {
+        "tipoHabitacion": 1,
+        "valor": 50000,
+        "cantidadPersonas": 2,
+        "estado": 0,
+        "numeroHabitacion": "Roble 3"
+    },
+    {
+        "tipoHabitacion": 2,
+        "valor": 80000,
+        "cantidadPersonas": 4,
+        "estado": 0,
+        "numeroHabitacion": "Sauce 1"
+    },
+    {
+        "tipoHabitacion": 2,
+        "valor": 80000,
+        "cantidadPersonas": 4,
+        "estado": 0,
+        "numeroHabitacion": "Sauce 2"
+    },
+    {
+        "tipoHabitacion": 2,
+        "valor": 80000,
+        "cantidadPersonas": 4,
+        "estado": 0,
+        "numeroHabitacion": "Sauce 3"
+    },
+    {
+        "tipoHabitacion": 3,
+        "valor": 80000,
+        "cantidadPersonas": 2,
+        "estado": 0,
+        "numeroHabitacion": "Naranjo 1"
+    },
+    {
+        "tipoHabitacion": 3,
+        "valor": 80000,
+        "cantidadPersonas": 2,
+        "estado": 0,
+        "numeroHabitacion": "Naranjo 2"
+    },
+    {
+        "tipoHabitacion": 3,
+        "valor": 80000,
+        "cantidadPersonas": 2,
+        "estado": 0,
+        "numeroHabitacion": "Naranjo 3"
+    },
+    {
+        "tipoHabitacion": 4,
+        "valor": 120000,
+        "cantidadPersonas": 4,
+        "estado": 0,
+        "numeroHabitacion": "Palmera 1"
+    },
+    {
+        "tipoHabitacion": 4,
+        "valor": 120000,
+        "cantidadPersonas": 4,
+        "estado": 0,
+        "numeroHabitacion": "Palmera 2"
+    },
+    {
+        "tipoHabitacion": 4,
+        "valor": 120000,
+        "cantidadPersonas": 4,
+        "estado": 0,
+        "numeroHabitacion": "Palmera 3"
+    }
+]
