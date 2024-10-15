@@ -60,14 +60,16 @@
         "valor": 80000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "numeroHabitacion": "Naranjo 3"
+        "numeroHabitacion": "Naranjo 3",
+        "reservas": []
     },
     {
         "tipoHabitacion": 4,
         "valor": 120000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "numeroHabitacion": "Palmera 1"
+        "numeroHabitacion": "Palmera 1",
+        "reservas": []
     },
     {
         "tipoHabitacion": 4,
