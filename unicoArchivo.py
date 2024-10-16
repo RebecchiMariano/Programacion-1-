@@ -1,8 +1,8 @@
-#IMPORTADA BIBLIOTECA DATETIME, con el fin de trabajar con fechas y horas.
-from datetime import datetime
-import random
-import os
-import json
+from datetime import datetime #IMPORTADA BIBLIOTECA DATETIME, con el fin de trabajar con fechas y horas.
+import random 
+import os #Biblioteca para usar la terminar
+import json #Biblioteca para usar Json
+import hashlib #Biblioteca para usar un numero unico generado.
 
 #Habitaciones
 #Tipo de habitacion:
@@ -30,6 +30,14 @@ reservas = []
 
 #         pass
 
+def generar_codigo_reserva(nombre,fecha_ingreso,numeroHabitacion):
+    # Concatenamos el nombre, fecha de ingreso y número de habitación
+    info_reserva = f"{nombre}{fecha_ingreso}{numeroHabitacion}"
+    
+    codigo_reserva = hashlib.md5(info_reserva.encode()).hexdigest()[:8]  # Usamos solo los primeros 8 caracteres del hash
+
+    return codigo_reserva
+
 def cargar_habitaciones():
     with open('habitaciones.json', 'r') as file:
         habitaciones = json.load(file)
@@ -41,59 +49,54 @@ def guardar_habitaciones(habitaciones):
 
 def mostrar_habitaciones(habitaciones):
     for habitacion in habitaciones:
-        print(f"- {habitacion['numeroHabitacion']} (tipo: {habitacion['tipoHabitacion']}, valor: {habitacion['valor']}, personas: {habitacion['cantidadPersonas']}, estado: {habitacion['estado']})")
+        print(f"- {habitacion['numeroHabitacion']} (tipo: {habitacion['tipoHabitacion']}, valor: {habitacion['valor']}, personas: {habitacion['cantidadPersonas']}, estado: {habitacion['estado']}), reservas: {habitacion['reservas']}")
+
+def nombre_habitaciones(habitaciones):
+    for habitacion in habitaciones:
+        print(f"- {habitacion['numeroHabitacion']}")
+
 
 def guardar_reserva_archivo(reserva):
     try:
-        archivo = open("reservas.csv","a")
+        # Cargar las reservas existentes
+        reservas = cargar_reservas_archivos()
 
-        reserva_renglon = str(reserva.get('Nombre'))+";"+str(reserva.get('Apellido'))+";"+str(reserva.get('Nacionalidad'))+";"+str(reserva.get('Documento'))+";"+str(reserva.get('Correo'))+";"+str(reserva.get('Numero tel'))+";"+str(reserva.get('Fecha_ingreso'))+";"+str(reserva.get('Fecha_salida'))+";"+str(reserva.get('Edad'))+";"+str(reserva.get('Numero de cliente'))+";"+str(",".join(reserva.get("Acompanantes")))+"\n"
+        # Convertir objetos datetime a cadena
+        if isinstance(reserva.get('Fecha_ingreso'), datetime):
+            reserva['Fecha_ingreso'] = reserva['Fecha_ingreso'].strftime('%Y-%m-%d')
+        if isinstance(reserva.get('Fecha_salida'), datetime):
+            reserva['Fecha_salida'] = reserva['Fecha_salida'].strftime('%Y-%m-%d')
 
-        archivo.write(reserva_renglon)
-        
-        print("Reserva guardada correctamente!") 
+        # Añadir la nueva reserva
+        reservas.append(reserva)
+
+        # Guardar todas las reservas en formato JSON
+        with open("reservas.json", "w") as archivo:
+            json.dump(reservas, archivo, indent=4)
+
+        print("Reserva guardada correctamente!")
     except IOError:
         print("No se puede abrir el archivo")
-    finally:
-        try:
-            archivo.close()
-        except NameError:
-            print("No encontro el archivo ")
 
 def cargar_reservas_archivos():
-    reservas = []
     try:
-        archivo = open("reservas.csv","r")
+        # Intentar abrir el archivo JSON de reservas
+        with open("reservas.json", "r") as archivo:
+            reservas = json.load(archivo)
 
-        renglones = archivo.read().split("\n")
+        # Convertir fechas de cadena a objetos datetime
+        for reserva in reservas:
+            if 'Fecha_ingreso' in reserva:
+                reserva['Fecha_ingreso'] = datetime.strptime(reserva['Fecha_ingreso'], '%Y-%m-%d')
+            if 'Fecha_salida' in reserva:
+                reserva['Fecha_salida'] = datetime.strptime(reserva['Fecha_salida'], '%Y-%m-%d')
 
-        renglones.pop()   #Eliminamos el ultimo renglon vacio.
-
-        for renglon in renglones:
-            reserva = {}
-            reserva["Nombre"]=renglon.split(";")[0]
-            reserva["Apellido"]=renglon.split(";")[1]
-            reserva["Nacionalidad"]=renglon.split(";")[2]
-            reserva["Documento"]=renglon.split(";")[3]
-            reserva["Correo"]=renglon.split(";")[4]
-            reserva["Numero tel"]=renglon.split(";")[5]
-            reserva["Fecha_ingreso"]=renglon.split(";")[6]
-            reserva["Fecha_salida"]=renglon.split(";")[7]
-            reserva["Edad"]=renglon.split(";")[8]
-            reserva["Numero de cliente"]=renglon.split(";")[9]
-            reserva["Acompanantes"]=renglon.split(";")[10].split(",")
-
-            reservas.append(reserva)
-    except IOError:
-        print("No se puede abrir el archivo")
-    finally:
-        try:
-            print("Se cargaron las reservas.")
-            archivo.close()
-            return reservas
-        except NameError:
-            print("No encontro el archivo ")
-
+        print("Se cargaron las reservas.")
+        return reservas
+    except (IOError, json.JSONDecodeError):
+        print("No se puede abrir el archivo o el archivo está vacío.")
+        return []
+    
 def buscarMenu():
     bandera = True
 
@@ -220,6 +223,13 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
 
     print("Se ingreso correctamente el Titular ✔ ")
 
+    huespedes = acompaniantes() #Llamamos a la funcion acompaniantes con la biblioteca del ingresado.
+
+    nombre_habitaciones(habitaciones)
+    numeroHabitacion = input(" • Numero Habitacion ➞  ").capitalize()
+
+    codigoReserva = generar_codigo_reserva(nombre,fecha_ingreso,numeroHabitacion)
+
     huesped = { #Se guardan todos los input en un diccionario.
         'Nombre': nombre,
         'Apellido': apellido,
@@ -231,12 +241,20 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
         'Fecha_salida': fecha_salida,
         'Edad': edad,
         'Numero de cliente' :numeroCliente,
-        'Acompanantes' : [] #Se le va a ingresar una lista de los acompanantes del ingresado.
+        'NumeroHabitacion': numeroHabitacion,
+        'CodigoReserva' : codigoReserva,
+        'Acompanantes' : huespedes
     }
-                                    
-    huespedes = acompaniantes(huesped) #Llamamos a la funcion acompaniantes con la biblioteca del ingresado.
 
+    reservas = cargar_reservas_archivos()
 
+    if verificar_disponibilidad(habitaciones, numeroHabitacion, fecha_ingreso, fecha_salida):
+    # Si está disponible, guardas la reserva
+        reservas
+        guardar_habitaciones(habitaciones)
+        guardar_reserva_archivo(huesped)  # Guardar la reserva en el archivo CSV
+    else:
+        print(f"La habitación {numeroHabitacion} no está disponible en esas fechas.")
 
     # tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes) #Se le asignara una habitacion.
 
@@ -245,7 +263,17 @@ def funcionIngreso(): # 1) Registrar el Ingreso.
     # else:
     #     print("No se pudo asignar una habitación.")
 
-    return huesped
+def verificar_disponibilidad(habitaciones, numero_habitacion, fecha_ingreso, fecha_salida):
+    for habitacion in habitaciones:
+        if habitacion['numeroHabitacion'] == numero_habitacion:
+            for reserva in habitacion.get('reservas', []):
+                fecha_entrada_reserva = datetime.strptime(reserva['fechaEntrada'], '%Y-%m-%d')
+                fecha_salida_reserva = datetime.strptime(reserva['fechaSalida'], '%Y-%m-%d')
+
+                # Verificar si las fechas se solapan
+                if not (fecha_salida <= fecha_entrada_reserva or fecha_ingreso >= fecha_salida_reserva):
+                    return False  # Hay una superposición, no está disponible
+    return True 
 
 def verificar_nombre():
     
@@ -363,7 +391,7 @@ def funcionNumerocliente():
     numeroCliente = random.randint(1000, 9999) #Se le asignara una id al cliente para que sea mas facil identificarlo.
     return numeroCliente
 
-def acompaniantes(huesped):
+def acompaniantes():
 
     option = input("¿Vas a ir con algún acompañante? (Si/No) ➞  ").lower() #Preguntamos si va a ir solo o con alguien mas.
 
@@ -371,13 +399,13 @@ def acompaniantes(huesped):
                                         
         acompaniantes = ingresar_acompanantes() #Llamamos a la funcion. Si tiene acompaniantes.
 
-        huesped['Acompanantes'] = acompaniantes #Se le asigna el acompaniante al diccionario 'Acompanantes'.
-
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("Se ingreso correctamente los acompañantes ✔ ")
+        return acompaniantes
     else: #Si no se ingresa ningun acompaniante, quedara la lisa sin acompaniantes.
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("No se ingresaron acompaniantes")
-
-    return huesped #Devuelve el huesped con los acompaniantes o sin.
+        return None  #Devuelve el huesped con los acompaniantes o sin.
 
 def ingresar_acompanantes(): #Si se ingresa acompaniantes.
     bandera = True
@@ -528,6 +556,6 @@ def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
 # def buscarReservaPorNumero(): #con la variable global de la funcion funcionNumerocliente():
 #     pass
 
-reservas = cargar_reservas_archivos()
+
 habitaciones = cargar_habitaciones()
 menu(reservas) #Menu del programa.

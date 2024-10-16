@@ -4,56 +4,64 @@
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "numeroHabitacion": "Roble 1"
+        "numeroHabitacion": "Roble 1",
+        "reservas": []
     },
     {
         "tipoHabitacion": 1,
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "numeroHabitacion": "Roble 2"
+        "numeroHabitacion": "Roble 2",
+        "reservas": []
     },
     {
         "tipoHabitacion": 1,
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "numeroHabitacion": "Roble 3"
+        "numeroHabitacion": "Roble 3",
+        "reservas": []
     },
     {
         "tipoHabitacion": 2,
         "valor": 80000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "numeroHabitacion": "Sauce 1"
+        "numeroHabitacion": "Sauce 1",
+        "reservas": []
     },
     {
         "tipoHabitacion": 2,
         "valor": 80000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "numeroHabitacion": "Sauce 2"
+        "numeroHabitacion": "Sauce 2",
+        "reservas": []
     },
     {
         "tipoHabitacion": 2,
         "valor": 80000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "numeroHabitacion": "Sauce 3"
+        "numeroHabitacion": "Sauce 3",
+        "reservas": []
     },
     {
         "tipoHabitacion": 3,
         "valor": 80000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "numeroHabitacion": "Naranjo 1"
+        "numeroHabitacion": "Naranjo 1",
+        "reservas": []
     },
     {
         "tipoHabitacion": 3,
         "valor": 80000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "numeroHabitacion": "Naranjo 2"
+        "numeroHabitacion": "Naranjo 2",
+        "reservas": []
     },
     {
         "tipoHabitacion": 3,
@@ -76,13 +84,15 @@
         "valor": 120000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "numeroHabitacion": "Palmera 2"
+        "numeroHabitacion": "Palmera 2",
+        "reservas": []
     },
     {
         "tipoHabitacion": 4,
         "valor": 120000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "numeroHabitacion": "Palmera 3"
+        "numeroHabitacion": "Palmera 3",
+        "reservas": []
     }
 ]
