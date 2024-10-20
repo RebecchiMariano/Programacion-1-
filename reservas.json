@@ -1,9 +1,20 @@
 [
     {
-        "Nombre": "Tobias",
-        "Apellido": "Rodriguez",
-        "Documento": "44613454",
+        "Nombre": "Marian",
+        "Apellido": "Rebecchi",
+        "Documento": "44551789",
         "Nacionalidad": "Argentina",
-        "Correo": "totobias2002@gmail.com",
-        "Numero tel": "1167455455",
-        "Fecha_ingreso": 
+        "Correo": "Marianogab@.com",
+        "Numero tel": "11232443",
+        "Fecha_ingreso": "2024-12-10",
+        "Fecha_salida": "2024-12-20",
+        "Edad": "Mayor",
+        "Numero de cliente": 4622,
+        "NumeroHabitacion": "Palmera 3",
+        "CodigoReserva": "83ea8e46",
+        "Acompanantes": [
+            "Matias Rebechci",
+            "Tomi Rebecchi"
+        ]
+    }
+]

@@ -4,7 +4,8 @@
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "numeroHabitacion": "Roble 1",
+        "nombreHabitacion":"Roble1",
+        "numeroHabitacion": "101",
         "reservas": []
     },
     {
@@ -12,7 +13,8 @@
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "numeroHabitacion": "Roble 2",
+        "nombreHabitacion":"Roble2",
+        "numeroHabitacion": "102",
         "reservas": []
     },
     {
@@ -20,7 +22,8 @@
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "numeroHabitacion": "Roble 3",
+        "nombreHabitacion":"Roble3",
+        "numeroHabitacion": "103",
         "reservas": []
     },
     {
@@ -28,7 +31,8 @@
         "valor": 80000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "numeroHabitacion": "Sauce 1",
+        "nombreHabitacion":"Sauce 1",
+        "numeroHabitacion": "201",
         "reservas": []
     },
     {
@@ -36,7 +40,8 @@
         "valor": 80000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "numeroHabitacion": "Sauce 2",
+        "nombreHabitacion":"Sauce 2",
+        "numeroHabitacion": "202",
         "reservas": []
     },
     {
@@ -44,7 +49,8 @@
         "valor": 80000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "numeroHabitacion": "Sauce 3",
+        "nombreHabitacion":"Sauce 3",
+        "numeroHabitacion": "203",
         "reservas": []
     },
     {
@@ -52,7 +58,8 @@
         "valor": 80000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "numeroHabitacion": "Naranjo 1",
+        "nombreHabitacion":"Naranjo 1",
+        "numeroHabitacion": "301",
         "reservas": []
     },
     {
@@ -60,7 +67,8 @@
         "valor": 80000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "numeroHabitacion": "Naranjo 2",
+        "nombreHabitacion":"Naranjo 2",
+        "numeroHabitacion": "302",
         "reservas": []
     },
     {
@@ -68,7 +76,8 @@
         "valor": 80000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "numeroHabitacion": "Naranjo 3",
+        "nombreHabitacion":"Naranjo 3",
+        "numeroHabitacion": "303",
         "reservas": []
     },
     {
@@ -76,7 +85,8 @@
         "valor": 120000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "numeroHabitacion": "Palmera 1",
+        "nombreHabitacion":"Palmera 1",
+        "numeroHabitacion": "401",
         "reservas": []
     },
     {
@@ -84,7 +94,8 @@
         "valor": 120000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "numeroHabitacion": "Palmera 2",
+        "nombreHabitacion":"Palmera 2",
+        "numeroHabitacion": "402",
         "reservas": []
     },
     {
@@ -92,7 +103,8 @@
         "valor": 120000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "numeroHabitacion": "Palmera 3",
+        "nombreHabitacion":"Palmera 3",
+        "numeroHabitacion": "403",
         "reservas": []
     }
 ]
