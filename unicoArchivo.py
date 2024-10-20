@@ -276,7 +276,7 @@ def funcionIngreso():
     # Si está disponible, guardas la reserva
         reservas
         guardar_habitaciones(habitaciones)
-        guardar_reserva_archivo(huesped)  # Guardar la reserva en el archivo CSV
+        guardar_reserva_archivo(reservas)  # Guardar la reserva en el archivo CSV
     else:
         print(f"La habitación {numeroHabitacion} no está disponible en esas fechas.")
 
