@@ -553,9 +553,46 @@ def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
     
     print("======================================================")
 
+from datetime import datetime
+
+def ajustar_precio_por_temp(habitaciones, fecha_ingreso):
+    """
+    Ajusta los precios de las habitaciones según el mes de ingreso del cliente.
+
+    """
+    fecha = datetime.strptime(fecha_ingreso, '%Y-%m-%d')
+    mes = fecha.month
+
+    if 1 <= mes <= 3:
+        porcentaje = 10  
+    elif 4 <= mes <= 7:
+        porcentaje = 5   
+    elif 8 <= mes <= 12:
+        porcentaje = 20  
+
+    print(f"Ajustando precios con un incremento del {porcentaje}% para el mes {mes}.")
+
+    # Ajustar los precios de las habitaciones
+    for habitacion in habitaciones:
+        incremento = habitacion["valor"] * (porcentaje / 100)
+        habitacion["valor"] += int(incremento)  #que quede en entero
+        print(f'Habitación {habitacion["numeroHabitacion"]} - Nuevo precio: ${habitacion["valor"]}')
+
     
-# def funcionTotalpagar():
-#     pass
+    actualizar_habitaciones(habitaciones)
+    print("\nPrecios actualizados exitosamente.")
+    return habitaciones
+
+
+
+
+
+# FUNCION DE PAGO
+def pagoTotal():
+  
+
+habitaciones = cargar_habitaciones()
+
 
 # def verificar_disponibilidad():
 #     pass
@@ -595,7 +632,6 @@ def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
 #     pass
 
 
-habitaciones = cargar_habitaciones()
 
 
 menu(reservas) #Menu del programa.
