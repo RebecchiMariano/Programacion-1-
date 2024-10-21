@@ -23,7 +23,7 @@ import hashlib #Biblioteca para usar un numero unico generado.
 #---------------------------------------------------------------------------------------------------------------------------------------------
 
 #----------------------------------------------------------------------------------------------------------------------------------------------
-#Funciones de Habitaciones
+#FUNCIONES DE HABITACIONES
 
 #Se Trae el conjunto de habitaciones del documento json habitaciones .json, el mismo se utilizara para mostrar el nombre de habitaciones
 #Y su posterior re escritura a la hora de reservar una habitacion
@@ -43,8 +43,10 @@ def mostrar_habitaciones(habitaciones):
         print(f"- {habitacion['numeroHabitacion']} (tipo: {habitacion['tipoHabitacion']}, valor: {habitacion['valor']}, personas: {habitacion['cantidadPersonas']}, estado: {habitacion['estado']}), reservas: {habitacion['reservas']}")
 
 #Funcion Mostrar habitaciones, la utilizamos para mostrar el numero de cuartos a la hora de hacer una reserva, los cuartos mostrados dependeran
-#de si ya se encuentran reservadas, estado 1 (Solo mostramos estados 0s) y Segun la cantidad de acompa;antes declarados
+#de si ya se encuentran reservadas, estado 1 (Solo mostramos estados 0s) y Segun la cantidad de acompa;antes declarados dentro de ella
+#se encuentra la funcion cambiar_estado
 def nombre_habitaciones(habitaciones, num_acompanantes):
+
     for habitacion in habitaciones:
         
         if num_acompanantes == 1 and habitacion['tipoHabitacion'] in [2, 4]:
@@ -60,18 +62,30 @@ def nombre_habitaciones(habitaciones, num_acompanantes):
 
         
         print(f"- {habitacion['numeroHabitacion']}")
+        
+        
+        cambiar_estado()
+
+#La funcion cambiar estado hace que cuando se seleccione un cuarto de los mostrados por nombre habitacion cambia su estado a 1 1== ocupado de esta
+#forma cuando ejecutemos la busqueda de cuartos disponibles solo se mostraran los que tengan 0 es decir sin reservas 
+def cambiar_estado():
+    elegirHabitacion = int(input("Ingrese la habitacion que desea:"))
+    for habitacion in habitaciones:
+        if habitacion["numeroHabitacion"] == elegirHabitacion:
+            habitacion["estado"] = 1
+            return f"Estado de la habitación {elegirHabitacion} cambiado a 1"   
+
 #----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+#ME PUEDEN DECIR PARA QUE ES ESTO ES UN COMMENT?
 reservas = []
 
 
+#-----------------------------------------------------------------------------------------------------------------------------------
+#FUNCIONES DE RESERVA 
 
-
-
-
-
-
-
-
+#Funcion guardar reserva en archivo VALIDAR SI LA SEGUIMOS USANDO O NO
 def guardar_reserva_archivo(reserva):
     try:
         # Cargar las reservas existentes
@@ -94,7 +108,9 @@ def guardar_reserva_archivo(reserva):
     except IOError:
         print("No se puede abrir el archivo")
 
+#Funcion cargar reservas archivos VALIDAR SI LA SEGUIMOS USANDO O NO
 def cargar_reservas_archivos():
+
     try:
         # Intentar abrir el archivo JSON de reservas
         with open("reservas.json", "r") as archivo:
@@ -112,8 +128,14 @@ def cargar_reservas_archivos():
     except (IOError, json.JSONDecodeError):
         print("No se puede abrir el archivo o el archivo está vacío.")
         return []
-    
+
+#----------------------------------------------------------------------------------------------------------------------------------
+#FUNCIONES DE MENU
+
+#Menu para buscar Habitaciones 
 def buscarMenu():
+
+#Funcion Menu Ejecutadora del proyecto
     bandera = True
 
     
@@ -142,10 +164,10 @@ def buscarMenu():
 
         if opcion >= 10 or opcion <= 0:
             print("✕ El numero que ingresaste no esta en el rango de opciones. ✕")  
+def menu(reservas):
+    
 
-#--------------------------------------------------------------------------------------------------------------------
-#Funcion Menu
-def menu(reservas):  # Función del menú principal.
+
     bandera = True  # Con esta bandera controlamos el ciclo principal del menú.
 
     while bandera:
@@ -196,9 +218,11 @@ def menu(reservas):  # Función del menú principal.
                 print("✕ Por favor, ingrese un número válido del (0 - 4). ✕")
                 input("Presione Enter para continuar...")
                 os.system('cls' if os.name == 'nt' else 'clear')
+
 #--------------------------------------------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------------------------------------------
+#FUNCIONES DE INGRESO 1.0
 
 #Ingreso y validacion de datos basicos para el diccionario de huespedes
 def funcionIngreso(): 
@@ -272,22 +296,6 @@ def funcionIngreso():
 
     reservas = cargar_reservas_archivos()
 
-    if verificar_disponibilidad(habitaciones, numeroHabitacion, fecha_ingreso, fecha_salida):
-    # Si está disponible, guardas la reserva
-        reservas
-        guardar_habitaciones(habitaciones)
-        guardar_reserva_archivo(reservas)  # Guardar la reserva en el archivo CSV
-    else:
-        print(f"La habitación {numeroHabitacion} no está disponible en esas fechas.")
-
-    # tipo_habitacion = asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes) #Se le asignara una habitacion.
-
-    # if tipo_habitacion:
-    #     print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
-    # else:
-    #     print("No se pudo asignar una habitación.")
-    return huesped
-
 #Ingreso y validacion de acompanientes en caso de que exista
 def acompaniantes(): 
 
@@ -305,7 +313,8 @@ def acompaniantes():
         print("No se ingresaron acompaniantes")
         return None  #Devuelve el huesped con los acompaniantes o sin.
 
-def ingresar_acompanantes(): #Si se ingresa acompaniantes.
+#Si existen acompanientes se valida el numero
+def ingresar_acompanantes(): 
     bandera = True
     acompanantes = [] #Se hace una lista con los diccionarios de los acompaniantes.
     max_acompanantes = 3 #El maximo de los acompaniantes es 3, ya que nuestras habitaciones maximo de 4 personas (Ingresante + Acompaniantes).
@@ -334,11 +343,11 @@ def ingresar_acompanantes(): #Si se ingresa acompaniantes.
             print("x Por favor, ingrese un número válido de acompañantes (1 a 3) x") 
     
     nombre_habitaciones(habitaciones, num_acompanantes)
-    numeroHabitacion = input(" • Numero Habitacion ➞  ").capitalize()
-
-    return acompanantes,numeroHabitacion #Retorna la lista.
     
 
+    return acompanantes #Retorna la lista.
+    
+#!!!!!!!!!!!!!!!!!!!!!hay que re escribir esto porque ahora toda la seleccion de cuarto (la que modifica el estado en el json) se hace con la funcion nombre_habitacion!!!!!!!!!!!!!!!!!
 def generar_codigo_reserva(nombre,fecha_ingreso,numeroHabitacion):
     # Concatenamos el nombre, fecha de ingreso y número de habitación
     info_reserva = f"{nombre}{fecha_ingreso}{numeroHabitacion}"
@@ -347,51 +356,9 @@ def generar_codigo_reserva(nombre,fecha_ingreso,numeroHabitacion):
 
     return codigo_reserva
 
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# def asignar_habitacion(num_acompanantes, fecha_ingreso, fecha_salida, huespedes): #asignar_habitacion(len(huespedes['Acompanantes']), fecha_ingreso, fecha_salida,huespedes).
-    
-#     tipoHabitacion = int(input("Que tipo de habitacion quiere normal(1) premium(2)"))
-    
-#     # Determinar el tipo de habitación basado en el número de acompañantes.
-#     if num_acompanantes <= 1 and tipoHabitacion == 1:  
-#         for habitacion in habitacionesArray:
-#             if habitacion['tipoHabitacion'] == 1 and habitacion['estado'] == 0:
-#                 # Marcar la habitación como ocupada
-#                 habitacion['estado'] = 1
-#                 print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
-#     elif num_acompanantes >=2 and tipoHabitacion ==1:
-#             for habitacion in habitacionesArray:
-#                 if habitacion['tipoHabitacion'] == 2 and habitacion['estado'] == 0:
-#                     # Marcar la habitación como ocupada
-#                     habitacion['estado'] = 1
-#                     print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
-#     elif num_acompanantes <= 1 and tipoHabitacion == 2:  
-#         for habitacion in habitacionesArray:
-#             if habitacion['tipoHabitacion'] == 3 and habitacion['estado'] == 0:
-#                 # Marcar la habitación como ocupada
-#                 habitacion['estado'] = 1
-#                 print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
-#     elif num_acompanantes <= 2 and tipoHabitacion == 2:  
-#         for habitacion in habitacionesArray:
-#             if habitacion['tipoHabitacion'] == 4 and habitacion['estado'] == 0:
-#                 # Marcar la habitación como ocupada
-#                 habitacion['estado'] = 1
-#                 print(f"Habitación {habitacion['numeroHabitacion']} ahora está ocupada.")
-
-    
-    
-
-def verificar_disponibilidad(habitaciones, numero_habitacion, fecha_ingreso, fecha_salida):
-    for habitacion in habitaciones:
-        if habitacion['numeroHabitacion'] == numero_habitacion:
-            for reserva in habitacion.get('reservas', []):
-                fecha_entrada_reserva = datetime.strptime(reserva['fechaEntrada'], '%Y-%m-%d')
-                fecha_salida_reserva = datetime.strptime(reserva['fechaSalida'], '%Y-%m-%d')
-
-                # Verificar si las fechas se solapan
-                if not (fecha_salida <= fecha_entrada_reserva or fecha_ingreso >= fecha_salida_reserva):
-                    return False  # Hay una superposición, no está disponible
-    return True 
+#FUNCIONES DE INGRESO 1.1 (validamos que los valores asignados por el cliente sea valido)
 
 def verificar_nombre():
     
@@ -501,22 +468,26 @@ def verificar_fecha_salida(fecha_ingreso):
             print(" ----------------------------------------- ")
             print("  Error - No se ingreso una fecha valida.  ")
             print(" ----------------------------------------- ")
-                                
-def convertir_fecha(dia, mes,anio): #Convertimos la fecha con esta funcion con la libreria DateTime. La utilizamos para la funcion ingreso
+
+#Convertimos la fecha con esta funcion con la libreria DateTime. La utilizamos para la funcion ingreso                                
+def convertir_fecha(dia, mes,anio): 
     return datetime(anio , mes, dia) 
 
+#------------------------------------------------------------------------------------------------------------------------------------------------
 
+#----------------------------------------------------------------------------------------------------------------------------------
+#Funciones de validacion de Disponibilidad (A CHEQUEAR ESTO)
 
-
-
-def esta_disponible(fecha_ingreso, fecha_salida, reservas): #Si esta disponible.
+#La funcion valida si esta disponible
+def esta_disponible(fecha_ingreso, fecha_salida, reservas):
     for reserva in reservas: #Va buscar una reserva (i) en las reservas
         if (fecha_salida > reserva['ingreso'] or fecha_ingreso < reserva['salida']): #Si en las fechas de en.
-           #15/2 y 31/2 o 17/2 y 31/2 
+        #15/2 y 31/2 o 17/2 y 31/2 
             return False #Retorna Falso cuando se encuentra una fecha ingresada en la reserva. (No se cumple el if).
     return True #Retora True cuando se encuentra una fecha que no esta en la reserva.  
 
-def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
+#AL FINAL ESTO NO LO USAMOS
+#def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
     print("======================================================")
     print("┇          LISTADO DE HABITACIONES DISPONIBLES        ┇")
     print("======================================================")
@@ -555,6 +526,10 @@ def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
 
 from datetime import datetime
 
+#--------------------------------------------------------------------------------------------------------------------------------------
+#FUNCIONES DE PAGOS
+
+#Funcion de subir valor dependiendo el mes de reserva
 def ajustar_precio_por_temp(habitaciones, fecha_ingreso):
     """
     Ajusta los precios de las habitaciones según el mes de ingreso del cliente.
@@ -562,7 +537,7 @@ def ajustar_precio_por_temp(habitaciones, fecha_ingreso):
     """
     fecha = datetime.strptime(fecha_ingreso, '%Y-%m-%d')
     mes = fecha.month
-
+#CHE ESTO TIENE QUE SER *1.10 1.12 y asi tipo si se alquila de un mes a otro se tiene que multiplicar el valor mas un porcentaje 
     if 1 <= mes <= 3:
         porcentaje = 10  
     elif 4 <= mes <= 7:
@@ -583,16 +558,16 @@ def ajustar_precio_por_temp(habitaciones, fecha_ingreso):
     print("\nPrecios actualizados exitosamente.")
     return habitaciones
 
+# Funcion pago total (queda pendiente)
+#def pagoTotal():
 
-
-
-
-# FUNCION DE PAGO
-def pagoTotal():
-  
-
+#ESTO PARA QUE ES? 
 habitaciones = cargar_habitaciones()
 
+
+
+#------------------------------------------------------------------------------------------------------------------------------------
+#VALIDAR SI LA USAMOS O HAY QUE RE ESCRIBIRLA
 
 # def verificar_disponibilidad():
 #     pass
@@ -631,17 +606,28 @@ habitaciones = cargar_habitaciones()
 # def buscarReservaPorNumero(): #con la variable global de la funcion funcionNumerocliente():
 #     pass
 
+#--------------------------------------------------------------------------------------------------------------------------------
 
 
+#FUNCIONES QUE HAY QUE RE ESCRIBIR:
 
-menu(reservas) #Menu del programa.
+def verificar_disponibilidad(habitaciones, numero_habitacion, fecha_ingreso, fecha_salida):
 
-#FUNCION DE PAGO
-# def pagoTotal():
-#     while ingreso
-#     sumaDias = ingreso, dias, mes + salida, dias, mes
-#     if mes ingreso == mes salida:
-#         mes dias == 0
-#         #tendria que quedar algo asi mes ingreso = 2 y mes salida =2 
-#         #mes 0 + 2
-#         # ejemplo final ingreso dias 15 salida dias 30= 
+
+#-------------------------------------------------------------------------------------------------------------------------------
+#Ejecucion del Programa 
+
+menu(reservas) 
+#-------------------------------------------------------------------------------------------------------------------------------
+    
+    
+    for habitacion in habitaciones:
+        if habitacion['numeroHabitacion'] == numero_habitacion:
+            for reserva in habitacion.get('reservas', []):
+                fecha_entrada_reserva = datetime.strptime(reserva['fechaEntrada'], '%Y-%m-%d')
+                fecha_salida_reserva = datetime.strptime(reserva['fechaSalida'], '%Y-%m-%d')
+
+                # Verificar si las fechas se solapan
+                if not (fecha_salida <= fecha_entrada_reserva or fecha_ingreso >= fecha_salida_reserva):
+                    return False  # Hay una superposición, no está disponible
+    return True 
