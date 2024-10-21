@@ -219,6 +219,8 @@ def funcionIngreso():
     fecha_ingreso = verificar_fecha_ingreso()
     fecha_salida = verificar_fecha_salida(fecha_ingreso)
     edad = "Mayor"
+    
+    
 
     print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
     print("=== Estas seguro que quieres guardar los datos del titular? ===")
@@ -242,8 +244,9 @@ def funcionIngreso():
     
     huespedes = acompaniantes() 
     #--------------------------------------------------------------------------------------------------------
-    
+    #Nombre Habitaciones printea el nombre de todos los cuartos
     #Se guardan todos los input en un diccionario.
+    # 
     huesped = { 
         'Nombre': nombre,
         'Apellido': apellido,
@@ -264,9 +267,6 @@ def funcionIngreso():
     #---------------------------------------------------------------------------------------------------------
     #Parte 3 Seleccion de Habitaciones, la funcion labura con el diccionario previamente llamado del .json 
     
-    #Nombre Habitaciones printea el nombre de todos los cuartos
-    nombre_habitaciones(habitaciones)
-    numeroHabitacion = input(" • Numero Habitacion ➞  ").capitalize()
     
     codigoReserva = generar_codigo_reserva(nombre,fecha_ingreso,numeroHabitacion)
 
@@ -286,6 +286,7 @@ def funcionIngreso():
     #     print(f"Habitación asignada correctamente: {tipo_habitacion} ✔")
     # else:
     #     print("No se pudo asignar una habitación.")
+    return huesped
 
 #Ingreso y validacion de acompanientes en caso de que exista
 def acompaniantes(): 
@@ -331,8 +332,11 @@ def ingresar_acompanantes(): #Si se ingresa acompaniantes.
             bandera = False #Sale de la bandera.
         else:
             print("x Por favor, ingrese un número válido de acompañantes (1 a 3) x") 
+    
+    nombre_habitaciones(habitaciones, num_acompanantes)
+    numeroHabitacion = input(" • Numero Habitacion ➞  ").capitalize()
 
-    return acompanantes,num_acompanantes #Retorna la lista.
+    return acompanantes,numeroHabitacion #Retorna la lista.
     
 
 def generar_codigo_reserva(nombre,fecha_ingreso,numeroHabitacion):
@@ -592,6 +596,8 @@ def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
 
 
 habitaciones = cargar_habitaciones()
+
+
 menu(reservas) #Menu del programa.
 
 #FUNCION DE PAGO
