@@ -1,110 +1,98 @@
 [
     {
-        "tipoHabitacion": 1,
+        "tipoHabitacion": "Estandar",
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
         "nombreHabitacion":"Roble1",
-        "numeroHabitacion": "101",
-        "reservas": []
+        "numeroHabitacion": "101"
     },
     {
-        "tipoHabitacion": 1,
+        "tipoHabitacion": "Estandar",
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
         "nombreHabitacion":"Roble2",
-        "numeroHabitacion": "102",
-        "reservas": []
+        "numeroHabitacion": "102"
     },
     {
-        "tipoHabitacion": 1,
+        "tipoHabitacion": "Estandar",
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
         "nombreHabitacion":"Roble3",
-        "numeroHabitacion": "103",
-        "reservas": []
+        "numeroHabitacion": "103"
     },
     {
-        "tipoHabitacion": 2,
+        "tipoHabitacion": "Estandar",
         "valor": 80000,
         "cantidadPersonas": 4,
         "estado": 0,
         "nombreHabitacion":"Sauce 1",
-        "numeroHabitacion": "201",
-        "reservas": []
+        "numeroHabitacion": "201"
     },
     {
-        "tipoHabitacion": 2,
+        "tipoHabitacion": "Estandar",
         "valor": 80000,
         "cantidadPersonas": 4,
         "estado": 0,
         "nombreHabitacion":"Sauce 2",
-        "numeroHabitacion": "202",
-        "reservas": []
+        "numeroHabitacion": "202"
     },
     {
-        "tipoHabitacion": 2,
+        "tipoHabitacion": "Estandar",
         "valor": 80000,
         "cantidadPersonas": 4,
         "estado": 0,
         "nombreHabitacion":"Sauce 3",
-        "numeroHabitacion": "203",
-        "reservas": []
+        "numeroHabitacion": "203"
     },
     {
-        "tipoHabitacion": 3,
+        "tipoHabitacion": "Premium",
         "valor": 80000,
         "cantidadPersonas": 2,
         "estado": 0,
         "nombreHabitacion":"Naranjo 1",
-        "numeroHabitacion": "301",
-        "reservas": []
+        "numeroHabitacion": "301"
     },
     {
-        "tipoHabitacion": 3,
+        "tipoHabitacion": "Premium",
         "valor": 80000,
         "cantidadPersonas": 2,
         "estado": 0,
         "nombreHabitacion":"Naranjo 2",
-        "numeroHabitacion": "302",
-        "reservas": []
+        "numeroHabitacion": "302"
     },
     {
-        "tipoHabitacion": 3,
+        "tipoHabitacion": "Premium",
         "valor": 80000,
         "cantidadPersonas": 2,
         "estado": 0,
         "nombreHabitacion":"Naranjo 3",
-        "numeroHabitacion": "303",
-        "reservas": []
+        "numeroHabitacion": "303"
     },
     {
-        "tipoHabitacion": 4,
+        "tipoHabitacion": "Premium",
         "valor": 120000,
         "cantidadPersonas": 4,
         "estado": 0,
         "nombreHabitacion":"Palmera 1",
-        "numeroHabitacion": "401",
-        "reservas": []
+        "numeroHabitacion": "401"
     },
     {
-        "tipoHabitacion": 4,
+        "tipoHabitacion": "Premium",
         "valor": 120000,
         "cantidadPersonas": 4,
         "estado": 0,
         "nombreHabitacion":"Palmera 2",
-        "numeroHabitacion": "402",
-        "reservas": []
+        "numeroHabitacion": "402"
     },
     {
-        "tipoHabitacion": 4,
+        "tipoHabitacion": "Premium",
         "valor": 120000,
         "cantidadPersonas": 4,
         "estado": 0,
         "nombreHabitacion":"Palmera 3",
-        "numeroHabitacion": "403",
-        "reservas": []
+        "numeroHabitacion": "403"
     }
 ]
