@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------------------
 #Librerias
-from datetime import datetime #IMPORTADA BIBLIOTECA DATETIME, con el fin de trabajar con fechas y horas.
+import datetime #IMPORTADA BIBLIOTECA DATETIME, con el fin de trabajar con fechas y horas.
 import random 
 import os #Biblioteca para usar la terminar
 import json #Biblioteca para usar Json
@@ -51,8 +51,8 @@ def verificar_disponibilidad(fecha_ingreso,fecha_salida,n_reserva):
 
         if reserva['NumeroHabitacion'] == n_reserva:
 
-            fecha_ingreso_existente = datetime.strptime(reserva['Fecha_ingreso'], '%Y-%m-%d')
-            fecha_salida_existente = datetime.strptime(reserva['Fecha_salida'], '%Y-%m-%d')
+            fecha_ingreso_existente = reserva['Fecha_ingreso']
+            fecha_salida_existente = reserva['Fecha_salida']
 
             if not (fecha_salida_nueva <= fecha_ingreso_existente or fecha_ingreso_nueva >= fecha_salida_existente):
                 print("No se puede reservar. Las fechas de la nueva reserva se solapan con una reserva existente.")
@@ -303,6 +303,10 @@ def funcionIngreso():
 
     codigoReserva = generar_codigo_reserva(nombre,fecha_ingreso,ingresar_habitacion)
 
+    print("==========================================")
+    print("El numero de reserva es : ", codigoReserva)
+    print("==========================================")
+
     reserva = { 
         'Nombre': nombre,
         'Apellido': apellido,
@@ -463,7 +467,7 @@ def verificar_fecha_ingreso():
             
             ingreso = input(" • Fecha de Ingreso separados por un espacio (DD-MM-YYYY) ➞  ")
             dia, mes, anio = map(int, ingreso.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
-            fecha_ingreso = convertir_fecha(dia, mes, anio)
+            fecha_ingreso = datetime.strftime(fecha_ingreso,'%Y-%m-%d')
             fecha_actual = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) #Esto nos dira la fechecha de ahora.
             
             
