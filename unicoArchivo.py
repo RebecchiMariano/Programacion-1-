@@ -42,18 +42,19 @@ def mostrar_habitaciones(habitaciones):
     for habitacion in habitaciones:
         print(f"- {habitacion['numeroHabitacion']} (tipo: {habitacion['tipoHabitacion']}, valor: {habitacion['valor']}, personas: {habitacion['cantidadPersonas']},nombreHabitacion:{habitacion['nombreHabitacion']}, estado: {habitacion['estado']}), reservas: {habitacion['reservas']}")
 
-def verificar_disponibilidad(fecha_ingreso,fecha_salida,n_reserva):
-
+def verificar_disponibilidad(fecha_ingreso, fecha_salida, n_reserva):
+    # `fecha_ingreso` y `fecha_salida` ya están en formato `datetime.date` gracias a la función de verificación
     fecha_ingreso_nueva = fecha_ingreso
     fecha_salida_nueva = fecha_salida
 
     for reserva in reservas:
-
+        # Verificar si la reserva es para el mismo número de habitación
         if reserva['NumeroHabitacion'] == n_reserva:
+            # Convertir las fechas de la reserva existente a datetime.date
+            fecha_ingreso_existente = datetime.strptime(reserva['Fecha_ingreso'], "%Y-%m-%d").date()
+            fecha_salida_existente = datetime.strptime(reserva['Fecha_salida'], "%Y-%m-%d").date()
 
-            fecha_ingreso_existente = reserva['Fecha_ingreso']
-            fecha_salida_existente = reserva['Fecha_salida']
-
+            # Verificar si hay solapamiento en las fechas
             if not (fecha_salida_nueva <= fecha_ingreso_existente or fecha_ingreso_nueva >= fecha_salida_existente):
                 print("No se puede reservar. Las fechas de la nueva reserva se solapan con una reserva existente.")
                 return False
@@ -301,6 +302,8 @@ def funcionIngreso():
 
     ingresar_habitacion = asignar_habitacion(habitaciones,numeros_de_huespedes,fecha_ingreso,fecha_salida)
 
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     codigoReserva = generar_codigo_reserva(nombre,fecha_ingreso,ingresar_habitacion)
 
     print("==========================================")
@@ -353,26 +356,37 @@ def ingresar_acompanantes():
 
     while bandera:
 
-        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-        print("===== INGRESE LOS DATOS DE LOS ACOMPANIANTES DE LA RESERVA =====") 
-        print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+        
 
-        num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
+        try:
+            print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+            print("===== INGRESE LOS DATOS DE LOS ACOMPANIANTES DE LA RESERVA =====") 
+            print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
+
+            num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
+
+            if 1 <= num_acompanantes or num_acompanantes <= max_acompanantes: #Si ingresamos el numero (1 - 3).
+                for i in range(num_acompanantes): 
+                    print(f" Ingresando datos del acompañante 【 {i + 1} 】") 
+                    nombre = verificar_nombre()
+                    apellido = verificar_apellido()
+                    acompanante = nombre + " " + apellido
+
+                    acompanantes.append(acompanante) #Se va agregando a la lista.
+
+                    bandera = False #Sale de la bandera.
+            else:
+                print("x Por favor, ingrese un número válido de acompañantes (1 a 3) x") 
+
+        except ValueError:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print(" ---------------------------------------  ")
+            print(" Error - No se ingresó un número válido. ")
+            print(" ---------------------------------------  ")
         
         
 
-        if 1 <= num_acompanantes or num_acompanantes <= max_acompanantes: #Si ingresamos el numero (1 - 3).
-            for i in range(num_acompanantes): 
-                print(f" Ingresando datos del acompañante 【 {i + 1} 】") 
-                nombre = verificar_nombre()
-                apellido = verificar_apellido()
-                acompanante = nombre + " " + apellido
-
-                acompanantes.append(acompanante) #Se va agregando a la lista.
-
-            bandera = False #Sale de la bandera.
-        else:
-            print("x Por favor, ingrese un número válido de acompañantes (1 a 3) x") 
+        
     
     
     
@@ -462,100 +476,50 @@ def verificar_numero():
 
 def verificar_fecha_ingreso():
     while True:
-
         try:
+            ingreso = input(" • Fecha de Ingreso en formato (DD-MM-YYYY) ➞  ").strip()
+
+            # Convertir el input a un objeto datetime solo con fecha
+            fecha_ingreso = datetime.strptime(ingreso, "%d %m %Y").date()
             
-            ingreso = input(" • Fecha de Ingreso separados por un espacio (DD-MM-YYYY) ➞  ")
-            dia, mes, anio = map(int, ingreso.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
-            fecha_ingreso = datetime.strftime(fecha_ingreso,'%Y-%m-%d')
-            fecha_actual = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) #Esto nos dira la fechecha de ahora.
-            
+            # Obtener la fecha actual solo con fecha
+            fecha_actual = datetime.now().date()
             
             if fecha_actual <= fecha_ingreso:
                 return fecha_ingreso
             else:
                 print("x La fecha ingresada es menor a la fecha actual. x")
-
+        
         except ValueError:
             print(" ----------------------------------------- ")
-            print("  Error - No se ingreso una fecha valida.  ")
+            print("  Error - No se ingresó una fecha válida.  ")
             print(" ----------------------------------------- ")
 
 def verificar_fecha_salida(fecha_ingreso):
     while True:
-        
-
         try:
+            salida = input(" • Fecha de Salida separados por un espacio (DD-MM-YYYY) ➞  ").strip()
             
-            salida = input(" • Fecha de Salida separados por un espacio (DD-MM-YYYY) ➞  ")                    
-            diaSalida, mesSalida, anioSalida = map(int, salida.split()) #Map, int deja a toda la variable en numeros enteros y split los separa en listas. 01 12 , [01 , 12].
-            fecha_salida = convertir_fecha(diaSalida, mesSalida, anioSalida)#Llamamos a la funcion de la bilioteca para convertir nuestra fecha.
+            # Imprimir salida para depuración
+            print("Fecha de salida ingresada:", salida)
+            
+            # Convertir el input a una fecha datetime solo con fecha
+            fecha_salida = datetime.strptime(salida, "%d %m %Y").date()
             
             if fecha_ingreso <= fecha_salida:
                 return fecha_salida
             else:
-                print("x La fecha ingresada es menor a la fecha de ingreso. x")
-
+                print("x La fecha de salida es menor a la fecha de ingreso. x")
+        
         except ValueError:
             print(" ----------------------------------------- ")
-            print("  Error - No se ingreso una fecha valida.  ")
+            print("  Error - No se ingresó una fecha válida.  ")
             print(" ----------------------------------------- ")
 
-#Convertimos la fecha con esta funcion con la libreria DateTime. La utilizamos para la funcion ingreso                                
-def convertir_fecha(dia, mes,anio): 
-    return datetime(anio , mes, dia) 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
 
 #----------------------------------------------------------------------------------------------------------------------------------
-#Funciones de validacion de Disponibilidad (A CHEQUEAR ESTO)
-
-#La funcion valida si esta disponible
-def esta_disponible(fecha_ingreso, fecha_salida, reservas):
-    for reserva in reservas: #Va buscar una reserva (i) en las reservas
-        if (fecha_salida > reserva['ingreso'] or fecha_ingreso < reserva['salida']): #Si en las fechas de en.
-            #15/2 y 31/2 o 17/2 y 31/2 
-            return False #Retorna Falso cuando se encuentra una fecha ingresada en la reserva. (No se cumple el if).
-        
-        return True #Retora True cuando se encuentra una fecha que no esta en la reserva.  
-
-#AL FINAL ESTO NO LO USAMOS
-#def verHabitaciones(habitaciones): # 2) Registrar el Ingreso.
-    print("======================================================")
-    print("┇          LISTADO DE HABITACIONES DISPONIBLES        ┇")
-    print("======================================================")
-    
-    for tipo, lista_habitaciones in habitaciones.items(): # Recorremos el diccionario 'habitaciones', donde 'tipo' es la clave (por ejemplo, 'premium' o 'normal') y 'lista_habitaciones' es el valor asociado a esa clave (una lista de habitaciones de ese tipo).
-        for i, habitacion in enumerate(lista_habitaciones): # Ahora recorremos la lista de habitaciones para ese tipo. (i) indice de habitacion y habitacion el valor de cada habitacion
-            if len(habitacion['reservas']) == 0:
-                estado = "Disponible" #Si la lista de habitacion no tiene reserva es disponible.
-            else:
-                estado = "Ocupada" #Si la lista tiene.
-            
-            print(f"Habitación tipo: {tipo}, Número: {i + 1}")
-            print(f"   Capacidad: {habitacion['capacidad']} personas") #Lo que nos mostrara nustro diccionario de habitacion
-            print(f"   Estado: {estado}")
-            
-            if estado == "Ocupada": #Si esta ocupado.
-                for reserva in habitacion['reservas']: #Recorremos esa reserva donde tenemos todos los datos de los huespedes.
-                    # Obtener los datos del huésped
-                    huesped = reserva.get('huesped', {}) #Traemos los huesped de la reserva.
-                    acompanantes = huesped.get('Acompanantes', []) #Tramemos los acompaniantes de huespedes.
-                    nombre_huesped = huesped.get('Nombre') #Nombra del huesped titular.
-                    apellido_huesped = huesped.get('Apellido')#Apellido del huesped titular.
-                    
-                    print(f"   Titular: {nombre_huesped} {apellido_huesped}") #Nombre y apellido.
-                    
-                    # Imprimir los datos de los acompañantes
-                    if acompanantes:  # Aquí se comprueba si hay acompañantes
-                        print("   Acompañantes:")
-                        for acompanante in acompanantes: #Recorro los acompaniantes.
-                            nombre_acompanante = acompanante.get('nombre') #Nombre de los acompaniantes.
-                            apellido_acompanante = acompanante.get('apellido') #Apellido de los acompaniantes.
-                            print(f"      - {nombre_acompanante} {apellido_acompanante}") #Nombre y apellido.
-            print("------------------------------------------------------")
-    
-    print("======================================================")
 
 from datetime import datetime
 
@@ -593,13 +557,8 @@ def ajustar_precio_por_temp(habitaciones, fecha_ingreso):
 
 # Funcion pago total (queda pendiente)
 #def pagoTotal():
-
-#ESTO PARA QUE ES? Esto es para cuando nostros llamamos al archivo js de habitaciones
 habitaciones = cargar_habitaciones()
 reservas = leer_reservas()
-
-
-
 #------------------------------------------------------------------------------------------------------------------------------------
 #VALIDAR SI LA USAMOS O HAY QUE RE ESCRIBIRLA
 
@@ -646,6 +605,12 @@ reservas = leer_reservas()
 #FUNCIONES QUE HAY QUE RE ESCRIBIR:
 
 #def verificar_disponibilidad(habitaciones, numero_habitacion, fecha_ingreso, fecha_salida):
+#--------------------------------------------------------------------------------------------------------------------------------
+
+#Variables globales
+
+habitaciones = cargar_habitaciones()
+reservas = leer_reservas()
 
 
 #-------------------------------------------------------------------------------------------------------------------------------
