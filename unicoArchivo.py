@@ -43,36 +43,29 @@ def mostrar_habitaciones(habitaciones):
         print(f"- {habitacion['numeroHabitacion']} (tipo: {habitacion['tipoHabitacion']}, valor: {habitacion['valor']}, personas: {habitacion['cantidadPersonas']},nombreHabitacion:{habitacion['nombreHabitacion']}, estado: {habitacion['estado']}), reservas: {habitacion['reservas']}")
 
 def verificar_disponibilidad(fecha_ingreso, fecha_salida, n_reserva):
-    # `fecha_ingreso` y `fecha_salida` ya están en formato `datetime.date` gracias a la función de verificación
-    fecha_ingreso_nueva = fecha_ingreso
-    fecha_salida_nueva = fecha_salida
-
+    
     for reserva in reservas:
-        # Verificar si la reserva es para el mismo número de habitación
         if reserva['NumeroHabitacion'] == n_reserva:
-            # Convertir las fechas de la reserva existente a datetime.date
             fecha_ingreso_existente = datetime.strptime(reserva['Fecha_ingreso'], "%Y-%m-%d").date()
             fecha_salida_existente = datetime.strptime(reserva['Fecha_salida'], "%Y-%m-%d").date()
 
-            # Verificar si hay solapamiento en las fechas
-            if not (fecha_salida_nueva <= fecha_ingreso_existente or fecha_ingreso_nueva >= fecha_salida_existente):
-                print("No se puede reservar. Las fechas de la nueva reserva se solapan con una reserva existente.")
+            # Verificar solapamiento o contigüidad de fechas
+            if fecha_ingreso <= fecha_salida_existente and fecha_salida >= fecha_ingreso_existente:
+                print("No se puede reservar. Las fechas de la nueva reserva se solapan o tocan una reserva existente.")
                 return False
     
     print("La habitación está disponible para las fechas solicitadas ✔.")
     return True
-
 
 #Funcion Mostrar habitaciones, la utilizamos para mostrar el numero de cuartos a la hora de hacer una reserva, los cuartos mostrados dependeran
 #de si ya se encuentran reservadas, estado 1 (Solo mostramos estados 0s) y Segun la cantidad de acompa;antes declarados dentro de ella
 #se encuentra la funcion cambiar_estado
 def asignar_habitacion(habitaciones, num_acompanantes,fecha_ingreso,fecha_salida):
     # Si hay menos de 2 acompañantes, mostrar todas las habitaciones
-    print("==============================")
-    print("---      Habitaciones      ---")
-    print("==============================")
-    print(" Num  -   Nombre   -   Tipo   ")
-    print("------------------------------")
+    print("==================================")
+    print("|          Habitaciones          |")
+    print("| Numero  -   Nombre   -    Tipo |")
+    print("----------------------------------")
 
     if num_acompanantes < 2:
         for habitacion in habitaciones:
@@ -84,7 +77,12 @@ def asignar_habitacion(habitaciones, num_acompanantes,fecha_ingreso,fecha_salida
             if habitacion['cantidadPersonas'] == 4:
                 print(f"-",habitacion['numeroHabitacion'],"✦",habitacion['nombreHabitacion'],"～",habitacion['tipoHabitacion'])
     
-    print("==============================")
+    print("==================================")
+    print("| Fecha de estadia de la reserva |")
+    print("| Anio    -     Mes     -    Dia |")
+    print("----------------------------------")
+    print("|",fecha_ingreso," Al ",fecha_salida,"|")
+    print("==================================")
 
     habitacion_valida = False  # Variable de control
 
@@ -108,8 +106,8 @@ def asignar_habitacion(habitaciones, num_acompanantes,fecha_ingreso,fecha_salida
                         habitacion_valida = True
         
         # Revisar si no se encontró una habitación válida
-        if not habitacion_valida:
-            print("No se pudo ingresar la habitación. Ingrese un número de habitación válido.")
+        if not habitacion_valida :
+            print("- Ingrese un numero de habitacion valido -")
     
     return asignar_n_habitacion
 
@@ -300,9 +298,9 @@ def funcionIngreso():
     #Se guardan todos los input en un diccionario.
     # 
 
-    ingresar_habitacion = asignar_habitacion(habitaciones,numeros_de_huespedes,fecha_ingreso,fecha_salida)
-
     os.system('cls' if os.name == 'nt' else 'clear')
+
+    ingresar_habitacion = asignar_habitacion(habitaciones,numeros_de_huespedes,fecha_ingreso,fecha_salida)
 
     codigoReserva = generar_codigo_reserva(nombre,fecha_ingreso,ingresar_habitacion)
 
@@ -498,7 +496,7 @@ def verificar_fecha_ingreso():
 def verificar_fecha_salida(fecha_ingreso):
     while True:
         try:
-            salida = input(" • Fecha de Salida separados por un espacio (DD-MM-YYYY) ➞  ").strip()
+            salida = input(" • Fecha de Salida en formato (DD-MM-YYYY) ➞  ").strip()
             
             # Imprimir salida para depuración
             print("Fecha de salida ingresada:", salida)
