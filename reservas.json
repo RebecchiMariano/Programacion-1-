@@ -1,20 +1,19 @@
 [
     {
-        "Nombre": "Marian",
-        "Apellido": "Rebecchi",
-        "Documento": "44551789",
-        "Nacionalidad": "Argentina",
-        "Correo": "Marianogab@.com",
-        "Numero tel": "11232443",
-        "Fecha_ingreso": "2024-12-10",
-        "Fecha_salida": "2024-12-20",
+        "Nombre": "Manuela",
+        "Apellido": "Testigo",
+        "Documento": null,
+        "Nacionalidad": "Dsanmjasnd",
+        "Correo": "@.",
+        "Numero tel": "1167455455",
+        "Fecha_ingreso": "2024-12-01",
+        "Fecha_salida": "2024-12-05",
         "Edad": "Mayor",
-        "Numero de cliente": 4622,
-        "NumeroHabitacion": "Palmera 3",
-        "CodigoReserva": "83ea8e46",
+        "NumeroHabitacion": "201",
+        "CodigoReserva": "823f318d",
         "Acompanantes": [
-            "Matias Rebechci",
-            "Tomi Rebecchi"
+            "Manuela Teta",
+            "Kirikocho Milton"
         ]
     }
 ]
