@@ -70,18 +70,21 @@ def asignar_habitacion(habitaciones, num_acompanantes,fecha_ingreso,fecha_salida
     if num_acompanantes < 2:
         for habitacion in habitaciones:
             if habitacion['cantidadPersonas'] == 2:
-                print(f"-",habitacion['numeroHabitacion'],"✦",habitacion['nombreHabitacion'],"～",habitacion['tipoHabitacion'])
+                print(f"-",habitacion['numeroHabitacion'],"✦",habitacion['nombreHabitacion'],"～",habitacion['tipoHabitacion'],f"-")
     # Si hay 2 o más acompañantes, mostrar solo habitaciones con capacidad para 4 personas
     else:
         for habitacion in habitaciones:
             if habitacion['cantidadPersonas'] == 4:
-                print(f"-",habitacion['numeroHabitacion'],"✦",habitacion['nombreHabitacion'],"～",habitacion['tipoHabitacion'])
+                print(f"-",habitacion['numeroHabitacion'],"✦",habitacion['nombreHabitacion'],"～",habitacion['tipoHabitacion'],f"-")
+
+    fecha_ingreso_formateada = fecha_ingreso.strftime("%d-%m-%Y")
+    fecha_salida_formateada = fecha_salida.strftime("%d-%m-%Y")
     
     print("==================================")
     print("| Fecha de estadia de la reserva |")
-    print("| Anio    -     Mes     -    Dia |")
+    print("| Dia   -     Mes     -    Anio  |")
     print("----------------------------------")
-    print("|",fecha_ingreso," Al ",fecha_salida,"|")
+    print("| ",fecha_ingreso_formateada," Al ",fecha_salida_formateada," |")
     print("==================================")
 
     habitacion_valida = False  # Variable de control
@@ -156,59 +159,25 @@ def agregar_reserva(nueva_reserva):
 #----------------------------------------------------------------------------------------------------------------------------------
 #FUNCIONES DE MENU
 
-#Menu para buscar Habitaciones 
-# def buscarMenu():
-
-# #Funcion Menu Ejecutadora del proyecto
-#     bandera = True
-
-    
-#     while bandera:
-
-#         print("============================================== ")
-#         print("┇                🏨 BUSCAR 🏨               ┇ ")
-#         print("============================================== ")
-#         print("┇                                            ┇ ")
-#         print("┇         1. Buscar x Numero de Reserva      ┇ ")
-#         print("┇         2. Buscar x Nombre y Apellido      ┇ ")
-#         print("┇         3. Buscar x Habitacion             ┇ ")
-#         print("┇         4. Buscar x Fecha de Reserva       ┇ ")
-#         print("┇         5. Buscar x Fecha de Estancia      ┇ ")
-#         print("┇         6. Buscar x Rango de Fechas        ┇ ")
-#         print("┇         7. Buscar x Estado de Reserva      ┇ ")
-#         print("┇         8. Buscar x Tipo de Habitación     ┇ ")
-#         print("┇         9. Buscar x Número de Huéspedes    ┇ ")
-#         print("┇         10. Buscar x Método de Pago        ┇ ")
-#         print("┇                                            ┇ ")
-#         print("┇                 0. SALIR                   ┇ ")
-#         print("┇                                            ┇ ")
-#         print("============================================== ")
-
-#         opcion = int(input("Seleccione una opción del menú ➡  "))
-
-#         if opcion >= 10 or opcion <= 0:
-#             print("✕ El numero que ingresaste no esta en el rango de opciones. ✕")
-
 def menu():
-    
-
 
     bandera = True  # Con esta bandera controlamos el ciclo principal del menú.
 
     while bandera:
         # Mostrar el menú
-        print("============================================ ")
-        print("┇       🏨 BIENVENIDOS AL SISTEMA 🏨      ┇ ")
-        print("============================================ ")
-        print("┇                                          ┇ ")
-        print("┇         1. Registrar Ingreso             ┇ ")
-        print("┇         2. Ver Habitaciones              ┇ ")
-        print("┇         3. Buscar                        ┇ ")
-        print("┇         4. Checkout                      ┇ ")
-        print("┇                                          ┇ ")
-        print("┇                 0. SALIR                 ┇ ")
-        print("┇                                          ┇ ")
-        print("============================================ ")
+        print("============================= ")
+        print("┇     🏨 BIENVENIDOS 🏨     ┇ ")
+        print("============================= ")
+        print("┇                           ┇ ")
+        print("┇       \033[4mAdministrador\033[0m       ┇ ")
+        print("┇                           ┇ ")
+        print("┇       1. Ingreso          ┇ ")
+        print("┇       2. Habitaciones     ┇ ")
+        print("┇       3. CheckOut-In      ┇ ")
+        print("┇                           ┇ ")
+        print("┇          0. SALIR         ┇ ")
+        print("┇                           ┇ ")
+        print("============================= ")
 
         # Inicializamos la variable de respuesta en None
         respuesta = None
@@ -254,9 +223,9 @@ def funcionIngreso():
     #----------------------------------------------------------------------------------
     #Parte 1 Ingreso de los valores basicos del titular por medio de funciones
 
-    print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-    print("======= INGRESE LOS DATOS DEL TITULAR DE LA RESERVA =======")
-    print("=========================================================== ")
+    print("========================== ")
+    print("┇   🏨   Ingreso   🏨   ┇ ")
+    print("=========================== ")
     
     nombre = verificar_nombre()
     apellido = verificar_apellido()
@@ -268,27 +237,10 @@ def funcionIngreso():
     fecha_salida = verificar_fecha_salida(fecha_ingreso)
     edad = "Mayor"
     
-    
-
-    print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-    print("=== Estas seguro que quieres guardar los datos del titular? ===")
-    print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-        
-    regresar = input("=== Ingrese No/n . Si quieres seguir ingrese cualquier caracter. === ➞  ")
-    print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-    
-    #Reset a la consola  
-    if regresar.lower() == 'n' or regresar.lower() == 'no':
-        print("Sin guardar datos...")
-        return None
-
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-    print("Se ingreso correctamente el Titular ✔ ")
-    
     #--------------------------------------------------------------------------------------------------------
     
     #Parte 2 Acompanientes, se valida si huesped viene con acompanientes 
+
     
     huespedes = acompaniantes() 
     numeros_de_huespedes = len(huespedes)
@@ -296,38 +248,40 @@ def funcionIngreso():
     #--------------------------------------------------------------------------------------------------------
     #Nombre Habitaciones printea el nombre de todos los cuartos
     #Se guardan todos los input en un diccionario.
-    # 
+    #
 
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-    ingresar_habitacion = asignar_habitacion(habitaciones,numeros_de_huespedes,fecha_ingreso,fecha_salida)
-
-    codigoReserva = generar_codigo_reserva(nombre,fecha_ingreso,ingresar_habitacion)
-
-    print("==========================================")
-    print("El numero de reserva es : ", codigoReserva)
-    print("==========================================")
-
-    reserva = { 
-        'Nombre': nombre,
-        'Apellido': apellido,
-        'Documento': dni_pasaporte,
-        'Nacionalidad': nacionalidad,
-        'Correo': correo,
-        'Numero tel': numero,
-        'Fecha_ingreso': fecha_ingreso,
-        'Fecha_salida': fecha_salida,
-        'Edad': edad,
-        'NumeroHabitacion': ingresar_habitacion,
-        'CodigoReserva' : codigoReserva,
-        #Se almacena acompaniantes en caso de existir
-        'Acompanantes' : huespedes
-    }
+    if guardar_datos():
+        return None
+    else:
     
-    #---------------------------------------------------------------------------------------------------------
-    #Parte 3 Seleccion de Habitaciones, la funcion labura con el diccionario previamente llamado del .json 
+        ingresar_habitacion = asignar_habitacion(habitaciones,numeros_de_huespedes,fecha_ingreso,fecha_salida)
 
-    return reserva
+        codigoReserva = generar_codigo_reserva(nombre,fecha_ingreso,ingresar_habitacion)
+
+        print("==========================================")
+        print("El numero de reserva es : ", codigoReserva)
+        print("==========================================")
+
+        reserva = { 
+            'Nombre': nombre,
+            'Apellido': apellido,
+            'Documento': dni_pasaporte,
+            'Nacionalidad': nacionalidad,
+            'Correo': correo,
+            'Numero tel': numero,
+            'Fecha_ingreso': fecha_ingreso,
+            'Fecha_salida': fecha_salida,
+            'Edad': edad,
+            'NumeroHabitacion': ingresar_habitacion,
+            'CodigoReserva' : codigoReserva,
+            #Se almacena acompaniantes en caso de existir
+            'Acompanantes' : huespedes
+        }
+        
+        #---------------------------------------------------------------------------------------------------------
+        #Parte 3 Seleccion de Habitaciones, la funcion labura con el diccionario previamente llamado del .json 
+
+        return reserva
 
 #Ingreso y validacion de acompanientes en caso de que exista
 def acompaniantes(): 
@@ -498,9 +452,6 @@ def verificar_fecha_salida(fecha_ingreso):
         try:
             salida = input(" • Fecha de Salida en formato (DD-MM-YYYY) ➞  ").strip()
             
-            # Imprimir salida para depuración
-            print("Fecha de salida ingresada:", salida)
-            
             # Convertir el input a una fecha datetime solo con fecha
             fecha_salida = datetime.strptime(salida, "%d %m %Y").date()
             
@@ -514,6 +465,34 @@ def verificar_fecha_salida(fecha_ingreso):
             print("  Error - No se ingresó una fecha válida.  ")
             print(" ----------------------------------------- ")
 
+def guardar_datos():
+    print("================================= ")
+    print("┇  ¿Quieres guardar los datos?  ┇ ")
+    print("================================= ")
+        
+    
+    
+    
+
+    while True:
+        try:
+            print("┇     1. Si     ┇     2.No      ┇     ")
+            regresar = int(input("================================= ➞  "))
+
+        
+            if regresar == 2:
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print("Sin guardar datos...")
+                return True
+            elif regresar == 1:
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print("Se ingreso correctamente el Titular ✔ ")
+                return False
+                
+            else:
+                print("No se ingresó un número válido.")
+        except ValueError:
+            print("No se ingresó un número válido. Por favor ingresa 1 o 2.")
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
 
