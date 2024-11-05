@@ -1,98 +1,137 @@
 [
     {
         "tipoHabitacion": "Estandar",
+        "descripcion": "",
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "nombreHabitacion":"Roble1",
+        "nombreHabitacion": "Roble1",
         "numeroHabitacion": "101"
     },
     {
         "tipoHabitacion": "Estandar",
+        "descripcion": "",
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "nombreHabitacion":"Roble2",
+        "nombreHabitacion": "Roble2",
         "numeroHabitacion": "102"
     },
     {
         "tipoHabitacion": "Estandar",
+        "descripcion": "",
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "nombreHabitacion":"Roble3",
+        "nombreHabitacion": "Roble3",
         "numeroHabitacion": "103"
     },
     {
         "tipoHabitacion": "Estandar",
+        "descripcion": "",
         "valor": 80000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "nombreHabitacion":"Sauce 1",
+        "nombreHabitacion": "Sauce 1",
         "numeroHabitacion": "201"
     },
     {
         "tipoHabitacion": "Estandar",
+        "descripcion": "",
         "valor": 80000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "nombreHabitacion":"Sauce 2",
+        "nombreHabitacion": "Sauce 2",
         "numeroHabitacion": "202"
     },
     {
         "tipoHabitacion": "Estandar",
+        "descripcion": "",
         "valor": 80000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "nombreHabitacion":"Sauce 3",
+        "nombreHabitacion": "Sauce 3",
         "numeroHabitacion": "203"
     },
     {
         "tipoHabitacion": "Premium",
+        "descripcion": "",
         "valor": 80000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "nombreHabitacion":"Naranjo 1",
+        "nombreHabitacion": "Naranjo 1",
         "numeroHabitacion": "301"
     },
     {
         "tipoHabitacion": "Premium",
+        "descripcion": "",
         "valor": 80000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "nombreHabitacion":"Naranjo 2",
+        "nombreHabitacion": "Naranjo 2",
         "numeroHabitacion": "302"
     },
     {
         "tipoHabitacion": "Premium",
+        "descripcion": "",
         "valor": 80000,
         "cantidadPersonas": 2,
         "estado": 0,
-        "nombreHabitacion":"Naranjo 3",
+        "nombreHabitacion": "Naranjo 3",
         "numeroHabitacion": "303"
     },
     {
         "tipoHabitacion": "Premium",
+        "descripcion": "",
         "valor": 120000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "nombreHabitacion":"Palmera 1",
+        "nombreHabitacion": "Palmera 1",
         "numeroHabitacion": "401"
     },
     {
         "tipoHabitacion": "Premium",
+        "descripcion": "",
         "valor": 120000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "nombreHabitacion":"Palmera 2",
+        "nombreHabitacion": "Palmera 2",
         "numeroHabitacion": "402"
     },
     {
         "tipoHabitacion": "Premium",
+        "descripcion": "",
         "valor": 120000,
         "cantidadPersonas": 4,
         "estado": 0,
-        "nombreHabitacion":"Palmera 3",
+        "nombreHabitacion": "Palmera 3",
         "numeroHabitacion": "403"
+    },
+    {
+        "tipoHabitacion": "roror",
+        "descripcion": "rororo",
+        "valor": 10,
+        "cantidadPersonas": 2,
+        "estado": 0,
+        "nombreHabitacion": "roro",
+        "numeroHabitacion": "23"
+    },
+    {
+        "tipoHabitacion": "jej",
+        "descripcion": "ee",
+        "valor": 12,
+        "cantidadPersonas": 12,
+        "estado": 0,
+        "nombreHabitacion": "eee",
+        "numeroHabitacion": "12"
+    },
+    {
+        "tipoHabitacion": "eeepepe",
+        "descripcion": "eepepepepeep",
+        "valor": 12,
+        "cantidadPersonas": 2,
+        "estado": 0,
+        "nombreHabitacion": "jeej",
+        "numeroHabitacion": "009"
     }
 ]

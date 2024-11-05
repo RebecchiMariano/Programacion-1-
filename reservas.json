@@ -15,5 +15,33 @@
             "Manuela Teta",
             "Kirikocho Milton"
         ]
+    },
+    {
+        "Nombre": "Roman",
+        "Apellido": "Sanchez",
+        "Documento": null,
+        "Nacionalidad": "Peruano",
+        "Correo": "romanelperuano@gmail.com",
+        "Numero tel": "1151453572",
+        "Fecha_ingreso": "2024-11-04",
+        "Fecha_salida": "2024-11-05",
+        "Edad": "Mayor",
+        "NumeroHabitacion": "101",
+        "CodigoReserva": "76a2e6da",
+        "Acompanantes": "-"
+    },
+    {
+        "Nombre": "Pepe",
+        "Apellido": "Pepon",
+        "Documento": null,
+        "Nacionalidad": "Afgano",
+        "Correo": "pepeafgano@gmail.com",
+        "Numero tel": "115253526",
+        "Fecha_ingreso": "2024-11-06",
+        "Fecha_salida": "2024-11-07",
+        "Edad": "Mayor",
+        "NumeroHabitacion": "101",
+        "CodigoReserva": "b5c076e9",
+        "Acompanantes": "-"
     }
 ]
