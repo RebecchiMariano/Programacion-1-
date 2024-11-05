@@ -43,5 +43,36 @@
         "NumeroHabitacion": "101",
         "CodigoReserva": "b5c076e9",
         "Acompanantes": "-"
+    },
+    {
+        "Nombre": "Mdksamkdas",
+        "Apellido": "Dsamkdas",
+        "Documento": null,
+        "Nacionalidad": "Damdsamdsa",
+        "Correo": "dsa32@.",
+        "Numero tel": "32132321",
+        "Fecha_ingreso": "2024-12-01",
+        "Fecha_salida": "2024-12-06",
+        "Edad": "Mayor",
+        "NumeroHabitacion": "009",
+        "CodigoReserva": "f2809fc9",
+        "Acompanantes": "-"
+    },
+    {
+        "Nombre": "Ndsajnjdsa",
+        "Apellido": "Mkdsakldmsak",
+        "Documento": null,
+        "Nacionalidad": "Dmkasdmkas",
+        "Correo": "@.",
+        "Numero tel": "321312312",
+        "Fecha_ingreso": "2024-12-01",
+        "Fecha_salida": "2024-12-05",
+        "Edad": "Mayor",
+        "NumeroHabitacion": "403",
+        "CodigoReserva": "e9e53754",
+        "Acompanantes": [
+            "Dmskakmd Mdsmkdsa",
+            "Dmsadka Dmksadsa"
+        ]
     }
 ]

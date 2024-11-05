@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------------------
 #Librerias
-import datetime #IMPORTADA BIBLIOTECA DATETIME, con el fin de trabajar con fechas y horas.
+from datetime import datetime #IMPORTADA BIBLIOTECA DATETIME, con el fin de trabajar con fechas y horas.
 import random 
 import os #Biblioteca para usar la terminar
 import json #Biblioteca para usar Json
@@ -75,12 +75,12 @@ def asignar_habitacion(habitaciones, num_acompanantes,fecha_ingreso,fecha_salida
     if num_acompanantes < 2:
         for habitacion in habitaciones:
             if habitacion['cantidadPersonas'] == 2:
-                print(f"-",habitacion['numeroHabitacion'],"✦",habitacion['nombreHabitacion'],"～",habitacion['tipoHabitacion'],f"-")
+                print(f"-",habitacion['numeroHabitacion']," ✦",habitacion['nombreHabitacion']," ～",habitacion['tipoHabitacion'],f"-")
     # Si hay 2 o más acompañantes, mostrar solo habitaciones con capacidad para 4 personas
     else:
         for habitacion in habitaciones:
             if habitacion['cantidadPersonas'] == 4:
-                print(f"-",habitacion['numeroHabitacion'],"✦",habitacion['nombreHabitacion'],"～",habitacion['tipoHabitacion'],f"-")
+                print(f"-",habitacion['numeroHabitacion']," ✦",habitacion['nombreHabitacion']," ～",habitacion['tipoHabitacion'],f"-")
 
     fecha_ingreso_formateada = fecha_ingreso.strftime("%d-%m-%Y")
     fecha_salida_formateada = fecha_salida.strftime("%d-%m-%Y")
@@ -89,7 +89,7 @@ def asignar_habitacion(habitaciones, num_acompanantes,fecha_ingreso,fecha_salida
     print("| Fecha de estadia de la reserva |")
     print("| Dia   -     Mes     -    Anio  |")
     print("----------------------------------")
-    print("| ",fecha_ingreso_formateada," Al ",fecha_salida_formateada," |")
+    print("|",fecha_ingreso_formateada,"   Al   ",fecha_salida_formateada,"|")
     print("==================================")
 
     habitacion_valida = False  # Variable de control
@@ -200,10 +200,16 @@ def menu():
             os.system('cls' if os.name == 'nt' else 'clear')
 
         if respuesta == 1:  # Registrar el Ingreso.
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+
             reserva = funcionIngreso()
             if reserva != None:
                 agregar_reserva(reserva)
         elif respuesta == 2:  # Ver habitaciones.
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+
             menu_habitaciones_admin()
         elif respuesta == 3:  # Buscar.
             buscarMenu()
@@ -265,13 +271,13 @@ def menu_habitaciones_admin():
 
 def ingresar_habitacion():
 
-    tipo_habitacion = input("Ingrese el tipo de habitación: ")
-    descripcion = input("Ingrese la descripción de la habitación: ")
-    valor = int(input("Ingrese el valor de la habitación: "))
-    cantidad_personas = int(input("Ingrese la cantidad de personas: "))
-    estado = int(input("Ingrese el estado de la habitación (0 para disponible, 1 para ocupada): "))
-    nombre_habitacion = input("Ingrese el nombre de la habitación: ")
-    numero_habitacion = input("Ingrese el número de la habitación: ")
+    tipo_habitacion = verificar_tipo()
+    descripcion = verificar_descripcion()
+    valor = verificar_valor()
+    capacidad = verificar_capacidad()
+    estado = verificar_estado()
+    nombre_habitacion = verificar_nombre()
+    numero_habitacion = verificar_numero()
 
     if guardar_datos():
         return None
@@ -280,7 +286,7 @@ def ingresar_habitacion():
         "tipoHabitacion": tipo_habitacion,
         "descripcion": descripcion,
         "valor": valor,
-        "cantidadPersonas": cantidad_personas,
+        "cantidadPersonas": capacidad,
         "estado": estado,
         "nombreHabitacion": nombre_habitacion,
         "numeroHabitacion": numero_habitacion
@@ -300,14 +306,14 @@ def funcionIngreso():
 
     print("========================== ")
     print("┇   🏨   Ingreso   🏨   ┇ ")
-    print("=========================== ")
+    print("========================== ")
     
     nombre = verificar_nombre()
     apellido = verificar_apellido()
     nacionalidad = verificar_nacionalidad()
     dni_pasaporte = verificar_dni(nacionalidad)
     correo = verificar_correo()
-    numero = verificar_numero()
+    numero = verificar_telefono()
     fecha_ingreso = verificar_fecha_ingreso()
     fecha_salida = verificar_fecha_salida(fecha_ingreso)
     edad = "Mayor"
@@ -316,7 +322,8 @@ def funcionIngreso():
     
     #Parte 2 Acompanientes, se valida si huesped viene con acompanientes 
 
-    
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     huespedes = acompaniantes() 
     numeros_de_huespedes = len(huespedes)
 
@@ -360,20 +367,31 @@ def funcionIngreso():
 
 #Ingreso y validacion de acompanientes en caso de que exista
 def acompaniantes(): 
+    
+    while True:
+        try:
+            print("======================================")
+            print("┇   ¿Vas a ir con algún acompañante? ┇") 
+            print("======================================")
+            print("┇      1. Si       ┇      2.No       ┇")
+            option = int(input("====================================== ➞  ").capitalize())
 
-    option = input("¿Vas a ir con algún acompañante? (Si/No) ➞  ").lower() #Preguntamos si va a ir solo o con alguien mas.
+        
+            if option == 1:
+                acompaniantes = ingresar_acompanantes() #Llamamos a la funcion. Si tiene acompaniantes.
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print("Se ingreso correctamente los acompañantes ✔ ")
 
-    if option == "si" or option == "s":
-                                        
-        acompaniantes = ingresar_acompanantes() #Llamamos a la funcion. Si tiene acompaniantes.
+                return acompaniantes
+            elif option == 2:
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print("No se ingresaron acompaniantes X ")
 
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("Se ingreso correctamente los acompañantes ✔ ")
-        return acompaniantes
-    else: #Si no se ingresa ningun acompaniante, quedara la lisa sin acompaniantes.
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("No se ingresaron acompaniantes X ")
-        return "-"  #Devuelve el huesped con los acompaniantes o sin.
+                return "-"  #Devuelve el huesped con los acompaniantes o sin.
+            else:
+                print("No se ingresó un dato valido.")
+        except ValueError:
+            print("No se ingresó un número válido. Por favor ingresa 1 o 2.")
 
 #Si existen acompanientes se valida el numero
 def ingresar_acompanantes(): 
@@ -386,13 +404,19 @@ def ingresar_acompanantes():
         
 
         try:
-            print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
-            print("===== INGRESE LOS DATOS DE LOS ACOMPANIANTES DE LA RESERVA =====") 
-            print("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――")
 
-            num_acompanantes = int(input("¿Cuántas personas más harán la reserva junto a usted? (1 - 3 Personas): "))
+            print("============================ ")
+            print("┇ 🏨    Acompanantes   🏨  ┇")
+            print("============================ ")
+            print("┇          (1 - 3)         ┇")
 
-            if 1 <= num_acompanantes or num_acompanantes <= max_acompanantes: #Si ingresamos el numero (1 - 3).
+            num_acompanantes = int(input("============================ ➞  "))
+            
+
+            if num_acompanantes >= 1 and num_acompanantes <= max_acompanantes: #Si ingresamos el numero (1 - 3).
+
+                os.system('cls' if os.name == 'nt' else 'clear')
+                
                 for i in range(num_acompanantes): 
                     print(f" Ingresando datos del acompañante 【 {i + 1} 】") 
                     nombre = verificar_nombre()
@@ -404,7 +428,6 @@ def ingresar_acompanantes():
                     bandera = False #Sale de la bandera.
             else:
                 print("x Por favor, ingrese un número válido de acompañantes (1 a 3) x") 
-
         except ValueError:
             os.system('cls' if os.name == 'nt' else 'clear')
             print(" ---------------------------------------  ")
@@ -490,7 +513,7 @@ def verificar_correo():
             print("     Error - No se ingreso un correo.      ")
             print(" ----------------------------------------- ")
 
-def verificar_numero():
+def verificar_telefono():
     while True:
         numero = input(" • Telefono 📞 ➞  ")
         if numero.isdigit(): #Retorna true si todos los caracteres utilizados son numero
@@ -522,6 +545,7 @@ def verificar_fecha_ingreso():
             print(" ----------------------------------------- ")
 
 def verificar_fecha_salida(fecha_ingreso):
+
     while True:
         try:
             salida = input(" • Fecha de Salida en formato (DD-MM-YYYY) ➞  ").strip()
@@ -539,6 +563,75 @@ def verificar_fecha_salida(fecha_ingreso):
             print("  Error - No se ingresó una fecha válida.  ")
             print(" ----------------------------------------- ")
 
+#FUNCION DE INGRESO HABITACIONES
+
+def verificar_tipo():
+        
+    while True:
+        tipo = input(" • Tipo ➞  ").capitalize()
+        if tipo.isalpha(): #Retorna tru si todos los caracteres utilizados son letras
+            return tipo
+        else:
+            print(" ---------------------------------------  ")
+            print("        Error - ingresó un número       . ")
+            print(" ---------------------------------------  ")
+
+def verificar_descripcion():
+    descripcion = input(" • Descripcion ➞  ").capitalize()
+    return descripcion
+    
+def verificar_valor():
+    while True:
+        valor = input(" • Valor ➞  ")
+        if valor.isdigit(): #Retorna true si todos los caracteres utilizados son numero
+            return valor
+        else:
+            print(" ----------------------------------------- ")
+            print("    Error - No se ingreso un numero.    ")
+            print(" ----------------------------------------- ")
+
+def verificar_capacidad():
+    while True:
+        try:
+
+            capacidad = int(input(" • Capacidad ➞  "))
+
+            if capacidad == 2 or capacidad == 4:
+                return capacidad
+            else:
+                print("La habitacion no tiene esas capacidad de huespedes X")
+        except ValueError:
+            print(" ----------------------------------------- ")
+            print("    Error - No se ingreso un numero.    ")
+            print(" ----------------------------------------- ")
+    
+def verificar_estado():
+
+    while True:
+        try:
+            
+            estado = int(input(" • Estado (0.Disponible o 1.Ocupado) ➞  "))
+
+            if estado == 1 or estado == 0:
+                return estado
+            else:
+                print("No es un Estado valido X")
+                
+        except ValueError:
+            print(" ----------------------------------------- ")
+            print("    Error - No se ingreso un numero.    ")
+            print(" ----------------------------------------- ")
+    
+def verificar_numero():
+    while True:
+        numero = input(" • Numero ➞  ")
+        if numero.isdigit(): #Retorna true si todos los caracteres utilizados son numero
+            return numero
+        else:
+            print(" ----------------------------------------- ")
+            print("    Error - No se ingreso un numero.    ")
+            print(" ----------------------------------------- ")
+
 def guardar_datos():
     
     print("================================= ")
@@ -548,14 +641,14 @@ def guardar_datos():
     while True:
         try:
             print("┇     1. Si     ┇     2.No      ┇     ")
-            regresar = int(input("================================= ➞  "))
+            regresar = int(input("================================= ➞  ").capitalize())
 
         
-            if regresar == 2:
+            if regresar == 2 or regresar == "No":
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("Sin guardar datos...")
                 return True
-            elif regresar == 1:
+            elif regresar == 1 or regresar == "Si" :
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("Se ingreso correctamente ✔ ")
                 return False
@@ -569,7 +662,7 @@ def guardar_datos():
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
-from datetime import datetime
+
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 #FUNCIONES DE PAGOS
@@ -666,7 +759,7 @@ reservas = leer_reservas()
 #-------------------------------------------------------------------------------------------------------------------------------
 #Ejecucion del Programa 
 
-menu() 
+menu()
 #-------------------------------------------------------------------------------------------------------------------------------
 """
     

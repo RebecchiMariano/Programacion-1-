@@ -133,5 +133,23 @@
         "estado": 0,
         "nombreHabitacion": "jeej",
         "numeroHabitacion": "009"
+    },
+    {
+        "tipoHabitacion": "dmksak",
+        "descripcion": "dkmdmksa",
+        "valor": 23312,
+        "cantidadPersonas": 3213,
+        "estado": 0,
+        "nombreHabitacion": "mdksmkda",
+        "numeroHabitacion": "12312"
+    },
+    {
+        "tipoHabitacion": "Mkdsakdas",
+        "descripcion": "Dmksakdmas",
+        "valor": "31321312",
+        "cantidadPersonas": 2,
+        "estado": 1,
+        "nombreHabitacion": "Milton",
+        "numeroHabitacion": "31312321312"
     }
 ]
