@@ -74,5 +74,19 @@
             "Dmskakmd Mdsmkdsa",
             "Dmsadka Dmksadsa"
         ]
+    },
+    {
+        "Nombre": "Roman",
+        "Apellido": "Sanchez",
+        "Documento": null,
+        "Nacionalidad": "Peruano",
+        "Correo": "roman@gmail.com",
+        "Numero tel": "1151452604",
+        "Fecha_ingreso": "2024-11-07",
+        "Fecha_salida": "2024-11-08",
+        "Edad": "Mayor",
+        "NumeroHabitacion": "103",
+        "CodigoReserva": "bf17fc05",
+        "Acompanantes": "-"
     }
 ]

@@ -442,14 +442,11 @@ def ingresar_acompanantes():
     
 
     return acompanantes
-    
-def generar_codigo_reserva(nombre,fecha_ingreso,numeroHabitacion):
-    # Concatenamos el nombre, fecha de ingreso y número de habitación
-    info_reserva = f"{nombre}{fecha_ingreso}{numeroHabitacion}"
-    
-    codigo_reserva = hashlib.md5(info_reserva.encode()).hexdigest()[:8]  # Usamos solo los primeros 8 caracteres del hash
 
-    return codigo_reserva
+#Codigo aleatorio
+
+generar_codigo_reserva = lambda nombre, fecha_ingreso, numeroHabitacion: hashlib.md5(f"{nombre}{fecha_ingreso}{numeroHabitacion}".encode()).hexdigest()[:8]
+
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
