@@ -1,7 +1,7 @@
 [
     {
         "tipoHabitacion": "Estandar",
-        "descripcion": "",
+        "descripcion": "Patio grande omegamasahe",
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
@@ -106,50 +106,5 @@
         "estado": 0,
         "nombreHabitacion": "Palmera 3",
         "numeroHabitacion": "403"
-    },
-    {
-        "tipoHabitacion": "roror",
-        "descripcion": "rororo",
-        "valor": 10,
-        "cantidadPersonas": 2,
-        "estado": 0,
-        "nombreHabitacion": "roro",
-        "numeroHabitacion": "23"
-    },
-    {
-        "tipoHabitacion": "jej",
-        "descripcion": "ee",
-        "valor": 12,
-        "cantidadPersonas": 12,
-        "estado": 0,
-        "nombreHabitacion": "eee",
-        "numeroHabitacion": "12"
-    },
-    {
-        "tipoHabitacion": "eeepepe",
-        "descripcion": "eepepepepeep",
-        "valor": 12,
-        "cantidadPersonas": 2,
-        "estado": 0,
-        "nombreHabitacion": "jeej",
-        "numeroHabitacion": "009"
-    },
-    {
-        "tipoHabitacion": "dmksak",
-        "descripcion": "dkmdmksa",
-        "valor": 23312,
-        "cantidadPersonas": 3213,
-        "estado": 0,
-        "nombreHabitacion": "mdksmkda",
-        "numeroHabitacion": "12312"
-    },
-    {
-        "tipoHabitacion": "Mkdsakdas",
-        "descripcion": "Dmksakdmas",
-        "valor": "31321312",
-        "cantidadPersonas": 2,
-        "estado": 1,
-        "nombreHabitacion": "Milton",
-        "numeroHabitacion": "31312321312"
     }
 ]

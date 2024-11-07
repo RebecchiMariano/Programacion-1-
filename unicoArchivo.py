@@ -166,7 +166,6 @@ def agregar_habitacion(nueva_habitacion):
 
 def menu():
 
-
     bandera = True  # Con esta bandera controlamos el ciclo principal del menú.
 
     while bandera:
@@ -180,7 +179,7 @@ def menu():
         print("┇       1. Ingreso          ┇ ")
         print("┇       2. Habitaciones     ┇ ")
         print("┇       3. Reservas         ┇ ")
-        print("┇       3. CheckOut-In      ┇ ")
+        print("┇       4. CheckOut-In      ┇ ")
         print("┇                           ┇ ")
         print("┇          0. SALIR         ┇ ")
         print("┇                           ┇ ")
@@ -225,48 +224,116 @@ def menu():
                 os.system('cls' if os.name == 'nt' else 'clear')
 
 def menu_habitaciones_admin():
-    print("===================================== ")
-    print("┇         🏨 Habitaciones 🏨         ┇ ")
-    print("===================================== ")
-    print("┇                                   ┇ ")
-    print("┇       1. Ingresar Habitaciones    ┇ ")
-    print("┇       2. Ver Habitacion/es        ┇ ")
-    print("┇       3. Modificar Habitacion     ┇ ")
-    print("┇       4. Eliminar Habitacion      ┇ ")
-    print("┇             0. SALIR              ┇ ")
-    print("┇                                   ┇ ")
-    print("===================================== ")
 
-     # Inicializamos la variable de respuesta en None
-    respuesta = None
+    bandera = True  # Con esta bandera controlamos el ciclo principal del menú.
+
+    while bandera:
+        # Mostrar el menú
+        print("===================================== ")
+        print("┇         🏨 Habitaciones 🏨       ┇ ")
+        print("===================================== ")
+        print("┇                                   ┇ ")
+        print("┇       1. Ingresar Habitaciones    ┇ ")
+        print("┇       2. Ver Habitacion/es        ┇ ")
+        print("┇       3. Modificar Habitacion     ┇ ")
+        print("┇       4. Eliminar Habitacion      ┇ ")
+        print("┇                                   ┇ ")
+        print("┇             0. ATRAS              ┇ ")
+        print("┇                                   ┇ ")
+        print("===================================== ")
+
+        # Inicializamos la variable de respuesta en None
+        respuesta = None
 
         # Validamos la entrada del usuario
-    try:
-        respuesta = int(input("Seleccione una opción del menú ➡  "))
-    except ValueError:
-        print(" ---------------------------------------  ")
-        print(" Error - No se ingresó un número válido. ")
-        print(" ---------------------------------------  ")
-        input("Presione Enter para continuar...")
-        os.system('cls' if os.name == 'nt' else 'clear')
-
-    if respuesta == 1:  
-        nueva_habitacion = ingresar_habitacion()
-        if nueva_habitacion != None:
-            agregar_habitacion(nueva_habitacion)
-        else:
-            print("No se ingreso ninguna habitacion.")
-    elif respuesta ==2:
-        ver_habitaciones()
-    elif respuesta == 3:
-        modificar_habitacion()
-    elif respuesta == 4: 
-        eliminar_habitacion()
-    else:
-        if respuesta is not None:  # Solo mostrar si la respuesta no fue None
-            print("✕ Por favor, ingrese un número válido del (0 - 4). ✕")
+        try:
+         respuesta = int(input("Seleccione una opción del menú ➡  "))
+        except ValueError:
+            print(" ---------------------------------------  ")
+            print(" Error - No se ingresó un número válido. ")
+            print(" ---------------------------------------  ")
             input("Presione Enter para continuar...")
             os.system('cls' if os.name == 'nt' else 'clear')
+
+        if respuesta == 1:  
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            nueva_habitacion = ingresar_habitacion()
+            if nueva_habitacion != None:
+                agregar_habitacion(nueva_habitacion)
+            else:
+                print("No se ingreso ninguna habitacion X")
+        elif respuesta == 2:
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+            menu_ver_habitaciones()
+
+        elif respuesta == 3:
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+            modificar_atributo_habitacion()
+
+        elif respuesta == 4: 
+            eliminar_habitacion()
+        elif respuesta == 0: 
+            bandera = False
+        else:
+            if respuesta is not None:  # Solo mostrar si la respuesta no fue None
+                print("✕ Por favor, ingrese un número válido del (0 - 4). ✕")
+                input("Presione Enter para continuar...")
+                os.system('cls' if os.name == 'nt' else 'clear')
+
+def menu_ver_habitaciones():
+
+    bandera = True  # Con esta bandera controlamos el ciclo principal del menú.
+
+    while bandera:
+        # Mostrar el menú
+        print("========================================== ")
+        print("┇        🏨 Ver Habitacion/es 🏨        ┇ ")
+        print("========================================== ")
+        print("┇                                        ┇ ")
+        print("┇      1. Ver todas las habitaciones     ┇ ")
+        print("┇      2. Ver x numero de habitacion     ┇ ")
+        print("┇                                        ┇ ")
+        print("┇               0. ATRAS                 ┇ ")
+        print("┇                                        ┇ ")
+        print("========================================== ")
+
+        # Inicializamos la variable de respuesta en None
+        respuesta = None
+
+        # Validamos la entrada del usuario
+        try:
+            respuesta = int(input("Seleccione una opción del menú ➡  "))
+        except ValueError:
+            print(" ---------------------------------------  ")
+            print(" Error - No se ingresó un número válido. ")
+            print(" ---------------------------------------  ")
+            input("Presione Enter para continuar...")
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+        if respuesta == 1:  # Registrar el Ingreso.
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            ver_todas_las_habitaciones()
+
+        elif respuesta == 2:  # Ver habitaciones.
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            ver_habitacion_x_numero()
+
+        elif respuesta == 0:  # Salir del programa.
+            bandera = False
+        else:
+            if respuesta is not None:  # Solo mostrar si la respuesta no fue None
+                print("✕ Por favor, ingrese un número válido del (0 - 4). ✕")
+                input("Presione Enter para continuar...")
+                os.system('cls' if os.name == 'nt' else 'clear')
+    
 #--------------------------------------------------------------------------------------------------------------------
 
 def ingresar_habitacion():
@@ -294,7 +361,124 @@ def ingresar_habitacion():
         
         return nueva_habitacion
 
+def ver_todas_las_habitaciones():
 
+    if not habitaciones: #Si no hay habitacion. En este casi simpre hay habitaciones
+        print("No hay habitaciones disponibles.")
+        return
+    
+    for habitacion in habitaciones:
+        print(f"Nombre de la habitación: {habitacion['nombreHabitacion']}")
+        print(f"Número de habitación: {habitacion['numeroHabitacion']}")
+        print(f"Tipo de habitación: {habitacion['tipoHabitacion']}")
+        print(f"Descripción: {habitacion['descripcion']}")
+        print(f"Valor: ${habitacion['valor']}")
+        print(f"Capacidad: {habitacion['cantidadPersonas']} personas")
+        print(f"Estado: {'Disponible' if habitacion['estado'] == 0 else 'Ocupada'}")
+        print("==================================================") 
+    
+    while True:
+
+        respuesta = None
+        
+        try:
+         respuesta = int(input("Ingrese (0) para volver para atras ➡  "))
+        except ValueError:
+            print(" ---------------------------------------  ")
+            print(" Error - No se ingresó un número válido. ")
+            print(" ---------------------------------------  ")
+            input("Presione Enter para continuar...")
+            os.system('cls' if os.name == 'nt' else 'clear')
+        
+        if respuesta == 0:
+            return
+
+def ver_habitacion_x_numero():
+
+
+    numero = input("Ingrese el número de habitación ➡  ")
+    habitacion_encontrada = False  # Variable de control para saber si se encontró la habitación
+
+    # Bucle para recorrer todas las habitaciones
+    for habitacion in habitaciones:
+        if habitacion["numeroHabitacion"] == numero:
+            print("==================================================")
+            print(f"Nombre de la habitación: {habitacion['nombreHabitacion']}")
+            print(f"Número de habitación: {habitacion['numeroHabitacion']}")
+            print(f"Tipo de habitación: {habitacion['tipoHabitacion']}")
+            print(f"Descripción: {habitacion['descripcion']}")
+            print(f"Valor: ${habitacion['valor']}")
+            print(f"Capacidad: {habitacion['cantidadPersonas']} personas")
+            print(f"Estado: {'Disponible' if habitacion['estado'] == 0 else 'Ocupada'}")
+            print("==================================================")
+            habitacion_encontrada = True  # Actualiza la variable de control
+
+    # Si no se encontró ninguna habitación, muestra el mensaje una vez
+    if not habitacion_encontrada:
+        print("Habitación no encontrada.")
+
+    # Bucle para opción de regresar
+    while True:
+        respuesta = None
+        
+        try:
+            respuesta = int(input("Ingrese (0) para volver para atrás ➡  "))
+        except ValueError:
+            print(" ---------------------------------------  ")
+            print(" Error - No se ingresó un número válido. ")
+            print(" ---------------------------------------  ")
+            input("Presione Enter para continuar...")
+            os.system('cls' if os.name == 'nt' else 'clear')
+        
+        if respuesta == 0:
+            return
+
+def modificar_atributo_habitacion():
+
+    numero_habitacion = input("Ingrese el numero de habitacion que desea modificar ➡  ")
+    
+    for habitacion in habitaciones:
+        if habitacion["numeroHabitacion"] == numero_habitacion:
+            # Mostrar opciones de atributos para modificar
+            print("===================================== ")
+            print("Seleccione el atributo que desea modificar:")
+            print("1. Número de Habitación")
+            print("2. Tipo de Habitación")
+            print("3. Descripción")
+            print("4. Valor")
+            print("5. Cantidad de Personas")
+            print("6. Estado")
+            print("7. Nombre de Habitación")
+            print("===================================== ")
+
+            opcion = input("Ingrese el numero de la opcion que desea modificar ➡  ")
+
+            # Pedir nuevo valor basado en la opción seleccionada
+            if opcion == "1":
+                habitacion["numeroHabitacion"] = verificar_numero()
+            elif opcion == "2":
+                habitacion["tipoHabitacion"] = verificar_tipo()
+            elif opcion == "3":
+                habitacion["descripcion"] = verificar_descripcion()
+            elif opcion == "4":
+                habitacion["valor"] = verificar_valor()
+            elif opcion == "5":
+                habitacion["cantidadPersonas"] = verificar_capacidad()
+            elif opcion == "6":
+                habitacion["estado"] = verificar_estado()
+            elif opcion == "7":
+                habitacion["nombreHabitacion"] = verificar_nombre()
+            else:
+                print("Opción no válida X")
+                return
+            
+            guardar_habitaciones(habitaciones)
+
+            print("Atributo actualizado exitosamente ✔ ")
+            return
+
+    # Si la habitación no se encuentra
+    print("Habitación no encontrada.")
 #--------------------------------------------------------------------------------------------------------------------
 #FUNCIONES DE INGRESO 1.0
 
