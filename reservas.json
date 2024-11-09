@@ -82,5 +82,20 @@
         "NumeroHabitacion": "103",
         "CodigoReserva": "bf17fc05",
         "Acompanantes": "-"
+    },
+    {
+        "Nombre": "Roamn",
+        "Apellido": "Sss",
+        "Documento": null,
+        "Nacionalidad": "Eee",
+        "Correo": "ro@gmail.com",
+        "Numero tel": "115145264",
+        "Fecha_ingreso": "2025-02-16",
+        "Fecha_salida": "2025-02-18",
+        "Cantidad_de_dias": 2,
+        "Edad": "Mayor",
+        "NumeroHabitacion": "103",
+        "CodigoReserva": "9d5624d9",
+        "Acompanantes": "-"
     }
 ]

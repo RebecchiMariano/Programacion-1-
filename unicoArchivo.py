@@ -845,9 +845,7 @@ def eliminar_habitacion_y_reservas():
     return habitaciones_actualizadas, reservas_actualizadas
 
 def calcularDiasEstadia(fecha_ingreso, fecha_egreso):
-    checkIn = datetime.strptime(fecha_ingreso, "%Y-%m-%d")
-    checkOut = datetime.strftime(fecha_egreso, "%Y-%m-%d")
-    
+        
     diasEstadia = (fecha_egreso - fecha_ingreso).days
 
     if diasEstadia == 0:
@@ -906,6 +904,7 @@ def funcionIngreso():
 
         print("==========================================")
         print("El numero de reserva es : ", codigoReserva)
+        print("El total de dias de su estadia es: ",diasEstadia)
         print("==========================================")
 
         reserva = { 
