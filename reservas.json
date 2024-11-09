@@ -8,7 +8,6 @@
         "Numero tel": "1167455455",
         "Fecha_ingreso": "2024-12-01",
         "Fecha_salida": "2024-12-05",
-        "Edad": "Mayor",
         "NumeroHabitacion": "201",
         "CodigoReserva": "823f318d",
         "Acompanantes": [
@@ -25,7 +24,6 @@
         "Numero tel": "1151453572",
         "Fecha_ingreso": "2024-11-04",
         "Fecha_salida": "2024-11-05",
-        "Edad": "Mayor",
         "NumeroHabitacion": "101",
         "CodigoReserva": "76a2e6da",
         "Acompanantes": "-"
@@ -39,7 +37,6 @@
         "Numero tel": "115253526",
         "Fecha_ingreso": "2024-11-06",
         "Fecha_salida": "2024-11-07",
-        "Edad": "Mayor",
         "NumeroHabitacion": "101",
         "CodigoReserva": "b5c076e9",
         "Acompanantes": "-"
@@ -53,7 +50,6 @@
         "Numero tel": "32132321",
         "Fecha_ingreso": "2024-12-01",
         "Fecha_salida": "2024-12-06",
-        "Edad": "Mayor",
         "NumeroHabitacion": "009",
         "CodigoReserva": "f2809fc9",
         "Acompanantes": "-"
@@ -67,7 +63,6 @@
         "Numero tel": "321312312",
         "Fecha_ingreso": "2024-12-01",
         "Fecha_salida": "2024-12-05",
-        "Edad": "Mayor",
         "NumeroHabitacion": "403",
         "CodigoReserva": "e9e53754",
         "Acompanantes": [
@@ -84,7 +79,6 @@
         "Numero tel": "1151452604",
         "Fecha_ingreso": "2024-11-07",
         "Fecha_salida": "2024-11-08",
-        "Edad": "Mayor",
         "NumeroHabitacion": "103",
         "CodigoReserva": "bf17fc05",
         "Acompanantes": "-"
