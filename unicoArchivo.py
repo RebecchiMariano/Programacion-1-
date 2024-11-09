@@ -844,6 +844,16 @@ def eliminar_habitacion_y_reservas():
     print(f"Habitación {numero_habitacion} y sus reservas asociadas han sido eliminadas.")
     return habitaciones_actualizadas, reservas_actualizadas
 
+def calcularDiasEstadia(fecha_ingreso, fecha_egreso):
+    checkIn = datetime.strptime(fecha_ingreso, "%Y-%m-%d")
+    checkOut = datetime.strftime(fecha_egreso, "%Y-%m-%d")
+    
+    diasEstadia = (fecha_egreso - fecha_ingreso).days
+
+    if diasEstadia == 0:
+        diasEstadia = 1
+    
+    return diasEstadia
 
 #--------------------------------------------------------------------------------------------------------------------
 
@@ -887,6 +897,8 @@ def funcionIngreso():
     if guardar_datos():
         return None
     else:
+
+        diasEstadia = calcularDiasEstadia(fecha_ingreso, fecha_salida)
     
         ingresar_habitacion = asignar_habitacion(habitaciones,numeros_de_huespedes,fecha_ingreso,fecha_salida)
 
@@ -905,6 +917,7 @@ def funcionIngreso():
             'Numero tel': numero,
             'Fecha_ingreso': fecha_ingreso,
             'Fecha_salida': fecha_salida,
+            'Cantidad_de_dias': diasEstadia,
             'Edad': edad,
             'NumeroHabitacion': ingresar_habitacion,
             'CodigoReserva' : codigoReserva,
@@ -1259,33 +1272,9 @@ def ajustar_precio_por_temp(habitaciones, fecha_ingreso):
 # Funcion pago total (queda pendiente)
 
 #Calcular dias para en el PAGO TOTAL tener los dias que se queda el huespes
-def calcularDiasEstadia(fecha_ingreso, fecha_egreso):
-    checkIn = datetime.strptime(fecha_ingreso, "%Y-%m-%d")
-    checkOut = datetime.strftime(fecha_egreso, "%Y-%m-%d")
-    
-    diasEstadia = (fecha_egreso - fecha_ingreso).days
-
-    if diasEstadia == 0:
-        diasEstadia = 1
-    
-    return diasEstadia
 
 
-
-def pagoTotal():
-    pass
-
-    
-    
-    
-               
-    
-
-
-#------------------------------------------------------------------------------------------------------------------------------------
-"""""""""
-VALIDAR SI LA USAMOS O HAY QUE RE ESCRIBIRLA
-                            
+"""""
 def calcularDiasEstadia(diaIngreso, mesIngreso, diaSalida, mesSalida):
     diasTotales = 0
     # Contador de dias totales de estadia
@@ -1306,6 +1295,20 @@ def calcularDiasEstadia(diaIngreso, mesIngreso, diaSalida, mesSalida):
 
         # Calculo de la estadia total sumando el mes de ingreso, el intermedio y el de salida.
         diasTotales = diasRestantesMesIngreso + diasIntermedios + diasEnMesSalida
+"""""
+
+def pagoTotal():
+    pass
+
+    
+    
+    
+               
+    
+
+
+#------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 def funcionEgreso(): # +1 al cuarto ocupado
@@ -1316,14 +1319,14 @@ def buscarResarvaPorNombre(): #con metodos buscar simmilitudes de nombres en el 
 
 def buscarReservaPorNumero(): #con la variable global de la funcion funcionNumerocliente():
     pass
-""""""
+
 #--------------------------------------------------------------------------------------------------------------------------------
 
 
 #FUNCIONES QUE HAY QUE RE ESCRIBIR:
 
 #def verificar_disponibilidad(habitaciones, numero_habitacion, fecha_ingreso, fecha_salida):
---------------------------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------------------------
 
 #Variables globales
 
@@ -1331,10 +1334,9 @@ habitaciones = cargar_habitaciones()
 reservas = leer_reservas()
 
 
--------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------
 #Ejecucion del Programa 
 
 menu()
 
 #-------------------------------------------------------------------------------------------------------------------------------
-"""""""""
