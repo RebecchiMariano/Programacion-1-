@@ -494,14 +494,12 @@ def menu_check_in_out():
         if respuesta == 1:  # Registrar el Ingreso.
 
             os.system('cls' if os.name == 'nt' else 'clear')
-
             check_in()
 
         elif respuesta == 2:  # Ver habitaciones.
 
             os.system('cls' if os.name == 'nt' else 'clear')
-
-            ver_reserva_x_codigo()
+            check_out()
 
         elif respuesta == 0:  # Salir del programa.
             bandera = False
@@ -516,7 +514,7 @@ def menu_check_in_out():
 
 #--------------------------------------------------------------------------------------------------------------------
 
-#Funcion de reservas
+#Funciones de reservas
 
 def ver_todas_las_reservas():
      
@@ -657,7 +655,7 @@ def modificar_atributo_reserva():
             elif opcion == "9":
                 reserva["NumeroHabitacion"] = verificar_numero()
             elif opcion == "10":
-                reserva["CodigoReserva"] = generar_codigo_reserva
+                reserva["CodigoReserva"] = verificar_codigo_reserva()
             elif opcion == "11":
                 reserva["Acompanantes"] = acompaniantes()
             else:
@@ -698,7 +696,7 @@ def eliminar_reserva():
 
 #--------------------------------------------------------------------------------------------------------------------
 
-#Funcion de habitaciones
+#Funciones de habitaciones
 
 def ingresar_habitacion():
 
@@ -897,20 +895,12 @@ def eliminar_habitacion_y_reservas():
     print(f"Habitación {numero_habitacion} y sus reservas asociadas han sido eliminadas.")
     return habitaciones_actualizadas, reservas_actualizadas
 
-def calcularDiasEstadia(fecha_ingreso, fecha_egreso):
-        
-    diasEstadia = (fecha_egreso - fecha_ingreso).days
-
-    if diasEstadia == 0:
-        diasEstadia = 1
-    
-    return diasEstadia
 
 #--------------------------------------------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------------------------------------------
 
-#Funcion Check-in
+#Funciones Check-in y Check-out
 
 def check_in():
 
@@ -949,9 +939,65 @@ def check_in():
     if not habitacion_encontrada:
         print("La habitacion asociada a la reserva no existe o no está disponible aun para el Chech-in. X")
 
+def check_out():
 
+    codigo_reserva = input("Ingrese el código de la reserva para realizar el check-out: ")
+    fecha_hoy = datetime.now().strftime("%Y-%m-%d")
+    habitacion_encontrada = False
+    reserva_encontrada = False
 
+    # Verificar cada reserva
+    for reserva in reservas:
+        if reserva['CodigoReserva'] == codigo_reserva:
+            reserva_encontrada = True
+            # Verificar si la fecha de salida coincide con la fecha actual
+            if reserva['Fecha_salida'] == fecha_hoy:
+                numero_habitacion = reserva['NumeroHabitacion']
+                
+                # Buscar la habitación correspondiente
+                for habitacion in habitaciones:
+                    if habitacion['numeroHabitacion'] == numero_habitacion:
+                        habitacion_encontrada = True
+                        # Verificar si la habitación está ocupada (estado 1)
+                        if habitacion['estado'] == 1:
+                            # Actualizar estado a 0 (desocupada)
+                            habitacion['estado'] = 0
 
+                            # Guardar los cambios
+                            guardar_habitaciones(habitaciones)
+                            guardar_reservas(reservas)
+
+                            print("Check-in realizado con exito para la habitacion:", numero_habitacion)
+
+    if reserva_encontrada and habitacion_encontrada:
+        print("Check-out completado correctamente.")
+    if not reserva_encontrada:
+        print("No se encontro una reserva con el codigo ingresado. X")
+    if not habitacion_encontrada:
+        print("La habitacion asociada a la reserva no existe o no está disponible aun para el Chech-Out. X")
+
+#--------------------------------------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------------------------------------
+
+#Funciones Monto en dinero
+
+def calcularDiasEstadia(fecha_ingreso, fecha_egreso):
+        
+    diasEstadia = (fecha_egreso - fecha_ingreso).days
+
+    if diasEstadia == 0:
+        diasEstadia = 1
+    
+    return diasEstadia
+
+def monto_base_x_dia(total_estadia, num_habitacion):
+    
+    for hab in habitaciones:
+        if hab["numeroHabitacion"] == num_habitacion:
+            monto_base = hab["valor"] * total_estadia
+            return monto_base
+        
 
 #--------------------------------------------------------------------------------------------------------------------
 
@@ -976,7 +1022,6 @@ def funcionIngreso():
     numero = verificar_telefono()
     fecha_ingreso = verificar_fecha_ingreso()
     fecha_salida = verificar_fecha_salida(fecha_ingreso)
-    edad = "Mayor"
     
     #--------------------------------------------------------------------------------------------------------
     
@@ -1000,11 +1045,14 @@ def funcionIngreso():
 
         diasEstadia = calcularDiasEstadia(fecha_ingreso, fecha_salida)
 
+        pago_base = monto_base_x_dia(diasEstadia,ingresar_habitacion)
+
         codigoReserva = generar_codigo_reserva(nombre,fecha_ingreso,ingresar_habitacion)
 
         print("==========================================")
         print("El numero de reserva es : ", codigoReserva)
         print("El total de dias de su estadia es: ",diasEstadia)
+        print("El pago base total es : ",pago_base)
         print("==========================================")
 
         reserva = { 
