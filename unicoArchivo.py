@@ -65,7 +65,7 @@ de si ya se encuentran reservadas, estado 1 (Solo mostramos estados 0s) y Segun 
 se encuentra la funcion cambiar_estado
 """
 
-def asignar_habitacion(habitaciones, num_acompanantes,fecha_ingreso,fecha_salida):
+def asignar_habitacion(habitaciones, num_acompanantes,fecha_ingreso,fecha_salida,estadia):
     # Si hay menos de 2 acompañantes, mostrar todas las habitaciones
     print("==================================")
     print("|          Habitaciones          |")
@@ -90,32 +90,41 @@ def asignar_habitacion(habitaciones, num_acompanantes,fecha_ingreso,fecha_salida
     print("| Dia   -     Mes     -    Anio  |")
     print("----------------------------------")
     print("|",fecha_ingreso_formateada,"   Al   ",fecha_salida_formateada,"|")
+    print("----------------------------------")
+    print("| Estadia : ", estadia ,"  Dias  |")
     print("==================================")
 
     habitacion_valida = False  # Variable de control
 
     while not habitacion_valida:
         asignar_n_habitacion = input("Ingrese el número de la habitación: ")  # Convertir a string
+        habitacion_encontrada = False  # Variable para saber si se encontró la habitación
 
         # Si hay menos de 2 acompañantes, buscamos habitaciones de capacidad 2
         if num_acompanantes < 2:
             for habitacion in habitaciones:
                 if habitacion['cantidadPersonas'] == 2 and asignar_n_habitacion == habitacion['numeroHabitacion']:
-                    if verificar_disponibilidad(fecha_ingreso,fecha_salida,asignar_n_habitacion):
+                    habitacion_encontrada = True
+                    if verificar_disponibilidad(fecha_ingreso, fecha_salida, asignar_n_habitacion):
                         print("Se ingresó la habitación ✔.")
                         habitacion_valida = True
-        
+                    else:
+                        print("- La habitación no está disponible en las fechas ingresadas -")
+
         # Si hay 2 o más acompañantes, buscamos habitaciones de capacidad 4
         else:
             for habitacion in habitaciones:
                 if habitacion['cantidadPersonas'] == 4 and asignar_n_habitacion == habitacion['numeroHabitacion']:
-                    if verificar_disponibilidad(fecha_ingreso,fecha_salida,asignar_n_habitacion):
+                    habitacion_encontrada = True
+                    if verificar_disponibilidad(fecha_ingreso, fecha_salida, asignar_n_habitacion):
                         print("Se ingresó la habitación ✔.")
                         habitacion_valida = True
-        
+                    else:
+                        print("- La habitación no está disponible en las fechas ingresadas -")
+
         # Revisar si no se encontró una habitación válida
-        if not habitacion_valida :
-            print("- Ingrese un numero de habitacion valido -")
+        if not habitacion_valida and not habitacion_encontrada:
+            print("- Ingrese un número de habitación válido -")
     
     return asignar_n_habitacion
 
@@ -613,25 +622,27 @@ def modificar_atributo_reserva():
             print(f"Dia de salida: {datetime.strptime(reserva['Fecha_salida'], '%Y-%m-%d').strftime('%d-%m-%Y')}")
             print(f"Numero de habitacion: {reserva['NumeroHabitacion']}")
             print(f"Codigo de reserva: {reserva['CodigoReserva']}")
+            print(f"Total a pagar: {reserva['TotalPagar']}","$")
             print(f"Acompañantes: {'Sin acompañantes' if reserva['Acompanantes'] == '-' else ', '.join(reserva['Acompanantes'])}")
             print("==================================================")
             print("")
             # Mostrar opciones de atributos para modificar
-            print("===================================== ")
+            print("========================================== ")
             print("Seleccione el atributo que desea modificar:")
-            print(" ")
-            print(" 1. Nombre")
-            print(" 2. Apellido")
-            print(" 3. Nacionalidad")
-            print(" 4. Documento")
-            print(" 5. Correo")
-            print(" 6. Numero de telefono")
-            print(" 7. Dia de ingreso")
-            print(" 8. Dia de salida")
-            print(" 9. Numero de habitacion")
-            print(" 10. Codigo de reserva")
-            print(" 11. Nombre de Acompañantes")
-            print("===================================== ")
+            print("                                           ")
+            print("                1. Nombre                 ")
+            print("                2. Apellido               ")
+            print("                3. Nacionalidad           ")
+            print("                4. Documento              ")
+            print("                5. Correo                 ")
+            print("                6. Numero de telefono     ")
+            print("                7. Dia de ingreso         ")
+            print("                8. Dia de salida          ")
+            print("                9. Numero de habitacion   ")
+            print("               10. Codigo de reserva      ")
+            print("               11. Total a pagar          ")
+            print("               12. Nombre de Acompañantes ")
+            print("========================================== ")
 
             opcion = input("Ingrese el numero de la opcion que desea modificar ➡  ")
 
@@ -650,13 +661,17 @@ def modificar_atributo_reserva():
                 reserva["Numero tel"] = verificar_telefono()
             elif opcion == "7":
                 reserva["Fecha_ingreso"] = verificar_fecha_ingreso()
+                calcularDiasEstadia(reserva["Fecha_ingreso"], reserva["Fecha_salida"])
             elif opcion == "8":
                 reserva["Fecha_salida"] = verificar_fecha_salida(reserva["Fecha_ingreso"])
+                calcularDiasEstadia(reserva["Fecha_ingreso"], reserva["Fecha_salida"])
             elif opcion == "9":
                 reserva["NumeroHabitacion"] = verificar_numero()
             elif opcion == "10":
                 reserva["CodigoReserva"] = verificar_codigo_reserva()
             elif opcion == "11":
+                reserva["TotalPagar"] = verificar_total_a_pagar()
+            elif opcion == "12":
                 reserva["Acompanantes"] = acompaniantes()
             else:
                 print("Opción no válida X")
@@ -811,20 +826,20 @@ def modificar_atributo_habitacion():
             print(f"Capacidad: {habitacion['cantidadPersonas']} personas")
             print(f"Estado: {'Disponible' if habitacion['estado'] == 0 else 'Ocupada'}")
             print(f"Nombre de habitacion: {habitacion['nombreHabitacion']}")
-            print("===================================== ") 
+            print("========================================== ") 
             print("")
             # Mostrar opciones de atributos para modificar
-            print("===================================== ")
+            print("========================================== ")
             print("Seleccione el atributo que desea modificar:")
-            print(" ")
-            print(" 1. Número de Habitación")
-            print(" 2. Tipo de Habitación")
-            print(" 3. Descripción")
-            print(" 4. Valor")
-            print(" 5. Cantidad de Personas")
-            print(" 6. Estado")
-            print(" 7. Nombre de Habitación")
-            print("===================================== ")
+            print("                                           ")
+            print("          1. Número de Habitación          ")
+            print("          2. Tipo de Habitación            ")
+            print("          3. Descripción                   ")
+            print("          4. Valor                         ")
+            print("          5. Cantidad de Personas          ")
+            print("          6. Estado                        ")
+            print("          7. Nombre de Habitación          ")
+            print("========================================== ")
 
             opcion = input("Ingrese el numero de la opcion que desea modificar ➡  ")
 
@@ -1040,35 +1055,38 @@ def funcionIngreso():
     if guardar_datos():
         return None
     else:
-    
-        ingresar_habitacion = asignar_habitacion(habitaciones,numeros_de_huespedes,fecha_ingreso,fecha_salida)
+
+        os.system('cls' if os.name == 'nt' else 'clear')
 
         diasEstadia = calcularDiasEstadia(fecha_ingreso, fecha_salida)
-
+        ingresar_habitacion = asignar_habitacion(habitaciones,numeros_de_huespedes,fecha_ingreso,fecha_salida,diasEstadia)
         pago_base = monto_base_x_dia(diasEstadia,ingresar_habitacion)
-
         codigoReserva = generar_codigo_reserva(nombre,fecha_ingreso,ingresar_habitacion)
 
         print("==========================================")
         print("El numero de reserva es : ", codigoReserva)
         print("El total de dias de su estadia es: ",diasEstadia)
-        print("El pago base total es : ",pago_base)
+        print("El pago base total es : ",pago_base,"$")
         print("==========================================")
 
-        reserva = { 
-            'Nombre': nombre,
-            'Apellido': apellido,
-            'Documento': dni_pasaporte,
-            'Nacionalidad': nacionalidad,
-            'Correo': correo,
-            'Numero tel': numero,
-            'Fecha_ingreso': fecha_ingreso,
-            'Fecha_salida': fecha_salida,
-            'Cantidad_de_dias': diasEstadia,
-            'NumeroHabitacion': ingresar_habitacion,
-            'CodigoReserva' : codigoReserva,
+        if guardar_datos():
+            return None
+        else:
+            reserva = { 
+                'Nombre': nombre,
+                'Apellido': apellido,
+                'Documento': dni_pasaporte,
+                'Nacionalidad': nacionalidad,
+                'Correo': correo,
+                'Numero tel': numero,
+                'Fecha_ingreso': fecha_ingreso,
+                'Fecha_salida': fecha_salida,
+                'Cantidad_de_dias': diasEstadia,
+                'NumeroHabitacion': ingresar_habitacion,
+                'CodigoReserva' : codigoReserva,
+                'TotalPagar' : pago_base,
             #Se almacena acompaniantes en caso de existir
-            'Acompanantes' : huespedes
+                'Acompanantes' : huespedes
         }
         
         #---------------------------------------------------------------------------------------------------------
@@ -1279,6 +1297,18 @@ def verificar_fecha_salida(fecha_ingreso):
             print("  Error - No se ingresó una fecha válida.  ")
             print(" ----------------------------------------- ")
 
+def verificar_total_a_pagar():
+    while True:
+        pago = input(" • Pago $ ➞  ")
+        if pago.isdigit():  # Verifica si el valor contiene solo dígitos y no es negativo
+            if int(pago) > 0:  # Asegura que sea positivo
+                return int(pago)
+            else:
+                print("Se ingreso un valor menor X")
+        else:
+            print(" ----------------------------------------- ")
+            print("    Error - No se ingreso un numero.    ")
+            print(" ----------------------------------------- ")
 #FUNCION DE INGRESO HABITACIONES
 
 def verificar_tipo():
