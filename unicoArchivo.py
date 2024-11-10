@@ -216,7 +216,10 @@ def menu():
             menu_reservas()
             
         elif respuesta == 4:  # Checkout.
-            realizarCheckout()
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+            menu_check_in_out()
+
         elif respuesta == 0:  # Salir del programa.
             bandera = False
             print("Saliendo del sistema. ¡Hasta luego!")
@@ -458,6 +461,56 @@ def menu_ver_reservas():
                 print("✕ Por favor, ingrese un número válido del (0 - 2). ✕")
                 input("Presione Enter para continuar...")
                 os.system('cls' if os.name == 'nt' else 'clear')
+
+def menu_check_in_out():
+    bandera = True  # Con esta bandera controlamos el ciclo principal del menú.
+
+    while bandera:
+        # Mostrar el menú
+        print("========================================== ")
+        print("┇           🏨 CheckOut-In 🏨           ┇ ")
+        print("========================================== ")
+        print("┇                                        ┇ ")
+        print("┇             1. Check-In                ┇ ")
+        print("┇             2. Check-Out               ┇ ")
+        print("┇                                        ┇ ")
+        print("┇               0. ATRAS                 ┇ ")
+        print("┇                                        ┇ ")
+        print("========================================== ")
+
+        # Inicializamos la variable de respuesta en None
+        respuesta = None
+
+        # Validamos la entrada del usuario
+        try:
+            respuesta = int(input("Seleccione una opción del menú ➡  "))
+        except ValueError:
+            print(" ---------------------------------------  ")
+            print(" Error - No se ingresó un número válido. ")
+            print(" ---------------------------------------  ")
+            input("Presione Enter para continuar...")
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+        if respuesta == 1:  # Registrar el Ingreso.
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            check_in()
+
+        elif respuesta == 2:  # Ver habitaciones.
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            ver_reserva_x_codigo()
+
+        elif respuesta == 0:  # Salir del programa.
+            bandera = False
+        else:
+            if respuesta is not None:  # Solo mostrar si la respuesta no fue None
+                print("✕ Por favor, ingrese un número válido del (0 - 2). ✕")
+                input("Presione Enter para continuar...")
+                os.system('cls' if os.name == 'nt' else 'clear')
+
 
 #--------------------------------------------------------------------------------------------------------------------
 
@@ -855,7 +908,54 @@ def calcularDiasEstadia(fecha_ingreso, fecha_egreso):
 
 #--------------------------------------------------------------------------------------------------------------------
 
+#--------------------------------------------------------------------------------------------------------------------
 
+#Funcion Check-in
+
+def check_in():
+
+    codigo_reserva = input("Ingrese el codigo de la reserva para realizar el check-in ➡  ")
+    fecha_hoy = datetime.now().strftime("%Y-%m-%d")
+    habitacion_encontrada = False
+    reserva_encontrada = False
+
+    # Verificar cada reserva
+    for reserva in reservas:
+        if reserva['CodigoReserva'] == codigo_reserva:
+            reserva_encontrada = True
+            # Verificar si la fecha de ingreso coincide con la fecha actual
+            if reserva['Fecha_ingreso'] == fecha_hoy:
+                numero_habitacion = reserva['NumeroHabitacion']
+                
+                # Buscar la habitación correspondiente
+                for habitacion in habitaciones:
+                    if habitacion['numeroHabitacion'] == numero_habitacion:
+                        habitacion_encontrada = True
+                        # Verificar si la habitación está disponible (estado 0)
+                        if habitacion['estado'] == 0:
+                            # Actualizar estado a 1 (ocupada)
+                            habitacion['estado'] = 1
+
+                            # Guardar los cambios
+                            guardar_habitaciones(habitaciones)
+                            guardar_reservas(reservas)
+
+                            print("Check-in realizado con exito para la habitacion:", numero_habitacion)
+
+    if reserva_encontrada and habitacion_encontrada:
+        print("Check-in completado correctamente.")
+    if not reserva_encontrada:
+        print("No se encontro una reserva con el codigo ingresado. X")
+    if not habitacion_encontrada:
+        print("La habitacion asociada a la reserva no existe o no está disponible aun para el Chech-in. X")
+
+
+
+
+
+#--------------------------------------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------------------------------------
 #FUNCIONES DE INGRESO 1.0
 
 #Ingreso y validacion de datos basicos para el diccionario de huespedes
@@ -895,10 +995,10 @@ def funcionIngreso():
     if guardar_datos():
         return None
     else:
-
-        diasEstadia = calcularDiasEstadia(fecha_ingreso, fecha_salida)
     
         ingresar_habitacion = asignar_habitacion(habitaciones,numeros_de_huespedes,fecha_ingreso,fecha_salida)
+
+        diasEstadia = calcularDiasEstadia(fecha_ingreso, fecha_salida)
 
         codigoReserva = generar_codigo_reserva(nombre,fecha_ingreso,ingresar_habitacion)
 
@@ -917,7 +1017,6 @@ def funcionIngreso():
             'Fecha_ingreso': fecha_ingreso,
             'Fecha_salida': fecha_salida,
             'Cantidad_de_dias': diasEstadia,
-            'Edad': edad,
             'NumeroHabitacion': ingresar_habitacion,
             'CodigoReserva' : codigoReserva,
             #Se almacena acompaniantes en caso de existir
@@ -1107,14 +1206,21 @@ def verificar_fecha_ingreso():
             print(" ----------------------------------------- ")
 
 def verificar_fecha_salida(fecha_ingreso):
-
+    # Convertir `fecha_ingreso` a un objeto `datetime.date` si es una cadena
+    if isinstance(fecha_ingreso, str):
+        fecha_ingreso = datetime.strptime(fecha_ingreso, "%Y-%m-%d").date() 
+    
     while True:
         try:
             salida = input(" • Fecha de Salida en formato (DD-MM-YYYY) ➞  ").strip()
             
-            # Convertir el input a una fecha datetime solo con fecha
-            fecha_salida = datetime.strptime(salida, "%d %m %Y").date()
+
+            salida = salida.replace(" ", "-")
             
+            # Convertir el input a una fecha `datetime.date`
+            fecha_salida = datetime.strptime(salida, "%d-%m-%Y").date()
+            
+            # Comprobar si `fecha_salida` es mayor o igual que `fecha_ingreso`
             if fecha_ingreso <= fecha_salida:
                 return fecha_salida
             else:

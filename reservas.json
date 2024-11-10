@@ -25,7 +25,7 @@
         "Fecha_ingreso": "2024-11-04",
         "Fecha_salida": "2024-11-05",
         "NumeroHabitacion": "101",
-        "CodigoReserva": "76a2e6da",
+        "CodigoReserva": "<function <lambda> at 0x00000236B2EE0D60>",
         "Acompanantes": "-"
     },
     {
@@ -39,7 +39,11 @@
         "Fecha_salida": "2024-11-07",
         "NumeroHabitacion": "101",
         "CodigoReserva": "b5c076e9",
-        "Acompanantes": "-"
+        "Acompanantes": [
+            "Jaimito Tito",
+            "Lito Mito",
+            "Kuellito Minutin"
+        ]
     },
     {
         "Nombre": "Mdksamkdas",
@@ -96,6 +100,21 @@
         "Edad": "Mayor",
         "NumeroHabitacion": "103",
         "CodigoReserva": "9d5624d9",
+        "Acompanantes": "-"
+    },
+    {
+        "Nombre": "German",
+        "Apellido": "Agusto",
+        "Documento": null,
+        "Nacionalidad": "Miradon",
+        "Correo": "@.",
+        "Numero tel": "231321321",
+        "Fecha_ingreso": "2024-11-09",
+        "Fecha_salida": "2024-12-06",
+        "Cantidad_de_dias": 5,
+        "Edad": "Mayor",
+        "NumeroHabitacion": "303",
+        "CodigoReserva": "dc2a8ad4",
         "Acompanantes": "-"
     }
 ]
