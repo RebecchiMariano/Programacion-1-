@@ -1,93 +1,5 @@
 [
     {
-        "Nombre": "Manuela",
-        "Apellido": "Testigo",
-        "Documento": null,
-        "Nacionalidad": "Dsanmjasnd",
-        "Correo": "@.",
-        "Numero tel": "1167455455",
-        "Fecha_ingreso": "2024-12-01",
-        "Fecha_salida": "2024-12-05",
-        "NumeroHabitacion": "201",
-        "CodigoReserva": "823f318d",
-        "Acompanantes": [
-            "Manuela Teta",
-            "Kirikocho Milton"
-        ]
-    },
-    {
-        "Nombre": "Roman",
-        "Apellido": "Sanchez",
-        "Documento": null,
-        "Nacionalidad": "Peruano",
-        "Correo": "romanelperuano@gmail.com",
-        "Numero tel": "1151453572",
-        "Fecha_ingreso": "2024-11-04",
-        "Fecha_salida": "2024-11-05",
-        "NumeroHabitacion": "101",
-        "CodigoReserva": "<function <lambda> at 0x00000236B2EE0D60>",
-        "Acompanantes": "-"
-    },
-    {
-        "Nombre": "Pepe",
-        "Apellido": "Pepon",
-        "Documento": null,
-        "Nacionalidad": "Afgano",
-        "Correo": "pepeafgano@gmail.com",
-        "Numero tel": "115253526",
-        "Fecha_ingreso": "2024-11-06",
-        "Fecha_salida": "2024-11-07",
-        "NumeroHabitacion": "101",
-        "CodigoReserva": "b5c076e9",
-        "Acompanantes": [
-            "Jaimito Tito",
-            "Lito Mito",
-            "Kuellito Minutin"
-        ]
-    },
-    {
-        "Nombre": "Mdksamkdas",
-        "Apellido": "Dsamkdas",
-        "Documento": null,
-        "Nacionalidad": "Damdsamdsa",
-        "Correo": "dsa32@.",
-        "Numero tel": "32132321",
-        "Fecha_ingreso": "2024-12-01",
-        "Fecha_salida": "2024-12-06",
-        "NumeroHabitacion": "009",
-        "CodigoReserva": "f2809fc9",
-        "Acompanantes": "-"
-    },
-    {
-        "Nombre": "Ndsajnjdsa",
-        "Apellido": "Mkdsakldmsak",
-        "Documento": null,
-        "Nacionalidad": "Dmkasdmkas",
-        "Correo": "@.",
-        "Numero tel": "321312312",
-        "Fecha_ingreso": "2024-12-01",
-        "Fecha_salida": "2024-12-05",
-        "NumeroHabitacion": "403",
-        "CodigoReserva": "e9e53754",
-        "Acompanantes": [
-            "Dmskakmd Mdsmkdsa",
-            "Dmsadka Dmksadsa"
-        ]
-    },
-    {
-        "Nombre": "Roman",
-        "Apellido": "Sanchez",
-        "Documento": null,
-        "Nacionalidad": "Peruano",
-        "Correo": "roman@gmail.com",
-        "Numero tel": "1151452604",
-        "Fecha_ingreso": "2024-11-07",
-        "Fecha_salida": "2024-11-08",
-        "NumeroHabitacion": "103",
-        "CodigoReserva": "bf17fc05",
-        "Acompanantes": "-"
-    },
-    {
         "Nombre": "Roamn",
         "Apellido": "Sss",
         "Documento": null,
@@ -189,5 +101,54 @@
         "CodigoReserva": "5baf19a9",
         "TotalPagar": 250000,
         "Acompanantes": "-"
+    },
+    {
+        "Nombre": "Ndjasjndas",
+        "Apellido": "Dnjsnjdsa",
+        "Documento": null,
+        "Nacionalidad": "Dasdas",
+        "Correo": "@.",
+        "Numero tel": "312321312",
+        "Fecha_ingreso": "2024-11-11",
+        "Fecha_salida": "2024-11-12",
+        "Cantidad_de_dias": 1,
+        "NumeroHabitacion": "101",
+        "CodigoReserva": "a3a8a181",
+        "TotalPagar": 50000,
+        "Acompanantes": "-"
+    },
+    {
+        "Nombre": "Tomas",
+        "Apellido": "Mdasda",
+        "Documento": null,
+        "Nacionalidad": "Dsadsad",
+        "Correo": "@.",
+        "Numero tel": "111321312",
+        "Fecha_ingreso": "2024-11-11",
+        "Fecha_salida": "2024-11-11",
+        "Cantidad_de_dias": 1,
+        "NumeroHabitacion": "302",
+        "CodigoReserva": "c65b7de3",
+        "TotalPagar": 80000,
+        "Acompanantes": "-"
+    },
+    {
+        "Nombre": "Jndsajda",
+        "Apellido": "Kndsanjdas",
+        "Documento": null,
+        "Nacionalidad": "Njdsankda",
+        "Correo": "@.",
+        "Numero tel": "321312312",
+        "Fecha_ingreso": "2024-12-01",
+        "Fecha_salida": "2024-12-05",
+        "Cantidad_de_dias": 4,
+        "NumeroHabitacion": "401",
+        "CodigoReserva": "644bfcc7",
+        "TotalPagar": 360000,
+        "Acompanantes": [
+            "Kdsad Mkdsakdas",
+            "Mkdsamkdas Mkdsakdas",
+            "Mkdaskdas Daskmdksam"
+        ]
     }
 ]

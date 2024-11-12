@@ -50,7 +50,7 @@ def verificar_disponibilidad(fecha_ingreso, fecha_salida, n_reserva):
     return True
 
 #Asigna la habitacion que queres
-def asignar_habitacion(habitaciones, num_acompanantes,fecha_ingreso,fecha_salida,estadia):
+def asignar_habitacion(num_acompanantes,fecha_ingreso,fecha_salida,estadia):
     # Si hay menos de 2 acompañantes, mostrar todas las habitaciones
     print("==================================")
     print("|          Habitaciones          |")
@@ -60,13 +60,13 @@ def asignar_habitacion(habitaciones, num_acompanantes,fecha_ingreso,fecha_salida
     if num_acompanantes < 2:
         for habitacion in habitaciones:
             if habitacion['cantidadPersonas'] == 2:
-                print(f"-",habitacion['numeroHabitacion']," ✦",habitacion['nombreHabitacion']," ～",habitacion['tipoHabitacion'],f"-")
+                print(f"-",habitacion['numeroHabitacion']," ✦",habitacion['nombreHabitacion']," ～",habitacion['tipoHabitacion']," ⟡",habitacion['valor'],"$ x Noche ",f"-")
     # Si hay 2 o más acompañantes, mostrar solo habitaciones con capacidad para 4 personas
     else:
         for habitacion in habitaciones:
             if habitacion['cantidadPersonas'] == 4:
-                print(f"-",habitacion['numeroHabitacion']," ✦",habitacion['nombreHabitacion']," ～",habitacion['tipoHabitacion'],f"-")
-
+               print(f"-",habitacion['numeroHabitacion']," ✦",habitacion['nombreHabitacion']," ～",habitacion['tipoHabitacion']," ⟡",habitacion['valor'],"$ x Noche ",f"-")
+    
     fecha_ingreso_formateada = fecha_ingreso.strftime("%d-%m-%Y")
     fecha_salida_formateada = fecha_salida.strftime("%d-%m-%Y")
     
@@ -76,7 +76,7 @@ def asignar_habitacion(habitaciones, num_acompanantes,fecha_ingreso,fecha_salida
     print("----------------------------------")
     print("|",fecha_ingreso_formateada,"   Al   ",fecha_salida_formateada,"|")
     print("----------------------------------")
-    print("| Estadia  :    ", estadia ,"    Dias |")
+    print("| Estadia  :    ", estadia ,"    Dias       |")
     print("==================================")
 
     habitacion_valida = False  # Variable de control
@@ -531,6 +531,10 @@ def ver_todas_las_reservas():
 
 def ver_reserva_x_codigo():
 
+    print("==========  Numero de Reservas  ==========")
+    for reserva in reservas:
+        print(f"Num. reserva ➡  {reserva['CodigoReserva']}")
+
     codigo = input("Ingrese el codigo de la reserva ➡  ")
     codigo_encontrado = False  # Variable de control para saber si se encontró la habitación
 
@@ -575,6 +579,11 @@ def ver_reserva_x_codigo():
             return       
 
 def modificar_atributo_reserva():
+
+    print("==========  Numero de Reservas  ==========")
+    for reserva in reservas:
+        print(f"Num. reserva ➡  {reserva['CodigoReserva']}")
+
     codigo = input("Ingrese el codigo de reserva que desea modificar ➡  ")
     
     for reserva in reservas:
@@ -661,6 +670,11 @@ def eliminar_reserva():
     Eliminar una reserva
     
     """
+
+    print("==========  Numero de Reservas  ==========")
+    for reserva in reservas:
+        print(f"Num. reserva ➡  {reserva['CodigoReserva']}")
+
     codigo = input("Ingrese el codigo de reserva que desea eliminar ➡  ")
 
     # Confirmar con el usuario
@@ -744,6 +758,10 @@ def ver_todas_las_habitaciones():
 
 def ver_habitacion_x_numero():
 
+    print("========== Lista de Habitaciones ==========")
+    for habitacion in habitaciones:
+        print(f"Habitacion ➡  {habitacion['numeroHabitacion']}")
+
 
     numero = input("Ingrese el número de habitación ➡  ")
     habitacion_encontrada = False  # Variable de control para saber si se encontró la habitación
@@ -784,7 +802,10 @@ def ver_habitacion_x_numero():
 
 def modificar_atributo_habitacion():
 
-
+    print("========== Lista de Habitaciones ==========")
+    for habitacion in habitaciones:
+        print(f"Habitacion ➡  {habitacion['numeroHabitacion']}")
+        
     numero_habitacion = input("Ingrese el numero de habitacion que desea modificar ➡  ")
     
     for habitacion in habitaciones:
@@ -847,6 +868,11 @@ def eliminar_habitacion_y_reservas():
     Elimina la habitación especificada por su número y las reservas asociadas a ella,
     previa confirmación del usuario.
     """
+
+    print("========== Lista de Habitaciones ==========")
+    for habitacion in habitaciones:
+        print(f"Habitacion ➡  {habitacion['numeroHabitacion']}")
+
     numero_habitacion = input("Ingrese el numero de habitacion que desea eliminar ➡  ")
 
     # Contar cuántas reservas están asociadas a la habitación
@@ -890,9 +916,8 @@ def eliminar_habitacion_y_reservas():
 
 def check_in():
 
-    codigo_reserva = input("Ingrese el codigo de la reserva para realizar el check-in ➡  ")
+    codigo_reserva = input("Ingrese el código de la reserva para realizar el check-in ➡  ")
     fecha_hoy = datetime.now().strftime("%Y-%m-%d")
-    habitacion_encontrada = False
     reserva_encontrada = False
 
     # Verificar cada reserva
@@ -906,7 +931,6 @@ def check_in():
                 # Buscar la habitación correspondiente
                 for habitacion in habitaciones:
                     if habitacion['numeroHabitacion'] == numero_habitacion:
-                        habitacion_encontrada = True
                         # Verificar si la habitación está disponible (estado 0)
                         if habitacion['estado'] == 0:
                             # Actualizar estado a 1 (ocupada)
@@ -916,51 +940,57 @@ def check_in():
                             guardar_habitaciones(habitaciones)
                             guardar_reservas(reservas)
 
-                            print("Check-in realizado con exito para la habitacion:", numero_habitacion)
+                            print("Check-in realizado con éxito para la habitación:", numero_habitacion)
+                            return  # Salir de la función después de un check-in exitoso
+                        else:
+                            print("La habitación no está disponible para el check-in. X")
+                            return
 
-    if reserva_encontrada and habitacion_encontrada:
-        print("Check-in completado correctamente.")
+            else:
+                print("La fecha de ingreso no coincide con la fecha actual. X")
+                return
+
     if not reserva_encontrada:
-        print("No se encontro una reserva con el codigo ingresado. X")
-    if not habitacion_encontrada:
-        print("La habitacion asociada a la reserva no existe o no está disponible aun para el Chech-in. X")
+        print("No se encontró una reserva con el código ingresado. X")
 
 def check_out():
-
-    codigo_reserva = input("Ingrese el código de la reserva para realizar el check-out: ")
+    
+    codigo_reserva = input("Ingrese el código de la reserva para realizar el Check-out ➡  ")
     fecha_hoy = datetime.now().strftime("%Y-%m-%d")
-    habitacion_encontrada = False
     reserva_encontrada = False
 
     # Verificar cada reserva
     for reserva in reservas:
         if reserva['CodigoReserva'] == codigo_reserva:
             reserva_encontrada = True
-            # Verificar si la fecha de salida coincide con la fecha actual
+            # Verificar si la fecha de ingreso coincide con la fecha actual
             if reserva['Fecha_salida'] == fecha_hoy:
                 numero_habitacion = reserva['NumeroHabitacion']
                 
                 # Buscar la habitación correspondiente
                 for habitacion in habitaciones:
                     if habitacion['numeroHabitacion'] == numero_habitacion:
-                        habitacion_encontrada = True
-                        # Verificar si la habitación está ocupada (estado 1)
+                        # Verificar si la habitación está disponible (estado 0)
                         if habitacion['estado'] == 1:
-                            # Actualizar estado a 0 (desocupada)
+                            # Actualizar estado a 1 (ocupada)
                             habitacion['estado'] = 0
 
                             # Guardar los cambios
                             guardar_habitaciones(habitaciones)
                             guardar_reservas(reservas)
 
-                            print("Check-in realizado con exito para la habitacion:", numero_habitacion)
+                            print("Check-in realizado con éxito para la habitación:", numero_habitacion)
+                            return  # Salir de la función después de un check-in exitoso
+                        else:
+                            print("La habitación no está disponible para el Check-out. X")
+                            return
 
-    if reserva_encontrada and habitacion_encontrada:
-        print("Check-out completado correctamente.")
+            else:
+                print("La fecha de ingreso no coincide con la fecha actual. X")
+                return
+
     if not reserva_encontrada:
-        print("No se encontro una reserva con el codigo ingresado. X")
-    if not habitacion_encontrada:
-        print("La habitacion asociada a la reserva no existe o no está disponible aun para el Chech-Out. X")
+        print("No se encontró una reserva con el código ingresado. X")
 
 #--------------------------------------------------------------------------------------------------------------------
 
@@ -982,11 +1012,15 @@ def calcularDiasEstadia(fecha_ingreso, fecha_egreso):
     
     return diasEstadia
 
-def monto_base_x_dia(total_estadia, num_habitacion):
+def monto_base_x_dia(total_estadia, num_habitacion,diaEstadia):
     
     for hab in habitaciones:
         if hab["numeroHabitacion"] == num_habitacion:
-            monto_base = hab["valor"] * total_estadia
+            if diaEstadia == 1:
+                monto_base = (hab["valor"] * total_estadia)
+            else:
+                monto_base = (hab["valor"] * total_estadia) - hab["valor"]
+            
             return monto_base
         
 #--------------------------------------------------------------------------------------------------------------------
@@ -1034,8 +1068,8 @@ def funcionIngreso():
         os.system('cls' if os.name == 'nt' else 'clear')
 
         diasEstadia = calcularDiasEstadia(fecha_ingreso, fecha_salida)
-        ingresar_habitacion = asignar_habitacion(habitaciones,numeros_de_huespedes,fecha_ingreso,fecha_salida,diasEstadia)
-        pago_base = monto_base_x_dia(diasEstadia,ingresar_habitacion)
+        ingresar_habitacion = asignar_habitacion(numeros_de_huespedes,fecha_ingreso,fecha_salida,diasEstadia)
+        pago_base = monto_base_x_dia(diasEstadia,ingresar_habitacion,diasEstadia)
         codigoReserva = generar_codigo_reserva(nombre,fecha_ingreso,ingresar_habitacion)
 
         os.system('cls' if os.name == 'nt' else 'clear')

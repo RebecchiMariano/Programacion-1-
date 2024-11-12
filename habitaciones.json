@@ -22,7 +22,7 @@
         "descripcion": "",
         "valor": 50000,
         "cantidadPersonas": 2,
-        "estado": 0,
+        "estado": 1,
         "nombreHabitacion": "Roble3",
         "numeroHabitacion": "103"
     },
