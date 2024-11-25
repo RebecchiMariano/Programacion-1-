@@ -986,7 +986,7 @@ def check_out():
                             return
 
             else:
-                print("La fecha de ingreso no coincide con la fecha actual. X")
+                print("La fecha que ingreso no coincide con la fecha actual. X")
                 return
 
     if not reserva_encontrada:
@@ -1320,6 +1320,7 @@ def verificar_total_a_pagar():
             print(" ----------------------------------------- ")
             print("    Error - No se ingreso un numero.    ")
             print(" ----------------------------------------- ")
+
 #FUNCION DE INGRESO HABITACIONES
 
 def verificar_tipo():
