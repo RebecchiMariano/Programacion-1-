@@ -24,10 +24,11 @@ def guardar_habitaciones(habitaciones):
         json.dump(habitaciones, file, indent=4)
 
 #Agrega la habitacion       
-def agregar_habitacion(nueva_habitacion):   
-    n_habitacion = cargar_habitaciones()
-    n_habitacion.append(nueva_habitacion)
-    guardar_habitaciones(n_habitacion)
+def agregar_habitacion(nueva_habitacion):
+    global habitaciones 
+    habitaciones = cargar_habitaciones()  
+    habitaciones.append(nueva_habitacion)  
+    guardar_habitaciones(habitaciones)
 
 #--------------------------------------------------------------------------------------------------------------------
 
@@ -51,9 +52,11 @@ def guardar_reservas(reservas):
 
 #Agrega la reserva
 def agregar_reserva(nueva_reserva):
-    reservas = leer_reservas()
-    reservas.append(nueva_reserva)
-    guardar_reservas(reservas)
+    global reservas  
+    reservas = leer_reservas()  
+    reservas.append(nueva_reserva)  
+    guardar_reservas(reservas)  
+
 
 #--------------------------------------------------------------------------------------------------------------------
 
@@ -127,6 +130,8 @@ def menu_administrador():
                 os.system('cls' if os.name == 'nt' else 'clear')
 
 def menu_cliente(reserva):
+
+    
     bandera = True  # Con esta bandera controlamos el ciclo principal del menú.
 
     while bandera:
@@ -548,6 +553,9 @@ def menu_check_in_out():
 #Funciones de reservas
 
 def ver_todas_las_reservas():
+
+    global reservas
+    reservas = leer_reservas()
      
     if not reservas: #Si no hay reservas.
         print("No hay reservas disponibles.")
@@ -590,6 +598,9 @@ def ver_todas_las_reservas():
             return
 
 def ver_reserva_x_codigo():
+
+    global reservas
+    reservas = leer_reservas()
 
     print("==========  Numero de Reservas  ==========")
     for reserva in reservas:
@@ -1698,6 +1709,11 @@ def menu_inicio_sesion():
     print("=" * 40)
 
 def menu_principal():
+
+    global reservas
+    reservas = leer_reservas()
+    global habitaciones
+    habitaciones = cargar_habitaciones()
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')

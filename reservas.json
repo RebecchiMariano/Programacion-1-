@@ -1,7 +1,7 @@
 [
     {
         "Nombre": "Carlos",
-        "Apellido": "Martínez",
+        "Apellido": "Martinez",
         "Documento": "12345678",
         "Nacionalidad": "Argentina",
         "Correo": "carlos.martinez@gmail.com",
@@ -13,11 +13,11 @@
         "CodigoReserva": "5baf19a9",
         "TotalPagar": 250000,
         "Acompanantes": "-",
-        "Mensaje": "Espero tener una buena estadía."
+        "Mensaje": "Espero tener una buena estadia."
     },
     {
-        "Nombre": "María",
-        "Apellido": "González",
+        "Nombre": "Mariana",
+        "Apellido": "Gonzalez",
         "Documento": "87654321",
         "Nacionalidad": "Chile",
         "Correo": "maria.gonzalez@yahoo.com",
@@ -33,7 +33,7 @@
     },
     {
         "Nombre": "Tomas",
-        "Apellido": "Pérez",
+        "Apellido": "Perrez",
         "Documento": "11223344",
         "Nacionalidad": "Uruguay",
         "Correo": "tomas.perez@hotmail.com",
@@ -48,10 +48,10 @@
         "Mensaje": "Fue una excelente experiencia."
     },
     {
-        "Nombre": "Sofía",
-        "Apellido": "Rodríguez",
+        "Nombre": "Sofia",
+        "Apellido": "Rodriguez",
         "Documento": "22334455",
-        "Nacionalidad": "Perú",
+        "Nacionalidad": "Peruano",
         "Correo": "sofia.rodriguez@gmail.com",
         "Numero tel": "1133445566",
         "Fecha_ingreso": "2024-12-01",
@@ -61,15 +61,15 @@
         "CodigoReserva": "644bfcc7",
         "TotalPagar": 360000,
         "Acompanantes": [
-            "Juan Rodríguez",
-            "Ana López",
+            "Juan Rodriguez",
+            "Ana Lopez",
             "Miguel Torres"
         ],
         "Mensaje": "Todo perfecto, muchas gracias."
     },
     {
-        "Nombre": "Lucía",
-        "Apellido": "Fernández",
+        "Nombre": "Lucia",
+        "Apellido": "Fernandez",
         "Documento": "33445566",
         "Nacionalidad": "Bolivia",
         "Correo": "lucia.fernandez@gmail.com",
@@ -85,7 +85,7 @@
     },
     {
         "Nombre": "Jesus",
-        "Apellido": "González",
+        "Apellido": "Gonzalez",
         "Documento": "87654321",
         "Nacionalidad": "Chile",
         "Correo": "jesus.gonzalez@yahoo.com",

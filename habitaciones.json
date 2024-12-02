@@ -1,7 +1,7 @@
 [
     {
         "tipoHabitacion": "Estandar",
-        "descripcion": "Patio grande ",
+        "descripcion": "Patio grande",
         "valor": 50000,
         "cantidadPersonas": 2,
         "estado": 0,
