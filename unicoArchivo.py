@@ -216,16 +216,27 @@ def menu_cliente(reserva):
         elif respuesta == 4:  # Contactar recepción
             os.system('cls' if os.name == 'nt' else 'clear')
             mensaje = input("📩 Escriba su mensaje para la recepción: ")
-    
+
             if mensaje.strip():  # Verificar que el mensaje no esté vacío
-                reserva['Mensaje'] = mensaje
-                print("\nGracias. Su mensaje ha sido enviado. Nos pondremos en contacto pronto.")
-        
-                # Guardar cambios en el archivo JSON
-                agregar_reserva(reserva)
+                reservas = leer_reservas()
+                codigo_reserva = reserva["CodigoReserva"]
+                reserva_encontrada = False
+
+                for r in reservas:
+                    if r["CodigoReserva"] == codigo_reserva:
+                        r["Mensaje"] = mensaje  # Actualizar el mensaje
+                        reserva_encontrada = True
+                        break
+
+                if reserva_encontrada:
+                    guardar_reservas(reservas)  # Guardar los cambios en el archivo JSON
+                    print("\nGracias. Su mensaje ha sido enviado. Nos pondremos en contacto pronto.")
+                else:
+                    print("\n❌ Error: No se encontró la reserva.")
+
             else:
                 print("\n❌ No se ha enviado ningún mensaje.")
-    
+            
             input("\nPresione Enter para regresar al menú...")
 
         elif respuesta == 0:  # Salir del menú cliente
@@ -432,16 +443,17 @@ def menu_ver_reservas():
 
     while bandera:
         # Mostrar el menú
-        print("========================================== ")
-        print("┇          🏨 Ver Reservas 🏨           ┇ ")
-        print("========================================== ")
-        print("┇                                        ┇ ")
-        print("┇       1. Ver todas las reservas        ┇ ")
-        print("┇       2. Ver x codigo de reserva       ┇ ")
-        print("┇                                        ┇ ")
-        print("┇                0. ATRAS                ┇ ")
-        print("┇                                        ┇ ")
-        print("========================================== ")
+        print("===================================================== ")
+        print("┇                 🏨 Ver Reservas 🏨               ┇ ")
+        print("===================================================== ")
+        print("┇                                                   ┇ ")
+        print("┇          1. Ver todas las reservas                ┇ ")
+        print("┇          2. Ver x codigo de reserva               ┇ ")
+        print("┇          3. Ver próximas reservas x habitacion    ┇ ")
+        print("┇                                                   ┇ ")
+        print("┇                      0. ATRAS                     ┇ ")
+        print("┇                                                   ┇ ")
+        print("===================================================== ")
 
         # Inicializamos la variable de respuesta en None
         respuesta = None
@@ -467,12 +479,18 @@ def menu_ver_reservas():
             os.system('cls' if os.name == 'nt' else 'clear')
 
             ver_reserva_x_codigo()
+        
+        elif respuesta == 3:  # Ver habitaciones.
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            ver_proximas_reservas()
 
         elif respuesta == 0:  # Salir del programa.
             bandera = False
         else:
             if respuesta is not None:  # Solo mostrar si la respuesta no fue None
-                print("✕ Por favor, ingrese un número válido del (0 - 2). ✕")
+                print("✕ Por favor, ingrese un número válido del (0 - 3). ✕")
                 input("Presione Enter para continuar...")
                 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -748,6 +766,62 @@ def eliminar_reserva():
     print(f"La reserva {codigo} ha sido eliminada.")
     return reservas_actualizadas
 
+def ver_proximas_reservas():
+    print("\n========== Lista de Habitaciones ==========")
+    # Muestra las habitaciones disponibles
+    for habitacion in habitaciones:
+        print(f" ➡ Habitacion {habitacion['numeroHabitacion']}")
+
+    # Preguntar por el número de habitación
+    numero_habitacion = input("\nIngrese el número de habitación que desea ver las próximas reservas ➡  ")
+
+    # Verificar si la habitación existe
+    habitacion_encontrada = False
+    for habitacion in habitaciones:
+        if habitacion["numeroHabitacion"] == numero_habitacion:
+            habitacion_encontrada = True
+
+    if not habitacion_encontrada:
+        print("\n🚨 Esa habitación no existe.")
+        return
+
+    print(f"\n========== Próximas Reservas para la habitación {numero_habitacion} ==========")
+    
+    # Filtrar las reservas para la habitación específica
+    reservas_habitacion = []
+    for reserva in reservas:
+        # Convertir las fechas de ingreso y salida a tipo date
+        fecha_ingreso_reserva = datetime.strptime(reserva["Fecha_ingreso"], "%Y-%m-%d").date()
+        fecha_salida_reserva = datetime.strptime(reserva["Fecha_salida"], "%Y-%m-%d").date()
+
+        # Solo agregamos las reservas de la habitación seleccionada
+        if reserva["NumeroHabitacion"] == numero_habitacion:
+            reservas_habitacion.append(reserva)
+    
+    # Ordenar las reservas por fecha de ingreso
+    reservas_habitacion.sort(key=lambda r: datetime.strptime(r["Fecha_ingreso"], "%Y-%m-%d").date())
+
+    if reservas_habitacion:
+        # Mostrar las reservas encontradas
+        for reserva in reservas_habitacion:
+            # Formatear las fechas en el formato 'DD-MM-YYYY'
+            fecha_ingreso_formateada = datetime.strptime(reserva["Fecha_ingreso"], "%Y-%m-%d").strftime("%d-%m-%Y")
+            fecha_salida_formateada = datetime.strptime(reserva["Fecha_salida"], "%Y-%m-%d").strftime("%d-%m-%Y")
+            
+            print("\n==================================================")
+            print(f"👤 **Nombre:** {reserva['Nombre']} {reserva['Apellido']}")
+            print(f"📅 **Fechas de Reserva:** {fecha_ingreso_formateada} a {fecha_salida_formateada}")
+            print(f"🔑 **Código de Reserva:** {reserva['CodigoReserva']}")
+            print("==================================================")
+    else:
+        print("\n🚫 No hay reservas próximas para esta habitación.")
+    
+    # Opción para regresar
+    while True:
+        print("\n==================================================")
+        respuesta = input("Ingrese (0) para volver atrás ➡  ")
+        if respuesta == "0":
+            return
 
 #--------------------------------------------------------------------------------------------------------------------
 
