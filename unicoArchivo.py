@@ -167,38 +167,64 @@ def menu_cliente(reserva):
             input("Presione Enter para continuar...")
             os.system('cls' if os.name == 'nt' else 'clear')
 
+        from datetime import datetime
+
+        from datetime import datetime
+
         if respuesta == 1:  # Ver detalles de la reserva
             os.system('cls' if os.name == 'nt' else 'clear')
 
-            # Convertir fechas al formato dd/mm/yyyy
-            fecha_ingreso = datetime.strptime(reserva['Fecha_ingreso'], "%Y-%m-%d").strftime("%d/%m/%Y")
-            fecha_salida = datetime.strptime(reserva['Fecha_salida'], "%Y-%m-%d").strftime("%d/%m/%Y")
+            try:
+                # Verificar si las fechas son objetos datetime.date, de ser así, usarlas directamente
+                if isinstance(reserva['Fecha_ingreso'], datetime):
+                    fecha_ingreso_obj = reserva['Fecha_ingreso']
+                else:
+                    # Si no es un objeto datetime, convertirlo usando strptime
+                    fecha_ingreso_obj = datetime.strptime(reserva['Fecha_ingreso'], "%Y-%m-%d") if isinstance(reserva['Fecha_ingreso'], str) else reserva['Fecha_ingreso']
 
-            # Calcular la cantidad de días de estadía
-            fecha_ingreso_obj = datetime.strptime(reserva['Fecha_ingreso'], "%Y-%m-%d")
-            fecha_salida_obj = datetime.strptime(reserva['Fecha_salida'], "%Y-%m-%d")
-            cantidad_dias = (fecha_salida_obj - fecha_ingreso_obj).days
+                if isinstance(reserva['Fecha_salida'], datetime):
+                    fecha_salida_obj = reserva['Fecha_salida']
+                else:
+                    # Si no es un objeto datetime, convertirlo usando strptime
+                    fecha_salida_obj = datetime.strptime(reserva['Fecha_salida'], "%Y-%m-%d") if isinstance(reserva['Fecha_salida'], str) else reserva['Fecha_salida']
 
-            # Buscar la descripción de la habitación
-            numero_habitacion = reserva['NumeroHabitacion']
-            descripcion_habitacion = ""
-            tipo_habitacion = ""
-            for habitacion in habitaciones:
-                if habitacion['numeroHabitacion'] == numero_habitacion:
-                    descripcion_habitacion = habitacion['descripcion']
-                    tipo_habitacion = habitacion['tipoHabitacion']
-                    break
+                # Verificar que la fecha de ingreso sea anterior a la de salida
+                if fecha_ingreso_obj >= fecha_salida_obj:
+                    raise ValueError("La fecha de ingreso debe ser anterior a la fecha de salida.")
 
-            # Imprimir los detalles
-            print("\n🔍 Detalles de tu reserva:")
-            print(f"🏠 Nombre de la habitación: {reserva['NumeroHabitacion']}")
-            print(f"🏷️ Tipo de habitación: {tipo_habitacion}")
-            print(f"📅 Fechas: {fecha_ingreso} a {fecha_salida}")
-            print(f"📝 Descripción: {descripcion_habitacion}")
-            print(f"📊 Cantidad de días: {cantidad_dias} días")
-            print(f"💵 Total a pagar: ${reserva['TotalPagar']}")
-            print("\n¡Esperamos que disfrutes tu estadía! 🌟")
-            input("\nPresione Enter para regresar al menú...")
+                # Formatear las fechas al estilo dd/mm/yyyy
+                fecha_ingreso = fecha_ingreso_obj.strftime("%d/%m/%Y")
+                fecha_salida = fecha_salida_obj.strftime("%d/%m/%Y")
+
+                # Calcular la cantidad de días de estadía
+                cantidad_dias = (fecha_salida_obj - fecha_ingreso_obj).days
+
+                # Buscar la descripción de la habitación
+                numero_habitacion = reserva['NumeroHabitacion']
+                descripcion_habitacion = ""
+                tipo_habitacion = ""
+                for habitacion in habitaciones:
+                    if habitacion['numeroHabitacion'] == numero_habitacion:
+                        descripcion_habitacion = habitacion['descripcion']
+                        tipo_habitacion = habitacion['tipoHabitacion']
+                        break
+
+                # Imprimir los detalles
+                print("\n🔍 Detalles de tu reserva:")
+                print(f"🏠 Nombre de la habitación: {reserva['NumeroHabitacion']}")
+                print(f"🏷️ Tipo de habitación: {tipo_habitacion}")
+                print(f"📅 Fechas: {fecha_ingreso} a {fecha_salida}")
+                print(f"📝 Descripción: {descripcion_habitacion}")
+                print(f"📊 Cantidad de días: {cantidad_dias} días")
+                print(f"💵 Total a pagar: ${reserva['TotalPagar']}")
+                print("\n¡Esperamos que disfrutes tu estadía! 🌟")
+                input("\nPresione Enter para regresar al menú...")
+
+            except ValueError as e:
+                print(f"🔴 Error en las fechas de la reserva: {e}")
+                input("\nPresione Enter para regresar al menú...")
+
+
 
         elif respuesta == 2:  # Información del hotel
             os.system('cls' if os.name == 'nt' else 'clear')
